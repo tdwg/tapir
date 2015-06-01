@@ -1,6 +1,4 @@
-# TAPIR Executive Summary
-
-# Definition
+# TAPIR Definition
 
 TAPIR is a computer protocol designed for discovery, search and retrieval of distributed data over the Internet. TAPIR consists of a specification that determines how client applications seeking information should communicate with server applications hosting data.
 
