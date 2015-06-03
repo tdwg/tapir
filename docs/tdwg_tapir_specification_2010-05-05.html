@@ -1,0 +1,4787 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>TAPIR - TDWG Access Protocol for Information Retrieval</title>
+<meta name="generator" content="http://txt2tags.sf.net" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="w3c_main.css" />
+<link rel="stylesheet" type="text/css" href="w3c_examples.css" />
+<link rel="stylesheet" type="text/css" href="tdwg_bar.css" />
+</head>
+<body>
+
+<div class="header" id="header">
+<h1>TAPIR - TDWG Access Protocol for Information Retrieval</h1>
+<h3>Protocol Specification - Version 1.0</h3>
+</div>
+
+<div class="body" id="body">
+<p>
+Copyright &copy; TDWG (2010). All Rights Reserved.
+</p>
+<p>
+<b>This version:</b> tdwg_tapir_specification_2010-05-05.htm
+</p>
+<p>
+<b>Latest version:</b> <a href="http://www.tdwg.org/activities/tapir/specification">www.tdwg.org/activities/tapir/specification</a>
+</p>
+<p>
+<b>Previous working draft:</b> <a href="http://www.tdwg.org/dav/subgroups/tapir/1.0/docs/tdwg_tapir_specification_2009-09-08.htm">www.tdwg.org/dav/subgroups/tapir/1.0/docs/tdwg_tapir_specification_2009-09-08.htm</a>
+</p>
+<p>
+<b>Date:</b> 05 May 2010
+</p>
+<p>
+<b>Technical writers of this document</b> 
+</p>
+<ul>
+<li>Renato De Giovanni (<a href="http://www.cria.org.br">CRIA</a>) &lt;<a href="mailto:renato@cria.org.br">renato@cria.org.br</a>&gt;.
+</li>
+<li>Charles Copp (<a href="http://eim.metapath.org">EIM</a>) &lt;<a href="mailto:eim@globalnet.co.uk">eim@globalnet.co.uk</a>&gt;.
+</li>
+</ul>
+
+<p>
+<b>Main contributors to the creation of the TAPIR protocol</b>
+</p>
+<ul>
+<li>Renato De Giovanni (<a href="http://www.cria.org.br">CRIA</a>) &lt;<a href="mailto:renato@cria.org.br">renato@cria.org.br</a>&gt;.
+</li>
+<li>Markus Döring (<a href="http://www.botanischer-garten-berlin.de">BGBM</a>) &lt;<a href="mailto:m.doering@bgbm.org">m.doering@bgbm.org</a>&gt;.
+</li>
+<li>Anton Güntsch (<a href="http://www.botanischer-garten-berlin.de">BGBM</a>) &lt;<a href="mailto:a.guentsch@bgbm.org">a.guentsch@bgbm.org</a>&gt;.
+</li>
+<li>Dave Vieglais (<a href="http://www.nhm.ku.edu">KU NHM &amp; BRC</a>) &lt;<a href="mailto:vieglais@ku.edu">vieglais@ku.edu</a>&gt;.
+</li>
+<li>Donald Hobern (<a href="http://www.gbif.org">GBIF</a>) &lt;<a href="mailto:d.hobern@gbif.org">d.hobern@gbif.org</a>&gt;.
+</li>
+<li>Javier de la Torre (<a href="http://www.botanischer-garten-berlin.de">BGBM</a>) &lt;<a href="mailto:jatorre@gmail.com">jatorre@gmail.com</a>&gt;.
+</li>
+<li>John Wieczorek (<a href="http://mvz.berkeley.edu">MVZ, Berkeley</a>) &lt;<a href="mailto:tuco@berkeley.edu">tuco@berkeley.edu</a>&gt;.
+</li>
+<li>Robert Gales (<a href="http://www.nhm.ku.edu">KU NHM &amp; BRC</a>) &lt;<a href="mailto:rgales@ku.edu">rgales@ku.edu</a>&gt;.
+</li>
+<li>Roger Hyam (<a href="http://www.tdwg.org">TDWG</a>) &lt;<a href="mailto:roger@tdwg.org">roger@tdwg.org</a>&gt;.
+</li>
+<li>Stanley Blum (<a href="http://www.calacademy.org">California Academy of Sciences</a>) &lt;<a href="mailto:sblum@calacademy.org">sblum@calacademy.org</a>&gt;.
+</li>
+<li>Steven Perry (<a href="http://www.nhm.ku.edu">KU NHM &amp; BRC</a>) &lt;<a href="mailto:smperry@ku.edu">smperry@ku.edu</a>&gt;.
+</li>
+</ul>
+
+<p>
+<b>Abstract</b>
+</p>
+<p>
+This document specifies the TAPIR protocol and the structure and
+syntax of TAPIR messages. This work is a product of the TDWG TAPIR 
+task group, details of which can be found at <a href="http://www.tdwg.org/activities/tapir">www.tdwg.org/activities/tapir</a>.
+</p>
+<p>
+<b>Target audience</b>
+</p>
+<p>
+This document contains technical details about the TAPIR
+protocol. Previous knowledge about HTTP, XML and XML Schema is
+assumed. This document was written for developers that need to build
+TAPIR compliant software, network administrators that need to prepare
+TAPIR documents, and users that want to directly interact with TAPIR
+services.
+</p>
+<p>
+There are other documents about TAPIR available. For a general
+overview there is an
+<a href="http://www.tdwg.org/activities/tapir/executive-summary/">Executive Summary</a>.
+More specific information about how to build TAPIR networks can be found in the 
+<a href="http://www.tdwg.org/activities/tapir/network-builders-guide/">TAPIR Networks Guide</a>.
+</p>
+<p>
+<b>Status of this document</b>
+</p>
+<p>
+Final version approved as a TDWG standard.
+</p>
+<p>
+The English language version of this document is the only normative
+version available.
+</p>
+<p>
+Comments about this document can be sent to the TDWG Architecture
+Group mailing list: <a href="mailto:tdwg-tag@lists.tdwg.org">tdwg-tag@lists.tdwg.org</a>. Subscription and archives
+are open to the public.
+</p>
+<p>
+<b>Copyright notice</b>
+</p>
+<p>
+This document follows the 
+<a href="http://creativecommons.org/licenses/by/3.0/deed">Creative Commons License Deed: Attribution 3.0</a>
+</p>
+<p>
+You are free:
+</p>
+<ul>
+<li>to Share: to copy, distribute, display, and perform the work.
+</li>
+<li>to Remix: to make derivative works under the following condition:
+ <ul>
+ <li>Attribution: You must attribute the work to TDWG by citing the
+standard by name and by providing the URL to the original document,
+but not in any way that suggests that TDWG endorses you or your use of
+the work.
+ </li>
+ </ul>
+</li>
+</ul>
+
+<p>
+For any reuse or distribution, you must make clear to others the
+license terms of this work. The best way to do this is with a link to
+this web page. Any of the above conditions can be waived if you get
+permission from TDWG. Apart from the remix rights granted under this
+license, nothing in this license impairs or restricts the author's
+moral rights. Your fair use and other rights are in no way affected by
+the above. This is a human-readable summary of the 
+<a href="http://creativecommons.org/licenses/by/3.0/legalcode">Legal Code</a> 
+(the full license).
+</p>
+<p>
+<b>Disclaimer</b>
+</p>
+<p>
+This document and the information contained herein are
+provided on an "as is" basis. TDWG makes no warranties regarding the
+information provided, and disclaims liability for damages resulting
+from its use.
+</p>
+<p>
+<b>Table of Contents</b>
+</p>
+<p></p>
+<hr class="light" />
+<p></p>
+  <ol>
+  <li><a href="#toc1">Introduction</a>
+  </li>
+  <li><a href="#toc2">Symbols, terminology conventions, and examples</a>
+  </li>
+  <li><a href="#toc3">General Aspects of the Protocol</a>
+    <ul>
+    <li><a href="#toc4">3.1. Available Operations</a>
+    </li>
+    <li><a href="#toc5">3.2. Message Transport</a>
+    </li>
+    <li><a href="#toc6">3.3. Access Points</a>
+    </li>
+    <li><a href="#toc7">3.4. Message Encoding</a>
+      <ul>
+      <li><a href="#toc8">3.4.1. Requests</a>
+      </li>
+      <li><a href="#toc9">3.4.2. Responses</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc10">3.5. Namespaces</a>
+    </li>
+    <li><a href="#toc11">3.6. Data Abstraction</a>
+      <ul>
+      <li><a href="#toc12">3.6.1. Conceptual Schemas</a>
+      </li>
+      <li><a href="#toc13">3.6.2. Concepts</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc14">3.7. Output Models</a>
+    </li>
+    <li><a href="#toc15">3.8. Query Templates</a>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc16">TAPIR XML Documents</a>
+    <ul>
+    <li><a href="#toc17">4.1. Request and Response Documents</a>
+      <ul>
+      <li><a href="#toc18">4.1.1. Header</a>
+      </li>
+      <li><a href="#toc19">4.1.2. Operation-specific Elements</a>
+      </li>
+      <li><a href="#toc20">4.1.3. Fatal Errors</a>
+      </li>
+      <li><a href="#toc21">4.1.4. Log-only Operations</a>
+      </li>
+      <li><a href="#toc22">4.1.5. Diagnostics</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc23">4.2. Output Models</a>
+      <ul>
+      <li><a href="#toc24">4.2.1. Response Structures</a>
+      </li>
+      <li><a href="#toc25">4.2.2. Output Model Mapping</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc26">4.3. Query Templates</a>
+      <ul>
+      <li><a href="#toc27">4.3.1. Inventory Templates</a>
+      </li>
+      <li><a href="#toc28">4.3.2. Search Templates</a>
+      </li>
+      </ul>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc29">Operations</a>
+    <ul>
+    <li><a href="#toc30">5.1. Metadata</a>
+      <ul>
+      <li><a href="#toc31">5.1.1. Metadata Request</a>
+      </li>
+      <li><a href="#toc32">5.1.2. Metadata Response</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc33">5.2. Capabilities</a>
+      <ul>
+      <li><a href="#toc34">5.2.1. Capabilities Request</a>
+      </li>
+      <li><a href="#toc35">5.2.2. Capabilities Response</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc36">5.3. Inventory</a>
+      <ul>
+      <li><a href="#toc37">5.3.1. Inventory Request</a>
+      </li>
+      <li><a href="#toc38">5.3.2. Inventory Response</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc39">5.4. Search</a>
+      <ul>
+      <li><a href="#toc40">5.4.1. Search Request</a>
+      </li>
+      <li><a href="#toc41">5.4.2. Search Response</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc42">5.5. Ping</a>
+      <ul>
+      <li><a href="#toc43">5.5.1. Ping Request</a>
+      </li>
+      <li><a href="#toc44">5.5.2. Ping Response</a>
+      </li>
+      </ul>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc45">Global Parameters</a>
+  </li>
+  <li><a href="#toc46">Counting and Paging</a>
+  </li>
+  <li><a href="#toc47">Filters, Expressions and Operators</a>
+    <ul>
+    <li><a href="#toc48">8.1. Filters</a>
+    </li>
+    <li><a href="#toc49">8.2. Expressions</a>
+      <ul>
+      <li><a href="#toc50">8.2.1. Simple Expressions</a>
+      </li>
+      <li><a href="#toc51">8.2.2. Complex Expressions</a>
+      </li>
+      <li><a href="#toc52">8.2.3. Variables</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc53">8.3. Logical and Comparative Operators</a>
+      <ul>
+      <li><a href="#toc54">8.3.1. Comparative Operators</a>
+      </li>
+      <li><a href="#toc55">8.3.2. Logical operators</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc56">8.4. Additional Interpretation Rules</a>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc57">KVP (Key-Value Pair) Requests</a>
+    <ul>
+    <li><a href="#toc58">9.1. Parameter Rules</a>
+    </li>
+    <li><a href="#toc59">9.2. Global Parameters</a>
+    </li>
+    <li><a href="#toc60">9.3. Ping Parameters</a>
+    </li>
+    <li><a href="#toc61">9.4. Metadata Parameters</a>
+    </li>
+    <li><a href="#toc62">9.5. Capabilities Parameters</a>
+    </li>
+    <li><a href="#toc63">9.6. Inventory Parameters</a>
+    </li>
+    <li><a href="#toc64">9.7. Search Parameters</a>
+    </li>
+    <li><a href="#toc65">9.8. Filters</a>
+      <ul>
+      <li><a href="#toc66">9.8.1. Backus-Naur Form (BNF) Grammar for Filter Expressions</a>
+      </li>
+      <li><a href="#toc67">9.8.2. Operators Precedence</a>
+      </li>
+      <li><a href="#toc68">9.8.3. Examples</a>
+      </li>
+      </ul>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc69">The TAPIR XML Schema</a>
+  </li>
+  <li><a href="#toc70">Appendix</a>
+    <ul>
+    <li><a href="#toc71">11.1. Reserved Parameter Names</a>
+    </li>
+    <li><a href="#toc72">11.2. Simple XML Encoding for Conceptual Schemas</a>
+    </li>
+    <li><a href="#toc73">11.3. Term Definitions</a>
+    </li>
+    <li><a href="#toc74">11.4. History of Changes</a>
+    </li>
+    </ul>
+  </li>
+  </ol>
+
+<p></p>
+<hr class="light" />
+<p></p>
+<a id="toc1" name="toc1"></a>
+<h1>1. Introduction</h1>
+<p>
+This document specifies the TDWG Access Protocol for Information
+Retrieval (TAPIR). TAPIR is a Web Service protocol to perform queries
+across distributed databases of varied physical and logical
+structure. It was originally designed to be used by federated
+networks.
+</p>
+<p>
+TAPIR is intended for communication between applications, using HTTP
+as the transport mechanism. Its functionality is available through
+five types of request-response operations addressing the following
+needs: retrieve service metadata, retrieve service settings, inspect
+available content, perform queries, and monitor service
+availability. TAPIR does not include operations for adding, updating
+or deleting data on provider databases. Requests can be encoded in XML
+or simple URL parameters. Responses are always structured in
+XML. TAPIR uses the XML Schema Definition language to describe
+and validate the structure of XML request and response messages sent
+between a client (the requesting software) and a server (the provider
+of the data or service).
+</p>
+<p>
+The underlying implementation and data model of provider databases
+remain opaque to TAPIR clients because all queries reference elements
+(concepts) from data abstraction layers (conceptual schemas). TAPIR
+providers advertise through the capabilities operation which elements
+from one or more data abstraction layers are supported by the
+service. Clients can thefore formulate queries referencing these
+elements.
+</p>
+<p>
+Since TAPIR is not bound to any particular data abstraction layer, it
+is necessary to define (or reuse) at least one data abstraction layer
+to set up a TAPIR service. Networks or individual providers are free
+to define their own data abstraction layers.
+</p>
+<p>
+TAPIR was also designed to be independent of any particular structure
+for search responses (known as output models). It is necessary to
+define at least one output model, or to reference an existing one, to
+use the search operation. Networks or individual providers are free to
+define their own output models.
+</p>
+<p>
+TAPIR's flexibility makes it suitable to both very simple service
+implementations where the provider only responds to a set of
+pre-defined queries, or more advanced implementations where the
+provider software can dynamically parse complex queries referencing
+output models supplied by the client.
+</p>
+<p>
+Although TAPIR XML requests and responses can be validated using an
+XML Schema, the full TAPIR protocol contains additional rules that
+need to be followed and are specified on this document.
+</p>
+<a id="toc2" name="toc2"></a>
+<h1>2. Symbols, terminology conventions, and examples</h1>
+<p>
+The following conventions are used throughout this document to aid clarity:
+</p>
+<table cellpadding="4" border="1">
+<tr>
+<td>&lt;...&gt;</td>
+<td>Enclosing angle brackets indicate that the enclosed term refers to an XML element name.</td>
+</tr>
+<tr>
+<td>@...</td>
+<td>@ sign before a term indicates that the term is an attribute name (but @ is not part of the name).</td>
+</tr>
+</table>
+
+<p>
+The following symbols are used to define elements and terms:
+</p>
+<table cellpadding="4" border="1">
+<tr>
+<td>::=</td>
+<td>Used to indicate the content equivalent of an element or term.</td>
+</tr>
+<tr>
+<td>?</td>
+<td>When used after an element or term in a term definition, it indicates that the element or term is optional. When used in a URL it indicates a parameter list for a GET statement.</td>
+</tr>
+<tr>
+<td>+</td>
+<td>Indicates that an element or term must be represented one or more times.</td>
+</tr>
+<tr>
+<td>*</td>
+<td>Indicates that and element or term can occur zero or more times.</td>
+</tr>
+<tr>
+<td>|</td>
+<td>A vertical bar between terms or elements indicates alternatives, as in a choice from a list.</td>
+</tr>
+</table>
+
+<p>
+The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are applied in the normative sense according to <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.
+</p>
+<p>
+This specification makes use of numerous examples. They all refer to
+fictitious service addresses and data, unless otherwise declared. Most
+examples focus on specific parts of TAPIR messages, omitting other
+parts for the sake of clarity. This means that most XML examples will
+not be entirely valid according to the TAPIR XML Schema since they are
+incomplete.
+</p>
+<a id="toc3" name="toc3"></a>
+<h1>3. General Aspects of the Protocol</h1>
+<a id="toc4" name="toc4"></a>
+<h2>3.1. Available Operations</h2>
+<p>
+The TAPIR protocol defines five operations:
+</p>
+<ul>
+<li><b>Metadata:</b> Default operation to retrieve basic information about the service.
+<p></p>
+</li>
+<li><b>Capabilities:</b> Used to retrieve the essential settings to properly interact with the service.
+<p></p>
+</li>
+<li><b>Inventory:</b> Used to retrieve distinct values of one or more concepts.
+<p></p>
+</li>
+<li><b>Search:</b> Main operation to search and retrieve data.
+<p></p>
+</li>
+<li><b>Ping:</b> Used for monitoring purposes to check service availability.
+</li>
+</ul>
+
+<p>
+Each operation consists of a request and the corresponding
+response. Being a stateless protocol, operation calls are always
+completely independent from each other.
+</p>
+<a id="toc5" name="toc5"></a>
+<h2>3.2. Message Transport</h2>
+<p>
+TAPIR messages (requests or responses) are intended to be transmitted
+by means of the Hypertext Transfer Protocol (HTTP) version 1.0 or
+greater. TAPIR providers must accept both GET and POST methods for
+requests.
+</p>
+<a id="toc6" name="toc6"></a>
+<h2>3.3. Access Points</h2>
+<p>
+TAPIR access points (or end points) are represented by an HTTP Uniform
+Resource Locator (URL) which is used to interact with the
+service. Access points therefore include the transport protocol (HTTP
+or HTTPS), the host name, an optional port number, an optional path
+with or without a script name, and an optional query string. The URL
+used to interact with a TAPIR service must be valid according to the
+HTTP Common Gateway Interface (CGI) standard, and the query part of
+the URL must be encoded to protect special characters according to
+UTF-8 RFC 3986.
+</p>
+<p>
+To ensure the widest access possible to the service, TAPIR providers
+are recommended to use default port numbers (80 for HTTP, 443 for
+HTTPS) since clients may sometimes be located in places with
+restrictive firewall policies.
+</p>
+<a id="toc7" name="toc7"></a>
+<h2>3.4. Message Encoding</h2>
+<a id="toc8" name="toc8"></a>
+<h3>3.4.1. Requests</h3>
+<p>
+TAPIR requests can be encoded in two ways:
+</p>
+<h4>3.4.1.1. Key-Value Pairs (KVP) Parameters</h4>
+<p>
+Requests are possible through HTTP GET or POST with the specific KVP
+parameters for each operation. Support for KVP request encoding is
+mandatory for all TAPIR service implementations.
+</p>
+<p>
+An example of a KVP TAPIR capabilities request is:
+</p>
+<p>
+http://example.net/tapir.cgi?op=capabilities
+</p>
+<h4>3.4.1.2. XML</h4>
+<p>
+TAPIR requests can be encoded entirely as an XML document. The support
+of XML request encoding is optional for TAPIR service
+implementations. XML requests have the following general format:
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"&gt;
+    &lt;header&gt;
+      &lt;!-- header specific elements --&gt;
+    &lt;/header&gt;
+    &lt;operation_name&gt;
+      &lt;!-- operation specific parameters --&gt;
+    &lt;/operation_name&gt;
+  &lt;/request&gt;
+</pre></div>
+<p></p>
+<p>
+A capabilities request, which does not require specific parameters,
+takes the following form:
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"&gt;
+    &lt;header&gt;
+      &lt;!-- header specific elements --&gt;
+    &lt;/header&gt;
+    &lt;capabilities/&gt;
+  &lt;/request&gt;
+</pre></div>
+<p></p>
+<p>
+XML requests can be sent to a service in two ways:
+</p>
+<ul>
+<li><b>HTTP POST body:</b> the entire XML message goes directly into the
+body of the HTTP POST request. In this case the HTTP Content-Type
+header is required to be "text/xml". If the request uses a
+parameterised filter, parameter values can only be encoded in the
+URL's query string, since the HTTP body is already used by the XML
+message.
+<p></p>
+<div class="exampleInner"><pre>
+  POST /tapir.cgi HTTP/1.1
+  Host: example.net
+  Content-Type: text/xml
+  Content-Length: 194
+  &lt;?xml version='1.0' encoding='UTF-8'?&gt;
+  &lt;request&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2006-10-15T14:22:42.29"/&gt;
+    &lt;/header&gt;
+    &lt;ping/&gt;
+  &lt;/request&gt;
+</pre></div>
+<i>Example of a TAPIR XML request using the HTTP POST body.</i>
+<p></p>
+</li>
+<li><b>HTTP POST/GET 'request' parameter:</b> The URL-encoded XML message
+is submitted via the parameter named "request". The HTTP Content-Type
+header should be "application/x-www-form-urlencoded". Alternatively,
+the parameter value can also be a URL pointing to a TAPIR XML request
+document.
+<p></p>
+<div class="exampleInner"><pre>
+  POST /tapir.cgi HTTP/1.1
+  Host: example.net
+  Content-Type: application/x-www-form-urlencoded
+  Content-Length: 281
+  request=%3C%3Fxml+version%3D%271.0%27+encoding%3D%27UTF-8%27%3F%3E%0D%0A%3C
+  request%3E%0D%0A%09%3Cheader%3E%0D%0A%09%09%3Csource+
+  sendtime%3D%222006-10-15T14%3A22%3A42.29%22%2F
+  %3E%0D%0A%09%3C%2Fheader%3E%0D%0A%09%3C
+  ping%2F%3E%0D%0A%3C%2Frequest%3E%0D%0A
+</pre></div>
+<i>Example of a TAPIR URL-encoded XML request using HTTP POST.</i>
+</li>
+</ul>
+
+<p>
+Since all encodings can potentially be present in the same HTTP
+request, the following precedence should take place:
+</p>
+<ol>
+<li>If the provider supports XML encoding, when the "request" parameter
+is present (either though GET or POST), TAPIR parameters must be taken
+from the corresponding XML.
+</li>
+<li>When the "request" parameter is not present and the HTTP request
+includes other parameters (either through GET or POST), TAPIR
+parameters must be read as KVP.
+</li>
+<li>If the provider supports XML encoding, when the HTTP method is POST
+without parameters, TAPIR parameters must be taken from the XML as raw
+POST data.
+</li>
+</ol>
+
+<a id="toc9" name="toc9"></a>
+<h3>3.4.2. Responses</h3>
+<p>
+TAPIR responses should always be encoded in valid XML and by default
+have the HTTP Content-Type set to "text/xml". The charset must be
+consistent considering the HTTP header, the XML declararion and the
+output stream. It is not recommended to omit the charset in the HTTP
+header because <a href="http://www.ietf.org/rfc/rfc3023.txt">RFC 3023</a>
+indicates that in this case parsers should assume "us-ascii", which
+may be inconsistent with the XML declararion and the output
+stream. The recommended charset to be used with "text/xml" is UTF-8.
+</p>
+<p>
+The XML content of TAPIR reponses normally includes: a header section,
+the specific result from the requested operation and an optional
+diagnostics section. All structure that encloses the specific
+operation result is known as TAPIR envelope. The envelope consists
+of the response element, the header content, the operation element,
+the summary content (for inventory or search operations) and the
+diagnostics content.
+</p>
+<p>
+Metadata, capabilities, inventory and ping responses should always
+include the TAPIR envelope. Only in search responses this may not
+occur if the "envelope" parameter is set to "false". The "envelope"
+parameter is only availabe in the search operation. When the
+"envelope" parameter is set to "false", the content returned will be
+completely determined by the output model definition, and the service
+is free to perform HTTP content negotiation. This may result in a
+different HTTP Content-type being returned (for instance
+"application/rdf+xml" for RDF encoded in XML). When the "envelope"
+parameter is set to "false" and the search returns no results, the
+service must return an HTTP 204 code (No Content).
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+  &lt;response xmlns="http://rs.tdwg.org/tapir/1.0"&gt;
+    &lt;header&gt;
+      &lt;!-- header specific elements --&gt;
+    &lt;/header&gt;
+    &lt;operation_name&gt;
+      &lt;!-- operation specific results --&gt;
+    &lt;/operation_name&gt;
+    &lt;diagnostics&gt;
+      &lt;!-- diagnostics information --&gt;
+    &lt;/diagnostics&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example of the general message format of a TAPIR response. Everything except what goes in the placeholder indicated by "operation specific results" is known as the TAPIR envelope</i>
+</p>
+<a id="toc10" name="toc10"></a>
+<h2>3.5. Namespaces</h2>
+<p>
+The namespace for this version of TAPIR is <b>http://rs.tdwg.org/tapir/1.0</b>
+</p>
+<p>
+The TAPIR namespace must be the default namespace in all TAPIR
+messages.
+</p>
+<p>
+TAPIR metadata responses include elements from the following
+namespaces:
+</p>
+<table cellpadding="4" border="1">
+<tr>
+<th>Prefix</th>
+<th>Namespace</th>
+<th>Source</th>
+</tr>
+<tr>
+<td>xml</td>
+<td>http://www.w3.org/XML/1998/namespace</td>
+<td>XML</td>
+</tr>
+<tr>
+<td>xsd</td>
+<td>http://www.w3.org/2001/XMLSchema</td>
+<td>XML Schema</td>
+</tr>
+<tr>
+<td>dc</td>
+<td>http://purl.org/dc/elements/1.1/</td>
+<td>Dublin Core</td>
+</tr>
+<tr>
+<td>dct</td>
+<td>http://purl.org/dc/terms/</td>
+<td>Dublin Core Terms</td>
+</tr>
+<tr>
+<td>geo</td>
+<td>http://www.w3.org/2003/01/geo/wgs84_pos#</td>
+<td>Basic geo vocabulary</td>
+</tr>
+<tr>
+<td>vcard</td>
+<td>http://www.w3.org/2001/vcard-rdf/3.0#</td>
+<td>VCARD</td>
+</tr>
+</table>
+
+<p>
+TAPIR metadata responses may change the prefixes for all namespaces
+above, except the "xml" prefix which is reserved according to
+<a href="http://www.w3.org/TR/xml-names11/">Namespaces in XML 1.1</a>.
+</p>
+<p>
+TAPIR search responses may include other namespaces according to the
+response structure being used.
+</p>
+<a id="toc11" name="toc11"></a>
+<h2>3.6. Data Abstraction</h2>
+<a id="toc12" name="toc12"></a>
+<h3>3.6.1. Conceptual Schemas</h3>
+<p>
+In TAPIR, conceptual schemas can be understood as a formal definition
+of concepts that are used for querying and reporting the content of
+databases. They provide the necessary data abstraction layer to be
+used on top of specific implementations from each participant of a
+TAPIR federated network. Conceptual schemas usually focus on specific
+areas of knowledge, providing data models with various levels of
+detail.
+</p>
+<p>
+Although the main TAPIR operations always need to reference concepts,
+the protocol was created to be independent of any particular
+conceptual schema. TAPIR networks and data providers are free to
+create or choose from existing conceptual schemas. However, it is
+important to note that the interoperability level across different
+TAPIR providers will depend on the conceptual schemas that they
+use. TAPIR providers can only understand queries that reference known
+concepts, i.e., concepts that were locally mapped and that are
+advertised in its capabilities. Therefore, TAPIR clients cannot send
+the same search request to two TAPIR providers that have mapped
+different conceptual schemas (unless the request references by alias
+equivalent query templates or output models that have been assigned
+the same alias by both providers).
+</p>
+<p>
+TAPIR messages can reference concepts from multiple conceptual
+schemas, which means that conceptual schemas can be modularised and
+extended if necessary.
+</p>
+<p>
+TAPIR does not enforce any particular format or encoding for
+conceptual schemas. Examples of languages that can be used to define
+conceptual schemas include XML Schema, RDF Schema, XMI and
+others. From TAPIR's perspective, conceptual schemas should minimally
+list the concepts, indicating their meaning and datatypes. Since
+provider software may typically need to parse existing conceptual
+schemas during configuration, a common format is suggested in appendix
+2 to describe conceptual schemas used by TAPIR networks.
+</p>
+<a id="toc13" name="toc13"></a>
+<h3>3.6.2. Concepts</h3>
+<p>
+Concepts are general definitions of classes of objects or their
+characteristics. They are defined externally to TAPIR. Although
+concepts can potentially represent classes, relationships or
+attributes, this version of TAPIR limits its use to attributes (e.g.,
+species name, observation date, locality name, registration number,
+etc.) whose context is defined by the conceptual schema or output
+model being used.
+</p>
+<p>
+In TAPIR, concepts are referenced by identifiers, which are always
+treated as simple strings. These references take place in different
+parts of the protocol, such as filter expressions, output model
+mappings, capabilities responses and inventory operations. The TAPIR
+XML Schema defines a "qualifiedConceptReferenceType" that is used by
+most elements representing concepts, and which consists of a complex
+type with an attribute called "id". TAPIR makes no assumptions about
+how concept identifiers are defined and it does not enforce any
+particular pattern. However, fully qualified concept identifiers are
+recommended to be:
+</p>
+<ul>
+<li>Globally unique;
+</li>
+<li>Permanently resolvable by means of standard Internet protocols;
+</li>
+<li>Free from characters that are not allowed in the query term of URLs.
+</li>
+</ul>
+
+<p>
+By being globally unique they can be distinguished from any other
+possible concepts. By being permanently resolvable, a formal
+definition of the concept can be retrieved whenever necessary. By
+being free from reserved characters for the query term of URLs, they
+can be used directly as HTTP GET parameters in TAPIR KVP request
+encoding.
+</p>
+<p>
+When concepts come from a data abstraction layer defined in XML Schema, the
+recommendation for concept identifiers is to concatenate the namespace
+of the schema with the local xpath to the instance element that
+corresponds to the concept. Taking the following XML Schema as an example
+of a conceptual schema:
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+             targetNamespace="http://example.net/cs/1.0/"
+             elementFormDefault="qualified"&gt;
+    &lt;xs:element name="Person"&gt;
+      &lt;xs:complexType&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element name="Name" type="xs:string"/&gt;
+          &lt;xs:element name="Email" type="xs:string"/&gt;
+          &lt;xs:element name="Birth" type="xs:date" minOccurs="0"/&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute name="Id" type="xs:string" use="required"/&gt;
+      &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+  &lt;/xs:schema&gt;
+</pre></div>
+<p></p>
+<p>
+The element represented by the xpath "/Person/Name" would be
+identified as:
+</p>
+<p>
+http://example.net/cs/1.0/Person/Name
+</p>
+<p>
+And the "Id" attribute would be identified as:
+</p>
+<p>
+http://example.net/cs/1.0/Person/@Id
+</p>
+<p>
+Providers can also associate an alias to each concept, declaring
+aliases in capabilities responses. In this case, concepts may also be
+referenced directly by the alias (when no alias is associated with the
+corresponding conceptual schema) or by the following notation when
+both the concept and its conceptual schema are associated with an
+alias:
+</p>
+<p>
+Concept_Alias '@' Conceptual_Schema_Alias
+</p>
+<p>
+Assuming that the concept in the previous example is associated with
+the alias "PersonName" and its conceptual schema is associated with
+the alias "cs1.0", this would enable the concept to be also identified
+using the following short notation:
+</p>
+<p>
+PersonName@cs1.0
+</p>
+<a id="toc14" name="toc14"></a>
+<h2>3.7. Output Models</h2>
+<p>
+Output models are central to the search operation. They define or
+reference a generic XML response structure based on XML Schema and
+specify a mapping between nodes in the schema and concepts from one or
+more conceptual schemas. To a certain extent, the mapping section
+gives meaning to XML nodes in the structure, and clearly shows that
+the same concepts can be represented and structured in different ways
+in XML. Different output models can therefore be created for the same
+set of concepts.
+</p>
+<p>
+Output models may indicate which global element defined in the
+response structure should be the root element in search
+responses. When not specified, the first global element must be used.
+</p>
+<p>
+Output models must specify an indexing element by pointing to a node
+in the structure. The indexing element will be used as a reference for
+counting records and paging results.
+</p>
+<p>
+Output models can be defined and used in various ways. They can be
+created or recognised by the provider and then advertised as
+&lt;knownOutputModels&gt; in the capabilities response. If the provider
+supports &lt;anyOutputModels&gt; then the client may create their own models
+either as external documents or as in-line definitions in an XML
+search request. All required concepts in each output model advertised
+by the provider must refer to concepts mapped by the provider and
+advertised as &lt;mappedConcepts&gt; in the capabilities response.
+</p>
+<p>
+The different ways of using output models in TAPIR allow for providers
+with different levels of service capability. Some providers may have a
+fixed (hard-coded) way of producing XML results that corresponds to
+each of their known output models, which means they do not need to
+have the ability to dynamically parse output model definitions. On the
+other hand, providers that have the ability to parse output model
+definitions (&lt;anyOutputModels&gt; capability) may choose to parse known
+models in the same way as they do for arbitrary models provided by
+clients.
+</p>
+<a id="toc15" name="toc15"></a>
+<h2>3.8. Query Templates</h2>
+<p>
+Query templates extend the idea of output models. If output models
+define what type of content should be returned and how it should be
+structured, query templates can add pre-defined, parameterised filters
+and other constraints depending on the operation.
+</p>
+<p>
+Query templates can be used by search and inventory operations. An
+inventory template specifies one or more concepts and an optional
+filter. A search template specifies an output model, an optional
+filter, and an optional order by parameter (pointing to concepts in the
+output model).
+</p>
+<p>
+In search operations, the same output model can be referenced and used
+by many different search templates, which could be related to
+different parts of the output model, or include different filter
+criteria for different contexts, etc.
+</p>
+<p>
+The same flexibility for creating and using output models is available
+for query templates. Data providers can create their own specific
+templates, or choose from existing templates and then declare them in
+capabilities responses. Providers can also have the ability to
+dynamically parse arbitrary templates defined by clients.
+</p>
+<a id="toc16" name="toc16"></a>
+<h1>4. TAPIR XML Documents</h1>
+<p>
+TAPIR XML documents can be messages exchanged in operations or
+external resources such as output models and query templates, which
+can be referenced by search or inventory requests. All TAPIR documents
+must be valid XML documents and have a root element that validates
+against the TAPIR XML Schema. The root element of a TAPIR document
+declares its purpose and includes the namespaces referenced inside the
+document. It is recommended that the root element includes the "xsi"
+namespace and the TAPIR schema location to facilitate validation of
+messages. The possible root elements for each type of TAPIR document
+are:
+</p>
+<div class="exampleInner"><pre>
+  Root element ::= ( &lt;request&gt; | &lt;response&gt; | &lt;outputModel&gt; | &lt;inventoryTemplate&gt; | &lt;searchTemplate&gt; )
+</pre></div>
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8" ?&gt; 
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+     &lt;!--   header and operation specific content --&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Root element with namespace declarations in a TAPIR request document</i>
+</p>
+<a id="toc17" name="toc17"></a>
+<h2>4.1. Request and Response Documents</h2>
+<p>
+TAPIR XML request documents consist of a header followed by an element
+indicating the operation, which in turn may contain additional
+parameters.
+</p>
+<div class="exampleInner"><pre>
+  Request type ::= &lt;header&gt; 
+                   ( &lt;metadata&gt; | &lt;capabilities&gt; | &lt;inventory&gt; | &lt;search&gt; | &lt;ping&gt; )
+</pre></div>
+<p></p>
+<p>
+TAPIR XML response documents usually consist of a header followed by
+an element indicating the operation and including the result. The
+operation element can be followed by an optional diagnostics element.
+</p>
+<div class="exampleInner"><pre>
+  Response type ::= &lt;header&gt;
+                    ( &lt;metadata&gt; | &lt;capabilities&gt; | &lt;inventory&gt; | &lt;search&gt; | &lt;pong&gt; | &lt;error&gt; | &lt;logged&gt; ) 
+                    &lt;diagnostics&gt;?
+</pre></div>
+<p></p>
+<p>
+This general structure of a TAPIR &lt;response&gt; element including a
+&lt;header&gt;, an operation related element and an optional &lt;diagnostics&gt;
+is the TAPIR envelope. The TAPIR envelope can be turned off in search
+operations by setting the "envelope" parameter to "false". In this
+case the root element of a response will be determined by the output
+model response structure definition, and the TAPIR namespace should
+not be included at all.
+</p>
+<a id="toc18" name="toc18"></a>
+<h3>4.1.1. Header</h3>
+<p>
+The purpose of headers is to give information about the source and
+destination of the operation, as well as timestamp and software
+related to the source. Headers must be present in all XML requests and
+all XML responses, except in search responses when the parameter
+"envelope" is set to "false" in the corresponding request. A TAPIR
+header has three parts:
+</p>
+<div class="exampleInner"><pre>
+  Header type ::= &lt;source&gt;+ &lt;destination&gt;? &lt;custom&gt;?
+</pre></div>
+<p></p>
+<p>
+The &lt;source&gt; element gives information about where the message
+originated and is repeatable to enable tracing back through any
+intermediary steps when the message has passed through more than one
+server in a cascading operation. Each intermediary service must add
+its address as a new &lt;source&gt; item at the end of the list.
+</p>
+<p>
+The &lt;destination&gt; element is used to indicate the final target for a
+TAPIR message. It can be used when there are intermediary layers
+between the client and the server. This element is intended to help
+communication between clients and message brokers. The destination
+element takes a simple string, which will usually be a URI but can be
+anything, including codes or identifiers specific to networks. The
+&lt;destination&gt; element is optional and a TAPIR provider is free to
+ignore it.
+</p>
+<p>
+A &lt;custom&gt; element serves as an extension slot for any additional
+information not defined in the schema. It can be used to put whatever
+extra information an implementer wishes to add.
+</p>
+<p>
+Source elements correspond to each software agent that created or
+processed the message until it reached the current service that
+received the message. It has three parts:
+</p>
+<div class="exampleInner"><pre>
+  Source type ::= @accesspoint @sendtime &lt;software&gt;?
+</pre></div>
+<p></p>
+<p>
+In requests, the "accesspoint" attribute of each &lt;source&gt; element must
+contain the IP address of the corresponding software agent, except the
+last &lt;source&gt; element. The IP address of the last source should always
+be taken from the REMOTE_ADDR environment variable. In responses, the
+"accesspoint" attribute must contain the service URL.
+</p>
+<p>
+The "sendtime" attribute must be used to record the time that the
+message was sent or processed in the associated software agent. Its
+content must be recorded in ISO 8601 datetime format.
+</p>
+<p>
+The &lt;software&gt; element can be used to identify the software used to
+process the TAPIR message. It is defined as follows:
+</p>
+<div class="exampleInner"><pre>
+  Software type ::= @name @version &lt;dependencies&gt;*
+</pre></div>
+<p></p>
+<p>
+The attributes "name" and "version" are simple strings and should be
+used to indicate the name and version number of the software.
+</p>
+<p>
+The &lt;dependencies&gt; element can be used to list any other software,
+libraries, framework or operating system related to the declared
+software. The dependencies element includes repeatable instances of
+&lt;dependency&gt; which references back the software type.
+</p>
+<div class="exampleInner"><pre>
+  &lt;request xmlns=http://rs.tdwg.org/tapir/1.0
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+                 xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                     http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+        &lt;software name="TapirClient" version="3.0"/&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;capabilities/&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example of a TAPIR request message encoded in XML. Here the client is asking for service capabilities.</i>
+</p>
+<a id="toc19" name="toc19"></a>
+<h3>4.1.2. Operation-specific Elements</h3>
+<p>
+Operation elements can contain specific parameters (in requests) or
+specific results (in responses) related to the operation. They will be
+described in more details in the next sections.
+</p>
+<a id="toc20" name="toc20"></a>
+<h3>4.1.3. Fatal Errors</h3>
+<p>
+Errors are normally listed in the diagnostics section of a TAPIR
+message. When there are extreme errors that cause the system not to be
+able to formulate a proper response, for instance if a database
+connection error occurs or the user requests a service that the
+provider does not supply, then the &lt;error&gt; element may be used inside
+the &lt;response&gt; body.
+</p>
+<div class="exampleInner"><pre>
+  &lt;response&gt;
+    &lt;!-- omitting header --&gt;
+    &lt;error code="DBS_CONNECTION_ERROR" 
+           level="fatal" 
+           time="2005-11-11T12:23:57.023+01:00"&gt;Could not connect to database&lt;/error&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example of a fatal error message given in replacement for the normal operation element in a response</i> 
+</p>
+<a id="toc21" name="toc21"></a>
+<h3>4.1.4. Log-only Operations</h3>
+<p>
+When requests have the "log-only" attribute set to true, TAPIR
+providers produce a &lt;logged&gt; element in responses instead of the
+expected operation element. Log-only operations can be used to report
+back to the original data providers when users access their data from
+data aggregators.
+</p>
+<a id="toc22" name="toc22"></a>
+<h3>4.1.5. Diagnostics</h3>
+<p>
+The &lt;diagnostics&gt; element can be used by responses for declaring
+errors and statistics. It consists of an optional list of multiple
+&lt;diagnostic&gt; elements.
+</p>
+<div class="exampleInner"><pre>
+  diagnostic type ::= @code? @level @time? message
+</pre></div>
+<p></p>
+<p>
+The "code" attribute is an optional system code for the error or
+message. There are no standard codes defined in this
+specification. TAPIR providers are free to define and use their own
+codes.
+</p>
+<p>
+The "level" attribute is mandatory and can assume the following values
+to indicate the severity of the diagnostic:
+</p>
+<div class="exampleInner"><pre>
+  @level ::= ( "debug"|"info"|"warn"|"error"|"fatal" )
+</pre></div>
+<p></p>
+<p>
+An optional ISO 8601 datetime value can be included in the "time"
+attribute.
+</p>
+<p>
+Diagnostic messages are text strings defined by implementations.
+</p>
+<div class="exampleInner"><pre>
+  &lt;response&gt;
+    &lt;!-- omitting header --&gt;
+    &lt;!-- omitting operation --&gt;
+    &lt;diagnostics&gt;
+      &lt;diagnostic level="error" code="REQ_READ_MODEL_FAILED"&gt;The requested model could not be read.&lt;/diagnostic&gt;
+      &lt;diagnostic level="warning" code="REQ_STRUCTURE_UNKNOWN_SCHEMA_TAG"&gt;
+        Unknown xml schema element "test" encountered in line 3. Ignored.
+      &lt;/diagnostic&gt;
+      &lt;diagnostic level="info" code="RSP_ELEM_DROP"&gt;
+        XML element "myel" dropped because it misses required attribute "myattr"
+      &lt;/diagnostic&gt;
+      &lt;diagnostic level="debug"&gt;Start reading the datasource configurations&lt;/diagnostic&gt;
+    &lt;/diagnostics&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example of a diagnostics section in a response document</i>
+</p>
+<a id="toc23" name="toc23"></a>
+<h2>4.2. Output Models</h2>
+<p>
+TAPIR search requests and search templates can refer to an output
+model document which is accessed as an external resource by its
+URL. An output model document must be an XML document that validates
+against the "outputModelType" defined in the TAPIR XML Schema. Output
+model documents have no header or diagnostic sections and use
+&lt;outputModel&gt; as the root element including the namespace
+declarations.
+</p>
+<p>
+Output model documents can include optional (but recommended)
+documentation elements for a name (&lt;label&gt;) and description
+(&lt;documentation&gt;) that are of value in managing multiple output models
+and informing users of their function.
+</p>
+<p>
+Output models can be defined with the following elements:
+</p>
+<dl>
+<dt>&lt;structure&gt;</dt><dd>
+Defines the search response structure using a subset of the XML Schema
+language. Required.
+<p></p>
+</dd>
+<dt>&lt;rootElement&gt;</dt><dd>
+Indicates the name of a global element in the structure that should be
+the root element in search responses. The name is specified in the
+@name attribute. When not present, the first global element must be 
+the root element. Optional.
+<p></p>
+</dd>
+<dt>&lt;indexingElement&gt;</dt><dd>
+Points to a node in the structure, usually unbounded, that should be
+used for counting the records returned and paging results. The
+indexing element is referenced by the @path attribute using a simple
+XPath that points to a response structure node. Required.
+<p></p>
+</dd>
+<dt>&lt;mapping&gt;</dt><dd>
+Maps nodes from the structure definition (given under &lt;structure&gt;) to
+concepts, literals or environment variables known to the provider
+software. Required.
+</dd>
+</dl>
+
+<a id="toc24" name="toc24"></a>
+<h3>4.2.1. Response Structures</h3>
+<p>
+Response structures define through XML Schema how search responses
+should be structured in XML. A response structure must start with the
+root element &lt;schema&gt; and all its elements must be in the namespace
+<b>http://www.w3.org/2001/XMLSchema</b>. TAPIR response structures
+must always specify a "targetNamespace" and there should be at least
+one global element definition. The global element that should be used
+to instantiate the root element in the resulting XML is specified in
+the output model. When not specified, the first global element should
+be used for this purpose.
+</p>
+<p>
+TAPIR providers must declare as part of their capabilities to what
+extent they understand the XML Schema language. This may vary from
+full support to a large set of XML Schema constructs to no knowledge
+at all (in cases when only a limited number of pre-defined output
+models or query templates needs to be understood, or in cases when
+searches are not supported). Only providers that declare they support
+"any" output models must be able to dynamically parse response
+structures to understand how search results should be generated. In
+these cases, the minimum set of XML Schema constructs that needs to be
+understood is known as the "basic schema language", which includes:
+</p>
+<ul>
+<li>targetNamespace
+</li>
+<li>element (including minOccurs and maxOccurs)
+</li>
+<li>attribute (including attribute use)
+</li>
+<li>complexType (only local definitions)
+</li>
+<li>simpleType (only local definitions)
+</li>
+<li>sequences
+</li>
+<li>all
+</li>
+</ul>
+
+<p>
+TAPIR providers are not forced to guarantee the entire validity of
+search responses according to the XML Schema defined in the response
+structure, except to the extent of its own declared XML Schema
+capabilities. When response structures are parsed, providers are
+recommended to raise warnings instead of errors when an unsupported
+XML Schema construct is found.
+</p>
+<a id="toc25" name="toc25"></a>
+<h3>4.2.2. Output Model Mapping</h3>
+<p>
+Each data node in the output model structure must be mapped to one or
+more concepts (&lt;concept&gt;), literals (&lt;literal&gt;) or system variables
+(&lt;variable&gt;). The entire mapping is made of individual &lt;node&gt;
+mappings, where the attribute @path takes a simple Xpath to identify
+the output structure node. Individual mappings are completed by
+specifying one or more sub-elements (&lt;concept&gt;|&lt;literal&gt;|&lt;variable&gt;)
+associated to each node.
+</p>
+<p>
+Node identifiers follow a subset of the XPath language using relative
+location paths from the root element inside the schema definition
+(inside &lt;structure&gt;) to the desired node. All steps are separated by
+the "/" separator. The XPath expression used here is actually based on
+the corresponding nodes of an instance document, and not the schema
+definition itself. Attribute nodes need the prefix "@".
+</p>
+<p>
+When multiple mappings are cited for the same node, the final result
+must be the concatenation of the respective values.
+</p>
+<div class="exampleInner"><pre>
+  &lt;node path="/FeatureCollection/featureMember/LocationGML/Point/coordinates"&gt;
+    &lt;concept id="http://example.net/schema/Longitude" required="true"/&gt;
+    &lt;literal value=","/&gt;
+    &lt;concept id="http://example.net/schema/Latitude" required="true"/&gt;
+  &lt;/node&gt;
+</pre></div>
+<p>
+<i>Example: Concatenated concepts in an output model mapping</i>
+</p>
+<p>
+When the response structure makes use of different namespaces, they
+all need to be declared and associated to a prefix in the
+"outputModel" element. In this case, node paths must include the
+prefixes. The same applies to the "indexingElement" path.
+</p>
+<div class="exampleInner"><pre>
+  &lt;node path="/r:records/r:record/dc:modified"&gt;
+    &lt;concept id="http://example.net/schema/DateLastModified" required="true"/&gt;
+  &lt;/node&gt;
+</pre></div>
+<p>
+<i>Example: Node mapping involving different namespaces. Prefixes "r" and "dc" must be declared in the "outputModel" element</i>
+</p>
+<p>
+Concepts and variables have an optional attribute "required" which
+defaults to "false". When a concept is required but is either not
+mapped by the provider or is mapped but evaluates to NULL, the
+provider must return an error. When a variable is required and is
+either not available from the provider or evaluates to NULL, the
+provider must return an error. If a concept or variable is optional,
+associated to a mandatory node, and is either not understood by the
+provider or evaluates to NULL, the node must be included with an empty
+content in the response. In this case it is recommended for providers
+to raise a warning in the diagnostics. If a concept or variable is
+optional, associated to an optional node, and is either not understood
+by the provider or evaluates to NULL, the node must not be included in
+the response. The resulting XML should always be "greedy", which means
+that when a provider has content for a node, the node must always be
+included in the response. The following table summarizes how providers
+should behave in all possible situations.
+</p>
+<table cellpadding="4" border="1">
+<tr>
+<th>@required</th>
+<th>mandatory node (*)</th>
+<th>provider has content (**)</th>
+<th>no content (***)</th>
+</tr>
+<tr>
+<td align="center">true</td>
+<td align="center">yes</td>
+<td align="center">include node</td>
+<td align="center">raise error</td>
+</tr>
+<tr>
+<td align="center">true</td>
+<td align="center">no</td>
+<td align="center">include node</td>
+<td align="center">raise error</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">yes</td>
+<td align="center">include node</td>
+<td align="center">include empty node &amp; raise warning</td>
+</tr>
+<tr>
+<td align="center">false</td>
+<td align="center">no</td>
+<td align="center">include node</td>
+<td align="center">do not include node</td>
+</tr>
+</table>
+
+<p>
+(*) node is mandatory in response structure.
+</p>
+<p>
+(**) action when provider has associated content.
+</p>
+<p>
+(***) action when provider does not have associated content, or content is NULL.
+</p>
+<p>
+In a concatenation, optional concepts or variables should be replaced
+by an empty string if they evaluate to NULL or are not understood by
+the provider.
+</p>
+<p>
+The &lt;mapping&gt; element also includes an optional Boolean @automapping
+attribute. When automapping is set to "true", nodes should be
+automatically mapped to their equivalent concept identifiers (by
+concatenating namespace and local path. This is done when the model’s
+structural schema is also seen as a conceptual schema, therefore
+avoiding redundant mappings. This kind of special model is also
+referred to as a <b>canonical model</b>.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;outputModel xmlns="http://rs.tdwg.org/tapir/1.0"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                   http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd
+                                   http://www.w3.org/2001/XMLSchema
+                                   http://www.w3.org/2001/XMLSchema.xsd"&gt;
+    &lt;label&gt;Specimen Records&lt;/label&gt;
+    &lt;documentation&gt;Simple output model for specimen data.&lt;/documentation&gt;
+    &lt;structure&gt;
+      &lt;xs:schema targetNamespace="http://example.net/simple_specimen"&gt;
+        &lt;xs:element name="dataset"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="specimen" minOccurs="0" maxOccurs="unbounded"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="identification" minOccurs="0" maxOccurs="unbounded"&gt;
+                      &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                          &lt;xs:element name="name" type="xs:string"/&gt;
+                          &lt;xs:element name="identifier" type="xs:string" minOccurs="0"/&gt;
+                        &lt;/xs:sequence&gt;
+                        &lt;xs:attribute name="date" type="xs:string" use="optional"/&gt;
+                      &lt;/xs:complexType&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                  &lt;xs:attribute name="catnum" type="xs:int" use="required"/&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:schema&gt;
+    &lt;/structure&gt;
+    &lt;rootElement name="dataset"/&gt;
+    &lt;indexingElement path="/dataset/specimen"/&gt;
+    &lt;mapping&gt;
+      &lt;node path="/dataset/specimen/@catnum"&gt;
+        &lt;concept id="http://example.net/schema1/CatalogNumber" required="true"/&gt;
+      &lt;/node&gt;
+      &lt;node path="/dataset/specimen/identification/name"&gt;
+        &lt;concept id="http://example.net/schema1/ScientificName" required="true"/&gt;
+      &lt;/node&gt;
+      &lt;node path="/dataset/specimen/identification/identifier"&gt;
+        &lt;concept id="http://example.net/schema2/PersonName"/&gt;
+      &lt;/node&gt;
+      &lt;node path="/dataset/specimen/identification/@date"&gt;
+        &lt;concept id="http://example.net/schema2/DateText"/&gt;
+      &lt;/node&gt;
+    &lt;/mapping&gt;
+  &lt;/outputModel&gt;
+</pre></div>
+<p>
+<i>Example: A complete example of an output model showing the use of &lt;structure&gt;, &lt;rootElement&gt;, &lt;indexingElement&gt; and &lt;mapping&gt; elements</i>
+</p>
+<a id="toc26" name="toc26"></a>
+<h2>4.3. Query Templates</h2>
+<a id="toc27" name="toc27"></a>
+<h3>4.3.1. Inventory Templates</h3>
+<p>
+TAPIR inventory requests can refer to an inventory template document
+which is accessed as an external resource by its URL. An inventory
+template must be an XML document that validates against the
+"inventoryTemplateType" defined in the TAPIR XML Schema. Inventory
+template documents have a root element &lt;inventoryTemplate&gt; that
+includes its namespace declarations. There are no header or diagnostic
+sections in template documents.
+</p>
+<p>
+Inventory templates can include optional (but recommended)
+documentation elements for a name (&lt;label&gt;) and description
+(&lt;documentation&gt;) that are of value in managing multiple templates and
+informing users of their function. The body of an inventory template
+includes a list of concepts upon which the inventory should be built
+and an optional filter section which allows the use of client-supplied
+parameters.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;inventoryTemplate xmlns="http://rs.tdwg.org/tapir/1.0"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                         http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;label&gt;Specimen Scientific Names&lt;/label&gt;
+    &lt;documentation&gt;Search and list unique scientific names of specimen 
+    identifications ordered alphabetically. The parameter 
+    "name" can be used as a filter condition indicating the 
+    first characters of interest.&lt;/documentation&gt;
+    &lt;concepts&gt;
+      &lt;concept id="http://example.net/schema/ScientificName"/&gt;
+    &lt;/concepts&gt;
+    &lt;filter&gt;
+      &lt;like&gt;
+        &lt;concept id="http://example.net/schema/ScientificName"/&gt;
+        &lt;parameter name="name"/&gt;
+      &lt;/like&gt;
+    &lt;/filter&gt;
+  &lt;/inventoryTemplate&gt;
+</pre></div>
+<p>
+<i>Example: A simple inventory template which allows the client to supply a scientific name (with wild cards if required) as a filter</i>
+</p>
+<a id="toc28" name="toc28"></a>
+<h3>4.3.2. Search Templates</h3>
+<p>
+TAPIR search requests can refer to a search template document which is
+accessed as an external resource by its URL. A search template must be
+an XML document that is valid with respect to the "searchTemplateType"
+defined in the TAPIR XML Schema.
+</p>
+<p>
+Search templates can include optional (but recommended) documentation
+elements for a name (&lt;label&gt;) and description (&lt;documentation&gt;) that
+are of value in managing multiple templates and informing users of
+their function. The body of a search template includes a choice of
+external or internal output model and elements for refining, filtering
+and ordering the search results, as follow:
+</p>
+<dl>
+<dt>&lt;outputModel&gt;</dt><dd>
+Reference to an external output model document or inline definition of
+an output model.
+<p></p>
+</dd>
+<dt>&lt;filter&gt;</dt><dd>
+Optional element to specify filter conditions (see section about
+Filters).
+<p></p>
+</dd>
+<dt>&lt;orderBy&gt;</dt><dd>
+Optional repeatable element that can be used to declare one or more
+concepts for ordering returned data. If the optional Boolean attribute
+@descend is set to "true", a descending ordering will be used instead
+of the default ascending one. The ordering behaviour is determined by
+the concept datatype declared in the capabilities response.
+</dd>
+</dl>
+
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;searchTemplate xmlns="http://rs.tdwg.org/tapir/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                      http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;label&gt;Specimen by Name&lt;/label&gt;
+    &lt;documentation&gt;Search specimens by their scientific name. Result is 
+    ordered by name (ascending) and catalog number (descending). 
+    A parameter "name" can be used to build the filter.&lt;/documentation&gt;
+    &lt;externalOutputModel location="http://example.net/models/names.xml"/&gt;
+    &lt;filter&gt;
+      &lt;like&gt;
+        &lt;concept id="http://example.net/schema/ScientificName"/&gt;
+        &lt;parameter name="name"/&gt;
+      &lt;/like&gt;
+    &lt;/filter&gt;
+    &lt;orderBy&gt;
+      &lt;concept id="http://example.net/schema/ScientificName"/&gt;
+      &lt;concept id="http://example.net/schema/CatalogNumber" descend="true"/&gt;
+    &lt;/orderBy&gt;
+  &lt;/searchTemplate&gt;
+</pre></div>
+<p>
+<i>Example: An XML search template definition based on an external output model.</i>
+</p>
+<a id="toc29" name="toc29"></a>
+<h1>5. Operations</h1>
+<a id="toc30" name="toc30"></a>
+<h2>5.1. Metadata</h2>
+<p>
+The Metadata operation retrieves a basic description of the TAPIR
+service, such as its title, an abstract, keywords, related people and
+organizations, and copyright details. The inclusion of a language
+attribute in content elements allows content to be served in multiple
+languages.
+</p>
+<p>
+Metadata responses should include enough information to be used by
+registries, such as UDDI, and to be used by other directory services
+that need to know general information about the content
+provided. Metadata are always related to a single TAPIR data provider,
+which is regarded as a completely independent service.
+</p>
+<a id="toc31" name="toc31"></a>
+<h3>5.1.1. Metadata Request</h3>
+<p>
+Metadata is the default operation in TAPIR. The simplest way to invoke
+this operation is by calling the TAPIR access point directly without
+any parameters.
+</p>
+<p>
+Using XML, the Metadata operation can be invoked by inserting the
+&lt;metadata/&gt; element after the header section in a request
+document. Metadata requests take no arguments or parameters.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;metadata/&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Example of an XML metadata request document</i>
+</p>
+<p>
+In KVP request encoding, the Metadata operation can be invoked with a single parameter:
+</p>
+<p>
+http://example.net/tapir.cgi?op=metadata
+</p>
+<p>
+Or with no parameters at all:
+</p>
+<p>
+http://example.net/tapir.cgi
+</p>
+<a id="toc32" name="toc32"></a>
+<h3>5.1.2. Metadata Response</h3>
+<p>
+The structure of metadata responses must conform to the
+"metadataResultType" defined in the TAPIR XML Schema. Many of the
+elements in the "metadataResultType" are derived from the DC (Dublin
+Core) schemas.
+</p>
+<p>
+The "metadataResultType" also includes an optional @xml:lang attribute
+to define a default language associated with all language-aware
+elements. Language-aware elements are those elements whose content is
+expressed in natural language. They are all unbounded and accept an
+optional attribute @xml:lang to specify the related language code. The
+language tag syntax of @xml:lang attributes is defined by the 
+<a href="http://www.rfc-editor.org/rfc/rfc4646.txt">RFC 4646, Tags for the Identification of Languages</a> 
+(based on ISO 639) and the list of codes can be found in the 
+<a href="http://www.iana.org/assignments/language-subtag-registry">IANA Language Subtag Registry</a>. 
+The @xml:lang attribute applies to the element that defines it and also to
+all of its sub-elements. Sub-elements can also specify the @xml:lang
+attribute, in which case it will override the default language defined
+in the scope of any parent elements.
+</p>
+<p>
+The metadata elements include;
+</p>
+<dl>
+<dt>&lt;dc:title&gt; </dt><dd>
+The name or names of the service, which may be in multiple languages
+(using the xml:lang attribute to identify the language
+code). String. Required.
+<p></p>
+</dd>
+<dt>&lt;dc:type&gt;</dt><dd>
+The type of resource according to the 
+<a href="http://dublincore.org/documents/dcmi-type-vocabulary/">Dublin Core Type Vocabulary</a>. 
+This value should be the same for all TAPIR providers:
+<a href="http://purl.org/dc/dcmitype/Service">http://purl.org/dc/dcmitype/Service</a>, unless the type vocabulary is
+refined or changed in the future. The purpose is to indicate that the
+resource is actually a service. String. Required.
+<p></p>
+</dd>
+<dt>&lt;accesspoint&gt;</dt><dd>
+The URL of the service. String. Required.
+<p></p>
+</dd>
+<dt>&lt;dc:description&gt;</dt><dd>
+The description may include, but is not limited to, an abstract, a
+table of contents, a reference to a graphical representation of
+content, or a free-text account of the content. Can be provided in
+different languages. String. Required.
+<p></p>
+</dd>
+<dt>&lt;dc:language&gt;</dt><dd>
+The language of content that can be returned by search and inventory
+responses. This element must follow 
+<a href="http://www.rfc-editor.org/rfc/rfc4646.txt">RFC 4646</a> and use language codes
+specified by the 
+<a href="http://www.iana.org/assignments/language-subtag-registry">IANA Language Subtag Registry</a>. 
+More than one language can be specified, in case the provider can serve content
+in multiple languages. When there is no linguistic content the "zxx"
+code must be used. String. Required.
+<p></p>
+</dd>
+<dt>&lt;dc:subject&gt;</dt><dd>
+Subject and Keywords. Typically, a subject will be expressed as
+keywords, key phrases or classification codes that describe content
+provided by the resource. Recommended best practice is to select a
+value from a controlled vocabulary or formal classification
+scheme. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;dc:bibliographicCitation&gt;</dt><dd>
+Recommended practice is to include sufficient bibliographic detail to
+identify the resource as unambiguously as possible, whether or not the
+citation is in a standard form. Can be provided in different
+languages. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;rights&gt;</dt><dd>
+Information about who can access the resource or about its security
+status, access regulations, etc. String. Can be provided in different
+languages. Optional.
+<p></p>
+</dd>
+<dt>&lt;dct:modified&gt;</dt><dd>
+Date on which the service was last modified. Date string, optional.
+<p></p>
+</dd>
+<dt>&lt;dct:created&gt;</dt><dd>
+Date on which the service was created. Date string, optional.
+<p></p>
+</dd>
+<dt>&lt;indexingPreferences&gt;</dt><dd>
+Used to inform data aggregators and indexers about the preferred start
+time, duration and frequency for performing this operation. Optional
+element with three attributes:
+<p></p>
+ <ul>
+ <li><b>@startTime</b>: In the XML Schema time format.
+ </li>
+ <li><b>@maxDuration:</b> In the XML Schema duration format.
+ </li>
+ <li><b>@frequency:</b> In the XML Schema duration format.
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>&lt;relatedEntity&gt;</dt><dd>
+A required, complex element indicating the entities related to the
+service.
+<p></p>
+</dd>
+<dt>&lt;custom&gt;</dt><dd>
+Optional element of any type to include any additional information
+that goes beyond the standard TAPIR metadata.
+</dd>
+</dl>
+
+<h4>5.1.2.1. Related Entities</h4>
+<p>
+Related Entities describe one or more entities and their roles with
+respect to the service. In UDDI terms, TAPIR Related Entities
+correspond to Business Entities. A Related Entity can be for example
+the organization or group that is hosting the service, providing the
+data, sponsoring the network, etc. This allows acknowledgement to any
+kind of organization or even person that is somehow related to the
+service.
+</p>
+<p>
+Related Entities are defined by the "relatedEntityInformationType",
+which is comprised of &lt;role&gt; and &lt;entity&gt; elements defined by the
+"entityInformationType".
+</p>
+<p>
+The elements defined by the "relatedEntityInformationType" are as
+follow:
+</p>
+<dl>
+<dt>&lt;role&gt;</dt><dd>
+Used to specify one or more roles of a related entity. The suggested
+vocabulary includes two values, "data supplier" or "technical host",
+but accepts other values. String. Required.
+<p></p>
+</dd>
+<dt>&lt;entity&gt;</dt><dd>
+Required complex element with the following sub-nodes:
+<p></p>
+<div>
+<p></p>
+</dd>
+<dt>@type</dt><dd>
+Attribute indicating if the entity is an "organization" (default) or a
+"person". String. Optional.
+<p></p>
+</dd>
+<dt>&lt;identifier&gt;</dt><dd>
+A globally unique identifier for the entity. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;name&gt; </dt><dd>
+One or more names for the organization. Includes an @xml:lang
+attribute to record language. String. Required.
+<p></p>
+</dd>
+<dt>&lt;acronym&gt;</dt><dd>
+The usual acronym for the organization. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;logoURL&gt;</dt><dd>
+A URL pointing to a small logo of the organization. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;description&gt;</dt><dd>
+Text description of the service. Includes an @xml:lang attribute to
+record language. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;address&gt;</dt><dd>
+Text to indicate where the entity is located. It can include street
+name, street number, district, city, county and other complements. Use
+the next elements to specify state/province, country and zip
+code. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;regionCode&gt;</dt><dd>
+Region (e.g., state or province) of the specified address. Use
+standard abbreviation accepted in the country. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;countryCode&gt;</dt><dd>
+Country code 
+(<a href="http://www.iso.org/iso/iso-3166-1_decoding_table">ISO 3166-1-alpha-2</a> 
+code) of the specified address. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;zipCode&gt;</dt><dd>
+Zip or postal code of the specified address. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;relatedInformation&gt;</dt><dd>
+A URL that points to further information about the
+entity. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;hasContact&gt;</dt><dd>
+Required complex element for details of individuals related to the
+entity. Includes role and VCARD details (see Contacts).
+<p></p>
+</dd>
+<dt>&lt;geo:Point&gt;</dt><dd>
+Optional complex element to indicate the entity location in decimal
+degrees (datum WGS84). Conforms to the W3C Basic Geo Vocabulary.
+<p></p>
+ <ul>
+ <li><b>&lt;geo:lat&gt;</b>: Latitude in decimal degrees (WGS84). Float. Required.
+ </li>
+ <li><b>&lt;geo:long&gt;:</b> Longitude in decimal degrees (WGS84). Float. Required.
+ </li>
+ <li><b>&lt;geo:alt&gt;:</b> Altitude in meters. Float. Optional.	
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>&lt;custom&gt;</dt><dd>
+Slot available for extending the scope of the entity information
+provided. AnyType. Optional.
+</dd>
+</dl>
+
+<p>
+</div>
+</p>
+<h4>5.1.2.2. Contacts</h4>
+<p>
+Related entities must indicate at least one contact and its role.
+</p>
+<dl>
+<dt>&lt;role&gt;</dt><dd>
+Used to specify one or more roles of a contact with respect to the
+service. The suggested vocabulary includes two values, "data
+administrator" or "system administrator", but accepts other
+values. String. Required.
+<p></p>
+</dd>
+<dt>&lt;vcard:VCARD&gt;</dt><dd>
+Complex element from the VCARD namespace for personal
+details. Includes an @xml:lang attribute to record language.
+<p></p>
+<div>
+<p></p>
+</dd>
+<dt>&lt;vcard:FN&gt;</dt><dd>
+Free text non-atomised, full name of contact. Includes optional
+@xml:lang attribute. String. Required.
+<p></p>
+</dd>
+<dt>&lt;vcard:TITLE&gt;</dt><dd>
+Free text for contact's job title (e.g., "Director"). Includes
+optional @xml:lang attribute. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;vcard:TEL&gt;</dt><dd>
+Free text for contact's telephone number. Includes optional @xml:lang
+attribute and optional enumerated @TYPE attribute with any of the
+values home, msg, work, pref, voice, fax, cell, pager, bbs, modem,
+car, isdn, or pics. String. Optional.
+<p></p>
+</dd>
+<dt>&lt;vcard:EMAIL&gt;</dt><dd>
+Text for contact's email. String. Optional.
+</dd>
+</dl>
+
+<p>
+</div>
+</p>
+<dl>
+<dt>&lt;custom&gt;</dt><dd>
+Optional element that allows the inclusion of any additional
+structured information related to the contact.
+</dd>
+</dl>
+
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:dct="http://purl.org/dc/terms/"
+            xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+            xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                                http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source accesspoint="http://example.net/tapir.cgi" 
+              sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+        &lt;software name="TapirProvider" version="1.0"/&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;metadata&gt;
+      &lt;dc:title&gt;Global Dragonflies Database&lt;/dc:title&gt;
+      &lt;dc:type&gt;http://purl.org/dc/dcmitype/Service&lt;/dc:type&gt;
+      &lt;accesspoint&gt;http://example.net/tapir.cgi&lt;/accesspoint&gt;
+      &lt;dc:description&gt;Global database about Dragonflies observation and specimen records&lt;/dc:description&gt;
+      &lt;dc:language&gt;en&lt;/dc:language&gt;
+      &lt;dc:subject&gt;dragonflies dragonfly observation specimen arthropoda insecta odonata&lt;/dc:subject&gt;
+      &lt;dct:bibliographicCitation&gt;Global Dragonflies Database&lt;/dct:bibliographicCitation&gt;
+      &lt;dc:rights&gt;Creative Commons License&lt;/dc:rights&gt;
+      &lt;dct:modified&gt;2006-07-01T09:35:14+01:00&lt;/dct:modified&gt;
+      &lt;dct:created&gt;2006-01-01T00:00:00+01:00&lt;/dct:created&gt;
+      &lt;indexingPreferences startTime="01:30:00Z" maxDuration="PT1H" frequency="P1M" /&gt;
+      &lt;relatedEntity&gt;
+        &lt;role&gt;data supplier&lt;/role&gt;
+        &lt;entity type="organization"&gt;
+          &lt;identifier&gt;http://purl.org/biodiv/myorg&lt;/identifier&gt;
+          &lt;name&gt;My Organization&lt;/name&gt;
+          &lt;acronym&gt;MYORG&lt;/acronym&gt;
+          &lt;logoURL&gt;http://example.net/myorg.png&lt;/logoURL&gt;
+          &lt;description&gt;My Organization hosts and maintains biodiversity databases&lt;/description&gt;
+          &lt;relatedInformation&gt;http://example.net/myorg&lt;/relatedInformation&gt;
+          &lt;hasContact&gt;
+            &lt;role&gt;data administrator&lt;/role&gt;
+            &lt;vcard:VCARD&gt;
+              &lt;vcard:FN&gt;My Name&lt;/vcard:FN&gt;
+              &lt;vcard:TITLE&gt;Director&lt;/vcard:TITLE&gt;
+              &lt;vcard:TEL&gt;11 11 11111111&lt;/vcard:TEL&gt;
+              &lt;vcard:EMAIL&gt;myname@example.net&lt;/vcard:EMAIL&gt;
+            &lt;/vcard:VCARD&gt;
+          &lt;/hasContact&gt;
+          &lt;geo:Point&gt;
+            &lt;geo:lat&gt;45.256&lt;/geo:lat&gt;
+            &lt;geo:long&gt;-71.92&lt;/geo:long&gt;
+          &lt;/geo:Point&gt;
+        &lt;/entity&gt;
+      &lt;/relatedEntity&gt;
+    &lt;/metadata&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example: Example of a metadata response document</i>
+</p>
+<a id="toc33" name="toc33"></a>
+<h2>5.2. Capabilities</h2>
+<p>
+The Capabilities operation is used to retrieve the essential settings
+and technical information about a TAPIR service.
+</p>
+<a id="toc34" name="toc34"></a>
+<h3>5.2.1. Capabilities Request</h3>
+<p>
+In XML, the Capabilities operation is invoked by inserting the
+&lt;capabilities/&gt; element after the header section in a request
+document. Capabilities requests take no arguments or parameters.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;capabilities/&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Example of an XML capabilities request document</i>
+</p>
+<p>
+In KVP request encoding, the Capabilities operation can be invoked with a single parameter, as follows:
+</p>
+<p>
+http://example.net/tapir.cgi?op=capabilities
+</p>
+<a id="toc35" name="toc35"></a>
+<h3>5.2.2. Capabilities Response</h3>
+<p>
+Capabilities responses contain five mandatory top level sections to
+indicate available operations, supported request encodings and
+parameters, mapped concepts, available variables and global settings.
+An optional section &lt;archives&gt; can be used to indicate possible dump
+files available. Another optional &lt;custom&gt; section can be used to
+include any extra information not covered by the other sections.
+</p>
+<h4>5.2.2.1. Operations</h4>
+<p>
+The &lt;operations&gt; element is intended to return the list of operations
+supported by the service, including optional capabilities that are
+specific to each operation. When an operation is supported, an element
+with the same name must be present inside the &lt;operations&gt;
+element. Ping, metadata and capabilities are mandatory operations that
+are simply declared with no further arguments.
+</p>
+<div class="exampleInner"><pre>
+  &lt;operations&gt;
+    &lt;ping/&gt;
+    &lt;metadata/&gt;
+    &lt;capabilities/&gt;
+  &lt;/operations&gt;
+</pre></div>
+<p>
+<i>Example: A provider supporting only the mandatory operations</i>
+</p>
+<p>
+A provider that supports the inventory operation must indicate one or
+more supported inventory templates, or the &lt;anyConcepts/&gt;
+capability. Providers that only support inventory templates should not
+accept inventory requests that do not reference them. Each inventory
+template must be indicated with a &lt;template&gt; element with an attribute
+@location pointing to an external document defining the template. An
+optional @alias attribute can be specified, in which case the alias
+can also be used as the value of the template parameter in KVP
+inventory requests. A WSDL (Web Service Description Language) document
+describing the inventory template and its interface can optionally be
+included with an attribute @wsdl.
+</p>
+<div class="exampleInner"><pre>
+  &lt;operations&gt;
+    &lt;ping/&gt;
+    &lt;metadata/&gt;
+    &lt;capabilities/&gt;
+    &lt;inventory&gt;
+      &lt;templates&gt;
+        &lt;template location="http://example.net/tmpl/collector_inventory.xml"/&gt;
+        &lt;template location="http://example.net/tmpl/genus_inventory.xml"
+                  alias="genus_inventory"
+                  wsdl="http://example.net/tmpl/genus_inventory.wsdl" /&gt;
+      &lt;/templates&gt;
+    &lt;/inventory&gt;
+  &lt;/operations&gt;
+</pre></div>
+<p>
+<i>Example: A provider supporting inventory with templates</i>
+</p>
+<p>
+Providers declaring the &lt;anyConcepts/&gt; capability should accept
+inventory requests involving one or more concepts that were advertised
+as being mapped by the provider. They must also support inventory
+requests involving any external inventory template that references any
+known concepts. Therefore, providers in this situation must
+additionally support arbitrary filters. The &lt;anyConcepts/&gt; capability
+is declared without any further arguments.
+</p>
+<div class="exampleInner"><pre>
+  &lt;operations&gt;
+    &lt;ping/&gt;
+    &lt;metadata/&gt;
+    &lt;capabilities/&gt;
+    &lt;inventory&gt;
+      &lt;anyConcepts/&gt;
+    &lt;/inventory&gt;
+  &lt;/operations&gt;
+</pre></div>
+<p>
+<i>Example: A provider supporting inventory in any concept</i>
+</p>
+<p>
+Providers are also allowed to support both &lt;anyConcepts/&gt; and
+templates, in case they wish to point to specific inventory templates
+for any particular reason. However providers are not allowed to
+advertise support of the inventory operation just with an empty
+&lt;inventory/&gt; element.
+</p>
+<p>
+If a provider supports the search operation, it must indicate either
+one or more supported search templates, or the &lt;outputModels/&gt;
+capability. Providers that only support search templates should not
+accept search requests that do not reference them. Each search
+template must be indicated with a &lt;template&gt; element having an
+attribute @location pointing to an external document defining the
+template. An optional @alias attribute can be specified, in which case
+the alias can also be used as the value of the template parameter in
+KVP search requests. A WSDL (Web Service Description Language)
+document describing the search template and its interface can
+optionally be included with an attribute @wsdl.
+</p>
+<div class="exampleInner"><pre>
+  &lt;operations&gt;
+    &lt;ping/&gt;
+    &lt;metadata/&gt;
+    &lt;capabilities/&gt;
+    &lt;inventory&gt;
+      &lt;anyConcepts/&gt;
+    &lt;/inventory&gt;
+    &lt;search&gt;
+      &lt;templates&gt;
+        &lt;template location="http://example.net/tmpl/search_by_taxonomy.xml"/&gt;
+        &lt;template location="http://example.net/tmpl/search_by_geography.xml"
+                  alias="geo"
+                  wsdl="http://example.net/tmpl/search_by_geography.wsdl" /&gt;
+      &lt;/templates&gt;
+    &lt;/search&gt;
+  &lt;/operations&gt;
+</pre></div>
+<p>
+<i>Example: A provider supporting search with templates</i>
+</p>
+<p>
+Providers declaring the &lt;outputModels/&gt; capability should indicate
+either one or more &lt;knownOutputModels&gt; or the &lt;anyOutputModels&gt;
+capability. Both can be declared, but an empty &lt;outputModels/&gt; element
+will be considered invalid.
+</p>
+<p>
+Providers that only support a specific list of output models must
+understand filters and "order by" parameters. But they can optionally
+support the &lt;anyOutputModels&gt; capability. When a provider declares
+support for a specific output model, it must be able to process any
+search request that references that same output model, either directly
+or through a search template. Known output models are declared with
+the &lt;outputModel&gt; element with a @location attribute pointing to the
+document defining it. An optional @alias attribute can be specified,
+in which case the alias can be used as the value of the output model
+parameter in KVP search requests.
+</p>
+<div class="exampleInner"><pre>
+  &lt;operations&gt;
+    &lt;ping/&gt;
+    &lt;metadata/&gt;
+    &lt;capabilities/&gt;
+    &lt;inventory&gt;
+      &lt;anyConcepts/&gt;
+    &lt;/inventory&gt;
+    &lt;search&gt;
+      &lt;outputModels&gt;
+        &lt;knownOutputModels&gt;
+          &lt;outputModel location="http://example.net/models/taxonomy_rss.xml"/&gt;
+          &lt;outputModel location="http://example.net/models/geography_kml.xml" alias="kml"/&gt;
+        &lt;/knownOutputModels&gt;
+      &lt;/outputModels&gt;
+    &lt;/search&gt;
+  &lt;/operations&gt;
+</pre></div>
+<p>
+<i>Example: A provider supporting search with known output models</i>
+</p>
+<p>
+Providers may also declare the &lt;anyOutputModels&gt; capability, in which
+case they need to indicate which subset of the XML Schema language
+they understand. &lt;anyOutputModels&gt; refers to the ability to respond to
+search requests involving arbitrary output model definitions, assuming
+they make use of concepts that are mapped by the provider. Output
+models include a response structure defined with XML Schema. XML
+Schema is a large and very complex specification and TAPIR does not
+expect providers to be able to understand or parse the whole
+language. The minimum set of the XML Schema language that needs to be
+understood by providers in this case is represented by the
+&lt;basicSchemaLanguage/&gt; capability, and it includes the following
+constructs of XML Schema: targetNamespace definition, element
+definition (including minOccurs and maxOccurs), attribute definitions
+(including attribute "use"), local definitions of complexType and
+simpleType, sequences, and the "all" definition. Therefore, when a
+provider declares the &lt;anyOutputModel&gt; capability, it must declare
+inside it at least the element &lt;basicSchemaLanguage/&gt;.
+</p>
+<div class="exampleInner"><pre>
+  &lt;operations&gt;
+    &lt;ping/&gt;
+    &lt;metadata/&gt;
+    &lt;capabilities/&gt;
+    &lt;inventory&gt;
+      &lt;anyConcepts/&gt;
+    &lt;/inventory&gt;
+    &lt;search&gt;
+      &lt;anyOutputModels&gt;
+        &lt;responseStructure&gt;
+          &lt;basicSchemaLanguage/&gt;
+          &lt;import/&gt;
+        &lt;/responseStructure&gt;
+      &lt;/anyOutputModels&gt;
+    &lt;/search&gt;
+  &lt;/operations&gt;
+</pre></div>
+<p>
+<i>Example: A provider supporting search with any output models</i>
+</p>
+<p>
+The following constructs of XML Schema can be optionally supported and
+declared as part of the &lt;anyOutputModels&gt; element:
+</p>
+<ul>
+<li>choice
+</li>
+<li>group (local group definitions without global referencing)
+</li>
+<li>import
+</li>
+<li>include
+</li>
+<li>references
+ <ul>
+ <li>element
+ </li>
+ <li>attribute
+ </li>
+ <li>group
+ </li>
+ <li>attributeGroup
+ </li>
+ <li>complexType
+ </li>
+ <li>simpleType
+  <ul>
+  <li>list
+  </li>
+  <li>union
+  </li>
+  </ul>
+ </li>
+ </ul>
+</li>
+<li>simpleTypes
+ <ul>
+ <li>stringTypes
+  <ul>
+  <li>string
+   <ul>
+   <li>normalizedString
+   </li>
+   <li>token
+   </li>
+   <li>language
+   </li>
+   <li>Name
+   </li>
+   <li>NCName
+   </li>
+   <li>NMToken
+   </li>
+   <li>NMTokens
+   </li>
+   <li>ID
+   </li>
+   <li>IDREF
+   </li>
+   <li>IDREFS
+   </li>
+   <li>ENTITY
+   </li>
+   <li>ENTITIES
+   </li>
+   </ul>
+  </li>
+  </ul>
+ </li>
+ <li>numericTypes
+  <ul>
+  <li>float
+  </li>
+  <li>double
+  </li>
+  <li>decimal
+  </li>
+  <li>integerTypes
+   <ul>
+   <li>integer
+   </li>
+   <li>long
+   </li>
+   <li>int
+   </li>
+   <li>short
+   </li>
+   <li>byte
+   </li>
+   <li>positiveInteger
+   </li>
+   <li>nonPositiveInteger
+   </li>
+   <li>negativeInteger
+   </li>
+   <li>nonNegativeInteger
+   </li>
+   <li>unsignedLong
+   </li>
+   <li>unsignedInt
+   </li>
+   <li>unsignedShort
+   </li>
+   <li>unsignedByte
+   </li>
+   </ul>
+  </li>
+  </ul>
+ </li>
+ <li>dateTimeTypes
+  <ul>
+  <li>duration
+  </li>
+  <li>dateTime
+  </li>
+  <li>time
+  </li>
+  <li>date
+  </li>
+  <li>gYearMonth
+  </li>
+  <li>gYear
+  </li>
+  <li>gMonthDay
+  </li>
+  <li>gDay
+  </li>
+  <li>gMonth
+  </li>
+  </ul>
+ </li>
+ <li>miscTypes
+  <ul>
+  <li>Boolean
+  </li>
+  <li>base64Binary
+  </li>
+  <li>hexBinary
+  </li>
+  <li>anyURI
+  </li>
+  <li>QName
+  </li>
+  </ul>
+ </li>
+ </ul>
+</li>
+<li>extension
+</li>
+<li>restriction
+ <ul>
+ <li>minInclusive
+ </li>
+ <li>maxInclusive
+ </li>
+ <li>minExclusive
+ </li>
+ <li>maxExclusive
+ </li>
+ <li>fractionDigits
+ </li>
+ <li>totalDigits
+ </li>
+ <li>enumeration
+ </li>
+ <li>whiteSpace
+ </li>
+ <li>pattern
+ </li>
+ <li>length
+ </li>
+ <li>minLength
+ </li>
+ <li>maxLength
+ </li>
+ </ul>
+</li>
+<li>substitutionGroup
+</li>
+<li>constraints
+ <ul>
+ <li>field
+ </li>
+ <li>selector
+ </li>
+ <li>unique
+ </li>
+ <li>key
+ </li>
+ <li>keyref
+ </li>
+ </ul>
+</li>
+</ul>
+
+<p>
+Providers are allowed to support both search templates and output
+models. However, they are not allowed to advertise support of the
+search operation with an empty &lt;search/&gt; element.
+</p>
+<p>
+When providers support search with output models they are also allowed
+to support both &lt;knownOutputModels&gt; and &lt;anyOutputModels&gt;, but they
+are not allowed to declare an empty &lt;outputModels/&gt; element.
+</p>
+<p>
+Besides standard operations, providers can also declare they support
+custom operations inside an optional &lt;custom&gt; element.
+</p>
+<h4>5.2.2.2. Requests</h4>
+<p>
+The &lt;requests&gt; element is intended to provide information on what
+request encodings the service can respond to, whether it handles
+log-only requests and what filter capabilities are supported.
+</p>
+<p>
+This section includes three sub-sections:
+</p>
+<dl>
+<dt><b>&lt;encoding&gt;</b> </dt><dd>
+Indicates what request encodings are supported. The options are &lt;kvp/&gt;
+(Key-Value Pairs) and &lt;xml/&gt;. Support of key-value pairs is mandatory,
+while the XML encoding is optional.
+<p></p>
+</dd>
+<dt><b>&lt;globalParameters&gt;</b></dt><dd>
+Indicates if the provider "accepts", "requires" or "denies" log-only
+requests.
+<p></p>
+</dd>
+<dt><b>&lt;filter&gt;</b></dt><dd>
+Lists the expressions and Boolean operators understood by the provider
+service and which may be used in constructing filters.
+</dd>
+</dl>
+
+<div class="exampleInner"><pre>
+  &lt;requests&gt;
+    &lt;encoding&gt;
+      &lt;kvp/&gt;
+    &lt;/encoding&gt;
+    &lt;globalParameters&gt;	
+      &lt;logOnly&gt;denied&lt;/logOnly&gt;
+    &lt;/globalParameters&gt;
+    &lt;filter/&gt;
+  &lt;/requests&gt;
+</pre></div>
+<p>
+<i>Example: Fragment of a &lt;requests&gt; declaration in a capabilities response document showing the minimum functionality that a TAPIR service must be able to provide. Note that in this case no filter capabilities are declared.</i>
+</p>
+<p>
+Filters are used in search and inventory operations. The &lt;filter&gt;
+element in capabilities responses lists all the filter operations and
+terms that are supported by the provider. When a provider declares the
+filter &lt;encoding&gt; element, a minimum set of filtering capabilities
+must be supported and indicated for the sake of clarity. The only
+optional filtering capability in this case is related to the
+arithmetic operators.
+</p>
+<div class="exampleInner"><pre>
+  &lt;requests&gt;
+    &lt;encoding&gt;
+      &lt;kvp/&gt;
+      &lt;xml/&gt;
+    &lt;/encoding&gt;
+    &lt;globalParameters&gt;	
+      &lt;logOnly&gt;accepted&lt;/logOnly&gt;
+    &lt;/globalParameters&gt;
+    &lt;filter&gt;
+        &lt;encoding&gt;
+          &lt;expression&gt;
+            &lt;concept/&gt;
+            &lt;literal/&gt;
+            &lt;parameter/&gt;
+            &lt;variable/&gt;
+            &lt;arithmetic&gt;
+              &lt;add/&gt;
+              &lt;sub/&gt;
+              &lt;div/&gt;
+              &lt;mul/&gt;
+            &lt;/arithmetic&gt;
+          &lt;/expression&gt;
+          &lt;booleanOperators&gt;
+            &lt;logical&gt;
+              &lt;not/&gt;
+              &lt;and/&gt;
+              &lt;or/&gt;
+            &lt;/logical&gt;
+            &lt;comparative&gt;
+              &lt;equals caseSensitive="false"/&gt;
+              &lt;greaterThan/&gt;
+              &lt;greaterThanOrEquals/&gt;
+              &lt;lessThan/&gt;
+              &lt;lessThanOrEquals/&gt;
+              &lt;in/&gt;
+              &lt;isNull/&gt;
+              &lt;like caseSensitive="false"/&gt;
+            &lt;/comparative&gt;
+          &lt;/booleanOperators&gt;
+        &lt;/encoding&gt;
+    &lt;/filter&gt;
+  &lt;/requests&gt;
+</pre></div>
+<p>
+<i>Example: A TAPIR provider declaring support to both xml and kvp encoding, accepting log-only requests, and declaring the complete filter functionality.</i>
+</p>
+<p>
+When a provider supports filters, it can indicate if they are case
+sensitive or not. When not indicated, it defaults to "true" (case
+sensitive).
+</p>
+<h4>5.2.2.3. Concepts</h4>
+<p>
+The &lt;concepts&gt; element is intended to provide details of recognised
+conceptual schemas and individually mapped concepts from those
+schemas. At least one conceptual schema must be mapped with at least
+one concept. The underlying database structure remains opaque to TAPIR
+clients, which interact with the underlying database by reference to
+the mapped concepts. Recognised conceptual schemas are declared using
+the @namespace and @location attributes of the &lt;schema&gt; element, both
+of which are required and must be valid URIs. An optional @alias can
+be assigned to the schema.
+</p>
+<p>
+Within each schema declaration the provider must list the recognised
+concepts of that schema using the &lt;mappedConcept&gt; element. Each
+concept is declared through an instance of the &lt;mappedConcept&gt;
+element, which contains four attributes:
+</p>
+<dl>
+<dt>@id</dt><dd>
+The fully qualified concept identifier. Required. String.
+<p></p>
+</dd>
+<dt>@searchable</dt><dd>
+Denotes whether the concept can be used in filters. Optional (defaults
+to "true"). Boolean.
+<p></p>
+</dd>
+<dt>@required</dt><dd>
+Denotes that this is a mandatory concept that needs to be present in
+output models of all search requests. Optional (defaults to
+"false"). Boolean.
+<p></p>
+</dd>
+<dt>@alias</dt><dd>
+A local alias associated with the concept. Optional. String.
+<p></p>
+</dd>
+<dt>@datatype</dt><dd>
+Indicates the corresponding datatype of the mapped concept. This will
+determine the ordering behaviour in results and the I/O data formats
+supported by the provider for the concept. Must be one of the fully
+qualified 
+<a href="http://www.w3.org/TR/xmlschema-2/#built-in-datatypes">XML Schema primitive datatypes</a>. 
+The datatype declared should always try to match the datatype defined by the
+conceptual schema. If the conceptual schema uses a non primitive
+datatype for the concept, this match should happen with the
+corresponding primitive datatype (going back in the type
+hierarchy). Optional (defaults to
+http://www.w3.org/2001/XMLSchema#string). String.
+</dd>
+</dl>
+
+<div class="exampleInner"><pre>
+  &lt;concepts&gt;
+    &lt;schema namespace="http://example.net/s/1"
+            location="http://example.net/s/1/schema.xsd"&gt;
+      &lt;mappedConcept id="http://example.net/s/1/CollectionCode"/&gt;
+      &lt;mappedConcept id="http://example.net/s/1/CollectionName" searchable="false"/&gt;
+    &lt;/schema&gt;
+    &lt;schema namespace="http://example.net/s/2"
+            location="http://example.net/s/2/schema.xsd"&gt;
+      &lt;mappedConcept id="http://example.net/s/2/CatalogNumber" datatype="http://www.w3.org/2001/XMLSchema#decimal"/&gt;
+      &lt;mappedConcept id="http://example.net/s/2/Rights" required="true"/&gt;
+    &lt;/schema&gt;
+  &lt;/concepts&gt;
+</pre></div>
+<p>
+<i>Example: Example of a concepts declaration that might appear in a capabilities response document</i>
+</p>
+<p>
+When a &lt;mappedConcept&gt; and its &lt;schema&gt; are declared with an @alias
+attribute, providers must be able to understand requests that
+reference the concept by the short notation:
+concept_alias@schema_alias. When a &lt;mappedConcept&gt; is declared with an
+@alias attribute but its &lt;schema&gt; is not, providers must be able to
+understand requests that reference only the concept by its
+alias. These two situations do not exempt providers from understanding
+requests referencing concepts by fully qualified identifiers.
+</p>
+<h4>5.2.2.4. Variables</h4>
+<p>
+The &lt;variables&gt; element indicates system environment variables that
+can be used as filter expressions (see section about filter
+expressions). Each supported variable must be indicated with an
+element of the same variable name inside the element
+&lt;environment&gt;. When the &lt;variables&gt; element is empty it means that no
+variables are supported.
+</p>
+<div class="exampleInner"><pre>
+  &lt;variables&gt;
+    &lt;environment&gt;
+      &lt;accessPoint/&gt;
+      &lt;date/&gt;
+      &lt;timestamp/&gt;
+      &lt;metadataLanguage/&gt;
+      &lt;dataSourceName/&gt;
+      &lt;dataSourceDescription/&gt;
+      &lt;subject/&gt;
+      &lt;rights/&gt;
+      &lt;bibliographicCitation/&gt;
+      &lt;dataSourceLanguage/&gt;
+      &lt;lastUpdate/&gt;
+      &lt;dateCreated/&gt;
+      &lt;technicalContactName/&gt;
+      &lt;technicalContactEmail/&gt;
+      &lt;contentContactName/&gt;
+      &lt;contentContactEmail/&gt;
+    &lt;/environment&gt;
+   &lt;/variables&gt;
+</pre></div>
+<p>
+<i>Example: Fragment of a capabilities response declaring all environmental variables defined by the TAPIR XML Schema and an extra one.</i>
+</p>
+<h4>5.2.2.5. Settings</h4>
+<p>
+The &lt;settings&gt; element indicates specific service settings related to
+server overload caused by requests for excessive amounts of
+data. There are five settings of interest to client software, all of
+them optional, and further ones can be declared using the &lt;custom&gt;
+element. The five settings all take positive integer values:
+</p>
+<dl>
+<dt>minQueryTermLength</dt><dd>
+The minimum length of a wildcard string used in "like" expressions.
+<p></p>
+</dd>
+<dt>maxElementRepetitions</dt><dd>
+The maximum number of repetitions allowed for any repeatable XML
+elements in search and inventory responses. It can also be used as a
+reference for paging.
+<p></p>
+</dd>
+<dt>maxElementLevels</dt><dd>
+The maximum number of nested XML levels allowed for search responses
+(not including the TAPIR envelope).
+<p></p>
+</dd>
+<dt>maxResponseTags</dt><dd>
+The maximum number of XML tags that can be returned in responses.
+<p></p>
+</dd>
+<dt>maxResponseSize</dt><dd>
+The maximum size in kilobytes allowed to be returned in responses.
+</dd>
+</dl>
+
+<div class="exampleInner"><pre>
+  &lt;settings&gt;
+    &lt;minQueryTermLength&gt;2&lt;/minQueryTermLength&gt;
+    &lt;maxElementRepetitions&gt;100&lt;/maxElementRepetitions&gt;
+    &lt;maxElementLevels&gt;20&lt;/maxElementLevels&gt;
+  &lt;/settings&gt;
+</pre></div>
+<p>
+<i>Example: Fragment of a capabilities response showing service settings.</i>
+</p>
+<h4>5.2.2.6. Archives</h4>
+<p>
+An &lt;archives&gt; element can be used to advertise one or more dump files
+available. A dump file contains all records from the provider at a
+particular time and can be useful for clients that need to harvest
+entire datasets. When a dump file is available, clients can make use
+of it when interacting with the provider for the first time, and then
+use incremental harvesting through the search operation in subsequent
+interactions. Note that incremental harvesting will only be possible
+if the provider has mapped some concept that indicates when a record
+was last edited, and ideally another concept that indicates when a
+record was deleted. Such concepts should be part of a data abstraction
+layer and are therefore outside the scope of this specification.
+</p>
+<p>
+Each dump file is represented by an &lt;archive&gt; element that can contain
+the following attributes:
+</p>
+<dl>
+<dt>@format</dt><dd>
+Format of the archive. It can be "xml" or any custom
+value. Mandatory. String.
+<p></p>
+</dd>
+<dt>@location</dt><dd>
+URL from where the archive can be downloaded. Mandatory. Any URI.
+<p></p>
+</dd>
+<dt>@creation</dt><dd>
+Timestamp when the archive was created. Mandatory. DateTime.
+<p></p>
+</dd>
+<dt>@compression</dt><dd>
+When the archive is compressed, this attribute must be present to
+indicate the type of compression. When present, it can be "gzip" or
+any custom value. When absent, no compression was
+used. Optional. String.
+<p></p>
+</dd>
+<dt>@numberOfRecords</dt><dd>
+Number of records in the archive. Mandatory. Integer.
+<p></p>
+</dd>
+<dt>@outputModel</dt><dd>
+Output model used to generate the archive. This attribute should only
+be present if the archive format is "xml". Optional. Any URI.
+</dd>
+</dl>
+
+<div class="exampleInner"><pre>
+  &lt;archives&gt;
+    &lt;archive format="xml" 
+             location="http://example.net/file.gz" 
+             creation="2005-10-31T12:23:56.023+01:00" 
+             compression="gzip" 
+             numberOfRecords="351056" 
+             outputModel="http://example.net/model.xml"/&gt;
+  &lt;/archives&gt;
+</pre></div>
+<p>
+<i>Example: A provider advertising a dump file with all records at a specific time</i>
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                                http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source accesspoint="http://example.net/tapir.cgi" 
+              sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+        &lt;software name="TapirProvider" version="1.0"/&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;capabilities&gt;
+      &lt;operations&gt;
+        &lt;ping/&gt;
+        &lt;metadata/&gt;
+        &lt;capabilities/&gt;
+        &lt;inventory&gt;
+          &lt;anyConcepts/&gt;
+        &lt;/inventory&gt;
+        &lt;search&gt;
+          &lt;outputModels&gt;
+            &lt;anyOutputModels&gt;
+              &lt;responseStructure&gt;
+                &lt;/basicSchemaLanguage&gt;
+              &lt;/responseStructure&gt;
+            &lt;/anyOutputModels&gt;
+          &lt;/outputModels&gt;
+        &lt;/search&gt;
+      &lt;/operations&gt;
+      &lt;requests&gt;
+        &lt;encoding&gt;
+          &lt;kvp/&gt;
+          &lt;xml/&gt;
+        &lt;/encoding&gt;
+        &lt;globalParameters&gt;	
+          &lt;logOnly&gt;accepted&lt;/logOnly&gt;
+        &lt;/globalParameters&gt;
+        &lt;filter&gt;
+            &lt;encoding&gt;
+              &lt;expression&gt;
+                &lt;concept/&gt;
+                &lt;literal/&gt;
+                &lt;parameter/&gt;
+                &lt;variable/&gt;
+                &lt;arithmetic/&gt;
+              &lt;/expression&gt;
+              &lt;booleanOperators&gt;
+                &lt;logical&gt;
+                  &lt;not/&gt;
+                  &lt;and/&gt;
+                  &lt;or/&gt;
+                &lt;/logical&gt;
+                &lt;comparative&gt;
+                  &lt;equals caseSensitive="false"/&gt;
+                  &lt;greaterThan/&gt;
+                  &lt;greaterThanOrEquals/&gt;
+                  &lt;lessThan/&gt;
+                  &lt;lessThanOrEquals/&gt;
+                  &lt;in/&gt;
+                  &lt;isNull/&gt;
+                  &lt;like caseSensitive="false"/&gt;
+                &lt;/comparative&gt;
+              &lt;/booleanOperators&gt;
+            &lt;/encoding&gt;
+        &lt;/filter&gt;
+      &lt;/requests&gt;
+      &lt;concepts&gt;
+        &lt;schema namespace="http://example.net/s"
+                location="http://example.net/s/schema.xsd"&gt;
+          &lt;mappedConcept id="http://example.net/s/CatalogNumber"/&gt;
+          &lt;mappedConcept id="http://example.net/s/ScientificName"/&gt;
+        &lt;/schema&gt;
+      &lt;/concepts&gt;
+      &lt;variables/&gt;
+      &lt;settings&gt;
+        &lt;minQueryTermLength&gt;2&lt;/minQueryTermLength&gt;
+        &lt;maxElementRepetitions&gt;100&lt;/maxElementRepetitions&gt;
+        &lt;maxElementLevels&gt;20&lt;/maxElementLevels&gt;
+      &lt;/settings&gt;
+    &lt;/capabilities&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example: Example of a full capabilities response document containing only the mandatory sections</i>
+</p>
+<a id="toc36" name="toc36"></a>
+<h2>5.3. Inventory</h2>
+<p>
+The Inventory operation is used to retrieve distinct values for one or
+more concepts specified as parameters. It returns aggregated data in
+the mode of a DISTINCT select in SQL, as opposed to individual records
+returned by the Search operation. When more than one concept is
+specified, inventory responses must return distinct combinations of
+values.
+</p>
+<p>
+Concepts used as parameters may come from different conceptual schemas
+and must be specified either with their fully qualified identifiers or
+with aliases. If aliases are used, the TAPIR implementation must be
+configured to use the relevant concept name server.
+</p>
+<p>
+If a provider supports the inventory operation, it must advertise
+either one or more inventory templates or support the &lt;anyConcepts&gt;
+capability. Providers may support both options and choose how they
+wish to process requests.
+</p>
+<a id="toc37" name="toc37"></a>
+<h3>5.3.1. Inventory Request</h3>
+<p>
+Inventory requests can make use of inventory templates or may specify
+the concept(s) and an optional filter directly in the message. Paging
+parameters can also be used.
+</p>
+<p>
+In XML, the inventory operation can be invoked by inserting the
+&lt;inventory&gt; element after the header section in a request document,
+and then specifying an inventory template or the specific parameters.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;inventory&gt;
+      &lt;template location="http://example.net/tmpl/genus_inventory.xml"/&gt;
+    &lt;/inventory&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Example of an XML inventory request document using a template.</i>
+</p>
+<p>
+In KVP request encoding, the same example could be invoked with:
+</p>
+<p>
+http://example.net/tapir.cgi?op=inventory&amp;template=
+http://example.net/tmpl/genus_inventory.xml
+</p>
+<p>
+If the template included a filter with a parameter "type" restricting
+results according to the basis of record, it could be invoked with
+</p>
+<p>
+http://example.net/tapir.cgi?op=inventory&amp;template=
+http://example.net/tmpl/genus_inventory.xml&amp;type=specimen
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;inventory&gt;
+      &lt;concepts&gt;
+        &lt;concept id="http://example.net/schema1/Country"/&gt;
+        &lt;concept id="http://example.net/schema1/Genus"/&gt;
+      &lt;/concepts&gt;
+    &lt;/inventory&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Example of an XML inventory request document (looking for unique combinations of genus and country) specifying concepts but no filter.</i>
+</p>
+<p>
+In KVP request encoding, the same example could be invoked with
+</p>
+<p>
+http://example.net/tapir.cgi?op=inventory&amp;concept=http://example.net/schema1/Country&amp;
+concept=http://example.net/schema1/Genus
+</p>
+<p>
+or, using concept aliases
+</p>
+<p>
+http://example.net/tapir.cgi?op=inventory&amp;count=false&amp;start=0&amp;limit=100&amp;
+concept=Country@schema1&amp;concept=Genus@schema1
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;inventory count="true" limit="100" start="0"&gt;
+      &lt;concepts&gt;
+        &lt;concept id="http://example.net/schema1/Country" tagName="country"/&gt;
+        &lt;concept id="http://example.net/schema1/Genus" tagName="genus"/&gt;
+      &lt;/concepts&gt;
+      &lt;filter&gt;
+        &lt;like&gt;
+          &lt;concept id="http://example.net/schema1/Genus"/&gt;
+          &lt;literal value="Luzu*"/&gt;
+        &lt;/like&gt;
+      &lt;/filter&gt;
+    &lt;/inventory&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Example of an XML inventory request document (looking for unique combinations of genus and country) specifying concepts, custom tag names for the resulting values, paging parameters and a filter.</i>
+</p>
+<p>
+In KVP request encoding, the same example could be invoked with
+</p>
+<p>
+http://example.net/tapir.cgi?op=inventory&amp;count=true&amp;start=0&amp;limit=100&amp;
+concept=Country@schema1&amp;concept=Genus@schema1&amp;tagname=country&amp;tagname=genus&amp;
+filter=Genus@schema1 like "Luzu*"
+</p>
+<a id="toc38" name="toc38"></a>
+<h3>5.3.2. Inventory Response</h3>
+<p>
+The structure of inventory responses must conform to the
+"inventoryResultType" defined in the TAPIR XML Schema. The body of the
+inventory message must list the concepts used to create the inventory
+using the &lt;concepts&gt; element. Individual inventory records, which
+represent unique combinations of multiple concepts, are returned as
+one or more &lt;record&gt; elements.
+</p>
+<p>
+Each &lt;record&gt; element lists the value or values found in the order
+that concepts are listed under &lt;concepts&gt;. If count was requested,
+then each &lt;record&gt; must include an attribute @count, giving the number
+of occurrences of this combination in the underlying data source. If
+paging was requested, then a &lt;summary&gt; element must also be
+returned. The order of &lt;record&gt; elements should be ascending according
+to the concept's datatype declared in the capabilities response.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                                http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source accesspoint="http://example.net/tapir.cgi" 
+              sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+        &lt;software name="TapirService" version="1.0"/&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;inventory&gt;
+      &lt;concepts&gt;
+        &lt;concept id="http://example.net/schema1/Country"/&gt;
+        &lt;concept id="http://example.net/schema1/Genus"/&gt;
+      &lt;/concepts&gt;
+      &lt;record&gt;
+        &lt;value&gt;AUSTRALIA&lt;/value&gt;
+        &lt;value&gt;Calicium&lt;/value&gt;
+      &lt;/record&gt;
+      &lt;record&gt;
+        &lt;value&gt;AUSTRALIA&lt;/value&gt;
+        &lt;value&gt;Fellhanera&lt;/value&gt;
+      &lt;/record&gt;
+      &lt;summary start="0" next="2" totalReturned="2" totalMatched="35"/&gt;
+    &lt;/inventory&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example: An inventory response showing country and genus combinations</i>
+</p>
+<p>
+If the request references an unmapped concept an &lt;error&gt; should be returned.
+</p>
+<p>
+When the request specifies a custom "tagName" for the concept, then
+this name should be used instead of the default &lt;value&gt; tag.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                                http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source accesspoint="http://example.net/tapir.cgi" 
+              sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+        &lt;software name="TapirService" version="1.0"/&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;inventory&gt;
+      &lt;concepts&gt;
+        &lt;concept id="http://example.net/schema1/Country"/&gt;
+        &lt;concept id="http://example.net/schema1/Genus"/&gt;
+      &lt;/concepts&gt;
+      &lt;record&gt;
+        &lt;country&gt;AUSTRALIA&lt;/country&gt;
+        &lt;genus&gt;Calicium&lt;/genus&gt;
+      &lt;/record&gt;
+      &lt;record&gt;
+        &lt;country&gt;AUSTRALIA&lt;/country&gt;
+        &lt;genus&gt;Fellhanera&lt;/genus&gt;
+      &lt;/record&gt;
+      &lt;summary start="0" next="2" totalReturned="2" totalMatched="35"/&gt;
+    &lt;/inventory&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example: An inventory response showing country and genus combinations with values enclosed by custom tag names</i>
+</p>
+<a id="toc39" name="toc39"></a>
+<h2>5.4. Search</h2>
+<p>
+The Search operation is used to return non-aggregate records from data
+sources. Search requests make use of output models and filters to
+select the requested data. The returned records may also be counted
+and paged.
+</p>
+<p>
+If a provider supports the search operation, it must advertise either
+one or more search templates or it must support the &lt;outputModels&gt;
+capability. Providers may support both options and choose how they
+wish to process requests. If a provider supports the &lt;outputModels&gt;
+capability, it must advertise either one or more known output models
+or it must support the &lt;anyOutputModels&gt; capability.
+</p>
+<a id="toc40" name="toc40"></a>
+<h3>5.4.1. Search Request</h3>
+<p>
+Search requests can make use of search templates or specify all
+parameters directly in the message. Paging parameters can also be
+used.
+</p>
+<p>
+In XML, the search operation can be invoked by inserting the &lt;search&gt;
+element after the header section in a request document, and then
+specifying a search template or the specific parameters.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;/source&gt;
+    &lt;/header&gt;
+    &lt;search&gt;
+      &lt;template location="http://example.net/tmpl/search_by_taxon.xml"/&gt;
+    &lt;/search&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Example of an XML search request document using a template.</i>
+</p>
+<p>
+In KVP request encoding, the same example could be invoked with
+</p>
+<p>
+http://example.net/tapir.cgi?op=search&amp;template=
+http://example.net/tmpl/search_by_taxon.xml
+</p>
+<p>
+If the template included a filter with a parameter "genus" restricting
+results according to a specified genus name, it could be invoked with
+</p>
+<p>
+http://example.net/tapir.cgi?op=search&amp;template=
+http://example.net/tmpl/search_by_taxon.xml&amp;genus=Physalis
+</p>
+<p>
+In addition to referring to external output models (both those known
+to the provider and user defined ones) by their URI, it is possible to
+declare an output structure directly within a request document through
+the &lt;outputModel&gt; element, whose structure is exactly as that used in
+external models.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                               http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source sendtime="2005-11-11T12:23:56.023+01:00"/&gt;
+    &lt;/header&gt;
+    &lt;search count="true" start="0" limit="1000"&gt;
+      &lt;outputModel&gt;
+        &lt;structure&gt;... concepts and relationships ... &lt;/structure&gt;
+        &lt;rootElement name="... name of global element ..."/&gt;
+        &lt;indexingElement path="... node path(s) for paging and counting ..."/&gt;
+        &lt;mapping&gt;... concept mapping elements ...&lt;/mapping&gt;
+      &lt;/outputModel&gt;
+      &lt;filter&gt;
+        &lt;like&gt;
+          &lt;concept id="http://example.net/schema/ScientificName"/&gt;
+          &lt;literal value="Luzu*"/&gt;
+        &lt;/like&gt;
+      &lt;/filter&gt;
+      &lt;orderBy&gt;
+        &lt;concept id="http://example.net/schema/Family"/&gt;
+        &lt;concept id="http://example.net/schema/ScientificName"/&gt;
+      &lt;/orderBy&gt;
+    &lt;/search&gt;
+  &lt;/request&gt;
+</pre></div>
+<p>
+<i>Example: Simplified example of an XML search document with in-line outputModel definition</i>
+</p>
+<p>
+When used in KVP encoding, output models must always be externally
+defined, and referenced by the parameter "model". Output model
+definitions cannot be encoded in KVP.
+</p>
+<p>
+http://example.net/tapir.cgi?op=search&amp;start=0&amp;limit=10&amp;
+model=http://example.net/models/specimens.xml&amp;filter=
+http://example.net/schema/ScientificName like "Luzu*"&amp;orderby=
+http://example.net/schema/ScientificName
+</p>
+<p>
+The same example with concept aliases would be
+</p>
+<p>
+http://example.net/tapir.cgi?op=search&amp;start=0&amp;limit=10&amp;
+model=http://example.net/models/specimens.xml&amp;filter=
+ScientificName@schema like "Luzu*"&amp;orderby=
+ScientificName@schema
+</p>
+<p>
+Search operations also include the possibility to remove the TAPIR
+envelope, i.e., only the content that goes inside the "search" element
+is returned. This can be specified by the parameter "envelope". In XML
+it is an optional attribute (defaults to false) of the element search,
+and in KVP it is an independent parameter with the same name.
+</p>
+<p>
+If an error occurs when the envelope in turned off, the response
+should be an "error" element containg the error message. It should
+usually be possible to get more information about the error by sending
+another request with envelope turned on and then inspecting the
+diagnostics.
+</p>
+<a id="toc41" name="toc41"></a>
+<h3>5.4.2. Search Response</h3>
+<p>
+All methods of formulating search queries are processed by the
+provider software to select data from its underlying data source and
+to return to the client in the form of an XML response message. The
+way in which the provider chooses to do this is not defined by the
+protocol. Search responses with the TAPIR envelope must validate
+against the "searchResultType" defined by the TAPIR XML Schema.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+    &lt;header&gt;
+      &lt;source accesspoint="http://example.net/tapir.cgi" 
+              sendtime="2005-11-11T12:23:56.023+01:00"/&gt;
+    &lt;/header&gt;
+    &lt;search&gt;
+      &lt;dataset xmlns="http://example.net/simple_specimen"&gt;
+        &lt;specimen catnum="234"&gt;
+           &lt;identification&gt;
+             &lt;name&gt;Luzula luzuloides&lt;/name&gt;
+           &lt;/identification&gt;
+        &lt;/specimen&gt;
+        &lt;specimen catnum="290"&gt;
+          &lt;identification&gt;
+            &lt;name&gt;Luzula alpestris&lt;/name&gt;
+          &lt;/identification&gt;
+        &lt;/specimen&gt;
+      &lt;/dataset&gt;
+      &lt;summary start="0" totalReturned="2"/&gt;
+    &lt;/search&gt;
+  &lt;/response&gt;
+</pre></div>
+<p>
+<i>Example: Example of a search response document.</i>
+</p>
+<a id="toc42" name="toc42"></a>
+<h2>5.5. Ping</h2>
+<p>
+The Ping operation provides a means of establishing whether services
+are currently on-line and whether appropriate wrapper software is
+installed. This operation can also provide basic data about response
+times. It does not require a query to be run against a connected
+database, as is sometimes required of metadata and capabilities
+requests. Data providers are free to include as part of diagnostics
+any extra information that may be of value to monitor networks.
+</p>
+<a id="toc43" name="toc43"></a>
+<h3>5.5.1. Ping Request</h3>
+<p>
+In XML, the ping operation is invoked by inserting the &lt;ping/&gt; element
+after the header section in a request document. Ping takes no
+arguments or parameters.
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                      http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+  &lt;header&gt;
+    &lt;source sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+         &lt;software name="TapirClient" version="1.0"/&gt;
+    &lt;/source&gt;
+  &lt;/header&gt;
+    &lt;ping/&gt;
+  &lt;/request&gt; 
+</pre></div>
+<p>
+<i>Example: TAPIR Ping Request. The simplest operation in TAPIR.</i>
+</p>
+<p>
+In KVP request encoding, the ping operation can be invoked with a
+single parameter
+</p>
+<p>
+http://example.net/tapir.cgi?op=ping
+</p>
+<a id="toc44" name="toc44"></a>
+<h3>5.5.2. Ping Response</h3>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+            http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd"&gt;
+  &lt;header&gt;
+    &lt;source accesspoint="http://example.net/tapir.cgi" 
+            sendtime="2005-11-11T12:23:57.023+01:00"&gt;
+         &lt;software name="TapirProvider" version="1.0"/&gt;
+    &lt;/source&gt;
+  &lt;/header&gt;
+    &lt;pong/&gt;
+  &lt;/response&gt; 
+</pre></div>
+<p></p>
+<a id="toc45" name="toc45"></a>
+<h1>6. Global Parameters</h1>
+<p>
+All operations can make use of global common parameters. In XML,
+global parameters are passed as specific attribute values of the
+operation element, and are defined in the "globalParametersGroup". In
+KVP, they are passed as individual parameters. The list of global
+parameters include:
+</p>
+<dl>
+<dt>log-only</dt><dd>
+The log-only parameter can be used to instruct the service to log the
+request but not process it as it would normally do. It can be used to
+forward requests to the original providers, when users are querying
+third-party cached databases. This way, original providers can track
+usage of their data. Although it is possible to send log-only
+requests, clients must check the provider capabilities response before
+sending them. The &lt;globalParameters&gt; element of capabilities responses
+declares if log requests are required, accepted or denied. Providers
+that are unable to log requests on their system or do not want to
+receive them, should reply to a log-only request with an error message
+using the &lt;error&gt; element. If log-only requests are accepted or
+required, then the response must include the element &lt;logged/&gt;
+instead. Boolean. Optional (defaults to "false").
+<p></p>
+</dd>
+<dt>xslt</dt><dd>
+The xslt parameter points to an XML style sheet that can be used by
+XSLT processors to transform TAPIR responses. When xslt is specified,
+providers are instructed to include the corresponding "xml-stylesheet"
+processing instruction after the XML header, as shown below. However,
+providers are also free to place restrictions on the allowable domains
+related to the stylesheet location. In this case, if a stylesheet
+comes from an unknown location, it can be ignored - but an associated
+warning should be raised inside the diagnostics section. String
+representing a URL. Optional.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+  &lt;?xml-stylesheet type="text/xsl" href="http://example.net/trans.xsl"?&gt;
+  &lt;!-- TAPIR response --&gt;
+</pre></div>
+<i>Example: Fragment of a TAPIR response showing the XML headers when the xslt parameter is passed.</i>
+</dd>
+</dl>
+
+<a id="toc46" name="toc46"></a>
+<h1>7. Counting and Paging</h1>
+<p>
+Inventory and search operations include counting and paging
+functionality. Both are done with reference to an indexing element
+(search operation) or to a record element (inventory operation). In
+XML, counting and paging parameters are defined in the
+"pagingParametersGroup" and passed as attribute values of the
+operation element. In KVP, counting and paging is done through
+specific individual parameters.
+</p>
+<dl>
+<dt>count</dt><dd>
+For Inventory operations the count parameter instructs the service to
+return the total number of distinct records and number of occurrences
+of each record matching the selection criteria. For search operations,
+the count parameter instructs the service to return the number of
+records returned and the number of records that matched the query in
+the @returned and @totalMatched attributes of the &lt;summary&gt; element
+respectively. Boolean. Optional (default = "false")
+<p></p>
+</dd>
+<dt>start</dt><dd>
+Index of the first record to be returned when paging
+results. Non-negative integer. Optional (default = "0", which
+corresponds to the index of the first record).
+<p></p>
+</dd>
+<dt>limit</dt><dd>
+Indicates the maximum number of records to be returned when paging
+results. If a request asks for count but specifies limit = "0" then no
+records are returned but the total number of records found is recorded
+in @totalMatched. Non-negative integer. Optional (when not specified
+it means "unlimited").
+</dd>
+</dl>
+
+<p>
+In XML, a typical use of paging parameters attributes would be
+</p>
+<div class="exampleInner"><pre>
+    &lt;search count="true" start="0" limit="50"&gt;
+     ....... 
+    &lt;/search&gt;
+</pre></div>
+<p></p>
+<p>
+The same parameters in KVP would be
+</p>
+<p>
+http://example.net/tapir.cgi?op=search&amp;count=1&amp;start=0&amp;limit=50&amp;...
+</p>
+<p>
+When paging is requested, response documents must include a &lt;summary&gt;
+element of the "resultSummaryType", which returns information in the
+following set of attributes:
+</p>
+<dl>
+<dt>@start</dt><dd>
+Index of the first element that was returned.
+<p></p>
+</dd>
+<dt>@next</dt><dd>
+Index of the next record that could be retrieved using a subsequent
+request.
+<p></p>
+</dd>
+<dt>@totalReturned</dt><dd>
+The number of records actually being returned.
+<p></p>
+</dd>
+<dt>@totalMatched</dt><dd>
+If count was requested the totalMatched attribute gives the
+"estimated" number of total matching records - not necessarily the
+number of valid records that can possibly be returned by paging
+through the entire record set. This happens because records can be
+"dropped" or ignored if they fail to produce a valid XML
+representation according to the response structure.
+</dd>
+</dl>
+
+<div class="exampleInner"><pre>
+  ...
+  &lt;record count="10"&gt;
+    &lt;value&gt;AUSTRALIA&lt;/value&gt;
+    &lt;value&gt;Calicium&lt;/value&gt;
+  &lt;/record&gt;
+  &lt;record count="20" &gt;
+    &lt;value&gt;AUSTRALIA&lt;/value&gt;
+    &lt;value&gt;Fellhanera&lt;/value&gt;
+  &lt;/record&gt;
+  &lt;summary start="0" next="2" totalReturned="2" totalMatched="35"/&gt;
+  ...
+</pre></div>
+<p>
+<i>Example: Fragment of an inventory response showing count and paging values.</i>
+</p>
+<a id="toc47" name="toc47"></a>
+<h1>8. Filters, Expressions and Operators</h1>
+<a id="toc48" name="toc48"></a>
+<h2>8.1. Filters</h2>
+<p>
+Inventory and search operations may contain a filter specifying
+conditions to restrict returned data to a specific subset. TAPIR
+filters encode expressions and operators in an atomised form that can
+be translated to other query languages (e.g., SQL).
+</p>
+<p>
+The ability to dynamically parse filters is optional in TAPIR and can
+be expressed as part of the capabilities response. Providers that do
+not support filters may still support query templates advertised in
+their capabilities. In this case, when the query template includes a
+filter in its definition, the meaning and the functionality of the
+filter must be understood by the provider. The provider may hard code
+a local query that translates the entire filter and then, when
+processing a request, substitute parameters that are usually present
+in query template's filters with their respective values.
+</p>
+<a id="toc49" name="toc49"></a>
+<h2>8.2. Expressions</h2>
+<p>
+The atomised values in a TAPIR filter are represented by
+expressions. There are three types of expressions in TAPIR: simple
+expressions, complex expressions and variables. Expressions evaluate
+to a single value and are used by filter operators.
+</p>
+<a id="toc50" name="toc50"></a>
+<h3>8.2.1. Simple Expressions</h3>
+<p>
+Simple expressions include elements that are directly associated with
+a single value. There are three possible types of simple expressions:
+</p>
+<ul>
+<li><b>Literal:</b> Any string. In XML, literals are represented by a
+&lt;literal&gt; element that must include the respective value in the
+attribute @value:
+<p></p>
+<div class="exampleInner"><pre>
+   &lt;literal value="42" /&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>Concept:</b> An element representing a concept from a conceptual
+schema. When used in filters, concepts must be related to a property
+or attribute that can be associated with a specific content in a local
+data source. In XML, a concept expression is represented by a
+&lt;concept&gt; element that must contain the concept identifier in the
+attribute @id:
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;concept id="http://example.net/concept/scientificName" /&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>Parameter:</b> An element that can be used to point to external
+values provided by the calling message. In XML, parameters are
+represented by the element &lt;parameter&gt; that must include the parameter
+name in the attribute @name:
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;parameter name="sname" /&gt;
+</pre></div>
+<p></p>
+The expression above instructs a program to get the value from the
+respective HTTP GET or HTTP POST parameter. Considering the GET
+request below, the previous example would evaluate to the literal
+value "Helix":
+<p></p>
+http://example.net/wrapper.cgi?op=search&amp;template=http://example.net/tmpl&amp;sname=Helix
+<p></p>
+Attention is required to choose parameter names that do not conflict
+with the reserved TAPIR parameters. Any name from the list of reserved
+parameters is not allowed to be present in filters.
+</li>
+</ul>
+
+<a id="toc51" name="toc51"></a>
+<h3>8.2.2. Complex Expressions</h3>
+<p>
+Complex expressions are represented by four arithmetic operators. The
+list below shows the arithmetic operators followed by their respective
+XML element.
+</p>
+<ul>
+<li><b>add:</b>       &lt;add&gt;
+</li>
+<li><b>divide:</b>    &lt;div&gt;
+</li>
+<li><b>multiply:</b>  &lt;mul&gt;
+</li>
+<li><b>subtract:</b>  &lt;sub&gt;
+</li>
+</ul>
+
+<p>
+Arithmetic operators are binary, so they always combine exactly two
+expressions as their arguments. The first argument must always be
+associated with the leftmost expression in the operation. This means
+that in subtractions the first expression corresponds to the minuend
+and the second corresponds to the subtrahend. In divisions the first
+expression corresponds to the divident while the second corresponds to
+the divisor.
+</p>
+<div class="exampleInner"><pre>
+  &lt;add&gt;
+    &lt;literal value="20" /&gt;
+    &lt;literal value="22" /&gt;
+  &lt;/add&gt;
+</pre></div>
+<p>
+<i>Example: Use of a binary arithmetic operator.</i> 
+</p>
+<a id="toc52" name="toc52"></a>
+<h3>8.2.3. Variables</h3>
+<p>
+Variables are elements that represent environment variables from the
+data provider system. TAPIR defines the following system variables
+that may be supported by provider implementations:
+</p>
+<ul>
+<li><b>date:</b> Represents the current date according to the XML Schema
+date type (ISO 8601). Example: 2006-07-21
+<p></p>
+</li>
+<li><b>timestamp:</b> Represents the current timestamp according to the XML
+Schema dateTime type (ISO 8601). Example: 2006-07-20T17:01:38+02:00
+<p></p>
+</li>
+<li><b>accessPoint:</b> Represents the service access point.
+<p></p>
+</li>
+<li><b>dataSourceName:</b> Represents the name of the data source (the
+service "title" as advertised in metadata responses).
+<p></p>
+</li>
+<li><b>dataSourceDescription:</b> Represents the description of the data
+source (the service "description" as advertised in metadata
+responses).
+<p></p>
+</li>
+<li><b>subject:</b> Keywords, key phrases or classification codes that
+describe content provided by the data source (the service "subject" as
+advertised in metadata responses).
+<p></p>
+</li>
+<li><b>rights:</b> Information about who can access the resource or about
+its security status, access regulations, etc. (the service "rights" as
+advertised in metadata responses).
+<p></p>
+</li>
+<li><b>bibliographicCitation:</b> Information about how to cite the data
+source (the service "bibliographicCitation" as advertised in metadata
+responses).
+<p></p>
+</li>
+<li><b>metadataLanguage:</b> The language in which the content of the
+following variables are expressed: dataSourceName,
+dataSourceDescription, rights, subject and bibliographicCitation..
+<p></p>
+</li>
+<li><b>dataSourceLanguage:</b> The primary language of the data provided by
+the service (the first "dc:language" element advertised in metadata
+responses).
+<p></p>
+</li>
+<li><b>technicalContactName:</b> The name of the first system administrator
+of the first technical host entity in metadata responses.
+<p></p>
+</li>
+<li><b>technicalContactEmail:</b> The e-mail of the first system
+administrator of the first technical host entity in metadata
+responses.
+<p></p>
+</li>
+<li><b>contentContactName:</b> The name of the first data administrator of
+the first data supplier entity in metadata responses.
+<p></p>
+</li>
+<li><b>contentContactEmail:</b> The e-mail of the first data administrator
+of the first data supplier entity in metadata responses.
+<p></p>
+</li>
+<li><b>lastUpdate:</b> Represents the timestamp when the underlying data
+was last updated. Format must follow the XML Schema dateTime type (ISO
+8601).
+<p></p>
+</li>
+<li><b>dateCreated:</b> Represents the timestamp when the data source was
+created. Format must follow the XML Schema dateTime type (ISO 8601).
+</li>
+</ul>
+
+<p>
+In XML, variables are represented by a &lt;variable&gt; element with a
+"name" attribute, such as
+</p>
+<div class="exampleInner"><pre>
+  &lt;variable name="date" /&gt;
+</pre></div>
+<p></p>
+<p>
+Variables that are supported by a data provider must be advertised in
+capabilities responses. Data providers are also free to define and
+make use of additional system variables.
+</p>
+<a id="toc53" name="toc53"></a>
+<h2>8.3. Logical and Comparative Operators</h2>
+<p>
+TAPIR supports a range of Boolean (logical and comparative) operators
+for building filters.
+</p>
+<a id="toc54" name="toc54"></a>
+<h3>8.3.1. Comparative Operators</h3>
+<p>
+There are three types of comparative operators - unary, binary, and
+multiple.
+</p>
+<h4>8.3.1.1. Unary Comparative Operators</h4>
+<p>
+Unary comparative operators always take a single concept as
+argument. The only operator of this type is the isNull operator.
+</p>
+<ul>
+<li><b>isNull:</b> Evaluates to true if the value associated with the
+concept is NULL. In XML, this operator is represented by the element
+&lt;isNull&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;isNull&gt;
+    &lt;concept id="http://example.net/concept/country" /&gt;
+  &lt;/isNull&gt;
+</pre></div>
+</li>
+</ul>
+
+<h4>8.3.1.2. Binary Comparative Operators</h4>
+<p>
+Binary comparative operators always compare a concept with an
+expression. The first argument must always be the concept and is
+associated with the leftmost expression in the operation. The
+following operators are binary:
+</p>
+<ul>
+<li><b>equals:</b> The "equals" (=) comparison operator. When used in
+string comparisons, case sensitivity is indicated as part of the
+capabilities response. In XML, this operator is represented by the
+element &lt;equals&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;equals&gt;
+    &lt;concept id="http://example.net/concept/genus" /&gt;
+    &lt;literal value="Rubus" /&gt;
+  &lt;/equals&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>like:</b> The "like" operator used in character string
+comparisons. It checks if a string value matches a given pattern. The
+wildcard is represented by the character "*". Case sensitiveness is
+indicated as part of the capabilities response. In XML, this operator
+is represented by the element &lt;like&gt;. Not specifying any wildcard in
+the corresponding literal is equivalent to specifying two wildcards:
+one in the beginning and the other in the end of the literal
+value. When the character "*" is not meant to be a wildcard, it should
+be escaped by including "_" before the "*" character.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;like&gt;
+    &lt;concept id="http://example.net/concept/commonName" /&gt;
+    &lt;literal value="*thrush" /&gt;
+  &lt;/like&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>greaterThan:</b> The greater than (&gt;) comparison operator. In XML,
+this operator is represented by the element &lt;greaterThan&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;greaterThan&gt;
+    &lt;concept id="http://example.net/concept/yearCollected" /&gt;
+    &lt;literal value="1990" /&gt;
+  &lt;/greaterThan&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>greaterThanOrEquals:</b> The greater than or equals (&gt;=) comparison
+operator. In XML, this operator is represented by the element
+&lt;greaterThanOrEquals&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;greaterThanOrEquals&gt;
+    &lt;concept id="http://example.net/concept/individualCount" /&gt;
+    &lt;literal value="3" /&gt;
+  &lt;/greaterThanOrEquals&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>lessThan:</b> The less than (&lt;) comparison operator. In XML, this
+operator is represented by the element &lt;lessThan&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;lessThan&gt;
+    &lt;concept id="http://example.net/concept/yearCollected" /&gt;
+    &lt;literal value="1870" /&gt;
+  &lt;/lessThan&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>lessThanOrEquals:</b> The less than or equals (&lt;=) comparison
+operator. In XML, this operator is represented by the element
+&lt;lessThanOrEquals&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;lessThanOrEquals&gt;
+    &lt;concept id="http://example.net/concept/altitude" /&gt;
+    &lt;literal value="500" /&gt;
+  &lt;/lessThanOrEquals&gt;
+</pre></div>
+</li>
+</ul>
+
+<h4>8.3.1.3. Multiple Comparative Operators</h4>
+<p>
+Multiple comparative operators always compare a concept with one or
+more simple expressions. This operator is equivalent to a sequence of
+"or" operators comprising equals comparisons between the concept and
+each simple expression. The only operator of this type is the "in"
+operator.
+</p>
+<ul>
+<li><b>in:</b> The "in" operator checks if a concept is equals to one of
+the values in a list. When used in string comparisons, case
+sensitivity is indicated as part of the capabilities response of the
+equals operator. In XML, this operator is represented by the element
+&lt;in&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;in&gt;
+    &lt;concept id="http://example.net/concept/basisOfRecord" /&gt;
+    &lt;values&gt;
+      &lt;literal value="specimen" /&gt;
+      &lt;literal value="observation" /&gt;
+    &lt;/values&gt;
+  &lt;/in&gt;
+</pre></div>
+</li>
+</ul>
+
+<a id="toc55" name="toc55"></a>
+<h3>8.3.2. Logical operators</h3>
+<p>
+There are two types of logical operators – unary and multiple.
+</p>
+<h4>8.3.2.1. Unary Logical Operators</h4>
+<p>
+Unary logical operators take as argument a single Boolean operator,
+which can be any comparison operator or any logical operator.
+</p>
+<ul>
+<li><b>not:</b> This operator specifies that matching records must not meet
+the specified condition. In XML, this operator is represented by the
+element &lt;not&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;not&gt;
+    &lt;like&gt;
+      &lt;concept id="http://example.net/concepts/speciesName"/&gt;
+      &lt;literal value = "Helix*"/&gt;
+    &lt;/like&gt;
+  &lt;/not&gt;
+</pre></div>
+</li>
+</ul>
+
+<h4>8.3.2.2. Multiple Logical Operators</h4>
+<p>
+Multiple logical operators combine two or more Boolean operators,
+which can be any comparison operator or any logical operator.
+</p>
+<ul>
+<li><b>and:</b> The "and" operator is used to connect two or more Boolean
+conditions, which must all evaluate to true in order for the composite
+to be true. In XML, this operator is represented by the element &lt;and&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;and&gt;
+    &lt;equals&gt;
+      &lt;concept id="http://example.net/concept/genus" /&gt;
+      &lt;parameter name="genus" /&gt;
+    &lt;/equals&gt;
+    &lt;equals&gt;
+      &lt;concept id="http://example.net/concept/species" /&gt;
+      &lt;parameter name="species" /&gt;
+    &lt;/equals&gt;
+    &lt;equals&gt;
+      &lt;concept id="http://example.net/concept/subspecies" /&gt;
+      &lt;parameter name="subspecies" /&gt;
+    &lt;/equals&gt;
+  &lt;/and&gt;
+</pre></div>
+<p></p>
+</li>
+<li><b>or:</b> The "or" operator is used to connect two or more Boolean
+conditions. The compound condition evaluates to true if at least one
+of the conditions evaluates to true. In XML, this operator is
+represented by the element &lt;or&gt;.
+<p></p>
+<div class="exampleInner"><pre>
+  &lt;or&gt;
+    &lt;lessThan&gt;
+      &lt;concept id="http://example.net/concept/latitude" /&gt;
+      &lt;literal value="-90.00" /&gt;
+    &lt;/lessThan&gt;
+    &lt;greaterThan&gt;
+      &lt;concept id="http://example.net/concept/latitude" /&gt;
+      &lt;literal name="90.00" /&gt;
+    &lt;/greaterThan&gt;
+  &lt;/or&gt;
+</pre></div>
+</li>
+</ul>
+
+<a id="toc56" name="toc56"></a>
+<h2>8.4. Additional Interpretation Rules</h2>
+<p>
+When a TAPIR provider receives a request, there are additional rules
+that need to be followed when interpreting filters:
+</p>
+<ul>
+<li>A comparative operator that references an unspecified parameter must
+be ignored (as if it was not part of the filter).
+</li>
+<li>A comparative operator must always evaluate to false when it
+references a concept that is not understood by the provider (i.e., the
+concept is not listed as a mapped concept in the capabilities
+response), unless the comparative operator also references an
+unspecified parameter - in which case the operator must be ignored
+instead.
+</li>
+<li>When ignoring a comparative operator, if it was part of a logical
+operator then the logical operator should also be ignored if there are
+no boolean (logical or comparative) operators left inside.
+</li>
+<li>When ignoring a logical operator, if it was part of another logical
+operator, then the outer logical operator should also be ignored if
+there are no boolean (logical or comparative) operators left inside.
+</li>
+</ul>
+
+<a id="toc57" name="toc57"></a>
+<h1>9. KVP (Key-Value Pair) Requests</h1>
+<p>
+TAPIR requests can be encoded as KVP, as opposed to the XML encoding,
+and can be sent through HTTP GET or HTTP POST. Therefore, interaction
+with a TAPIR service can be done by means of URLs using CGI-style
+parameters. For instance, to ping a TAPIR service one can use the
+simple KVP GET encoded message
+</p>
+<p>
+http://example.net/tapir.cgi?op=ping
+</p>
+<p>
+All TAPIR operations can be invoked with KVP, though output model
+definitions cannot be expressed with KVP.
+</p>
+<a id="toc58" name="toc58"></a>
+<h2>9.1. Parameter Rules</h2>
+<p>
+Parameter names are always case insensitive. Parameter values are case
+insensitive by default, except when used with "equals" or "like"
+comparisons and the provider explicitly declared these operators to be
+case sensitive (see capabilities response for more details).
+</p>
+<p>
+Parameters may be specified in any order. Any unknown parameters can
+be ignored. Parameters without values can also be ignored.
+</p>
+<p>
+When creating custom parameters in filters, it is necessary to make
+sure that their names do not conflict with TAPIR specific parameters
+(see Appendix for the full list of reserved parameter names).
+</p>
+<a id="toc59" name="toc59"></a>
+<h2>9.2. Global Parameters</h2>
+<p>
+The following parameters can be used in all TAPIR operations:
+</p>
+<dl>
+<dt>op = [ p | ping | m | metadata | c | capabilities | i | inventory | s | search ]</dt><dd>
+Specifies the requested TAPIR operation.
+<p></p>
+ <ul>
+ <li>default = metadata : if op is not specified the service must send back a metadata response
+ </li>
+ <li>cardinality = 1..1 : only one operation is allowed per request
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>xslt = [ URI ]</dt><dd>
+Gives the address of an XML style sheet to be included after the XML
+header.
+<p></p>
+ <ul>
+ <li>default = null 
+ </li>
+ <li>cardinality = 0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>log-only = [ true | false | 1 | 0 ]</dt><dd>
+Used to indicate if the request should only be logged, not
+processed. Returns a log message instead of data.
+<p></p>
+ <ul>
+ <li>default = false
+ </li>
+ <li>cardinality = 0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>source-ip = [ URI | NONE ]</dt><dd>
+Used to indicate the IP address of the original client when the
+message was processed by intermediate agents.
+<p></p>
+ <ul>
+ <li>default = null
+ </li>
+ <li>cardinality = 0..1
+ </li>
+ </ul>
+</dd>
+</dl>
+
+<a id="toc60" name="toc60"></a>
+<h2>9.3. Ping Parameters</h2>
+<dl>
+<dt>op = [ ping | p ]</dt><dd>
+The ping request has no other parameters.
+</dd>
+</dl>
+
+<a id="toc61" name="toc61"></a>
+<h2>9.4. Metadata Parameters</h2>
+<dl>
+<dt>op = [ metadata | m ]</dt><dd>
+The metadata request has no other parameters.
+</dd>
+</dl>
+
+<a id="toc62" name="toc62"></a>
+<h2>9.5. Capabilities Parameters</h2>
+<dl>
+<dt>op = [ capabilities | c ]</dt><dd>
+The capabilities request has no other parameters
+</dd>
+</dl>
+
+<a id="toc63" name="toc63"></a>
+<h2>9.6. Inventory Parameters</h2>
+<dl>
+<dt>op = [ inventory | i ] </dt><dd>
+<p></p>
+</dd>
+<dt>cnt, count ::= [ true | false | 1 | 0 | NONE ]</dt><dd>
+Indicates if the total number of distinct records and the number of
+occurrences for each record must be returned.
+ <ul>
+ <li>default = false
+ </li>
+ <li>cardinality = 0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>s, start = [ non-negative integer | NONE ]</dt><dd>
+Index of the first record to be returned.
+ <ul>
+ <li>default = 0 (defaults to the first record in the matching data)
+ </li>
+ <li>cardinality = 0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>l, limit = [ non-negative integer | NONE ]</dt><dd>
+The number of records to be returned.
+ <ul>
+ <li>default = NONE (all matching records are returned by default)
+ </li>
+ <li>cardinality = 0..1
+ </li>
+ </ul>
+</dd>
+</dl>
+
+<p>
+A choice must be made to use either a template, or one or more direct
+references to concepts with an optional filter.
+</p>
+<dl>
+<dt>t, template = [ URI | string ]</dt><dd>
+The URL of an Inventory Template document or an alias of a template
+declared in the capabilities response. When a template is present the
+concept and filter parameters are ignored.
+ <ul>
+ <li>default = null
+ </li>
+ <li>cardinality = 0..1 (optional and only one template is allowed)
+ </li>
+ </ul>
+</dd>
+</dl>
+
+<p>
+OR
+</p>
+<dl>
+<dt>c, concept = [ fully qualified identifiers or aliases ]</dt><dd>
+One or more concepts.
+ <ul>
+ <li>default = UNDEFINED (which must be interpreted by any provider
+implementation to mean no concept, which will result in an empty
+response)
+ </li>
+ <li>cardinality = 0..n (at least one concept must be included if no
+template is specified)
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>n, tagname = [ string ]</dt><dd>
+One or more custom tag names (one for each concept).
+ <ul>
+ <li>default = "value"
+ </li>
+ <li>cardinality = 0..n (optional, but when specified there must be one
+tagname for each concept)
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>f, filter = [ expression ]</dt><dd>
+A KVP filter.
+ <ul>
+ <li>default = null (no filter used)
+ </li>
+ <li>cardinality = 0..1 (optional and only one filter statement is
+allowed)
+ </li>
+ </ul>
+</dd>
+</dl>
+
+<a id="toc64" name="toc64"></a>
+<h2>9.7. Search Parameters</h2>
+<dl>
+<dt>op = [ search | s ]</dt><dd>
+<p></p>
+</dd>
+<dt>cnt, count = [ true | false | 1 | 0 | NONE ]</dt><dd>
+Indicates if the count of the records returned in the response and the
+number of matching records should be returned.
+ <ul>
+ <li>default = false
+ </li>
+ <li>cardinality = 0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>s, start = [ non-negative integer | NONE ]</dt><dd>
+Index of the first record to be returned.
+ <ul>
+ <li>default = 0 (defaults to the first record in the matching data)
+ </li>
+ <li>cardinality = 0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>l, limit = [ non-negative integer | NONE ]</dt><dd>
+The number of records to return.
+ <ul>
+ <li>default = NONE (all matching records are returned by default)
+ </li>
+ <li>cardinality=0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>e, envelope = [ true | false | 1 | 0 | NONE ]</dt><dd>
+Indicates if the TAPIR envelope (response, header, search, summary and
+diagnostics tags) should be suppressed or not.
+ <ul>
+ <li>default = true 
+ </li>
+ <li>cardinality = 0..1
+ </li>
+ </ul>
+</dd>
+</dl>
+
+<p>
+A choice must be made to use either a template, or an output model
+parameter with optional "filter" and "orderby" parameters. The
+"template" parameter takes precedence over the "model" so if both are
+present the "model" and the optional "filter" and "orderby" parameters
+should be ignored.
+</p>
+<dl>
+<dt>t, template = [ URI | string ]</dt><dd>
+The URL of a Search Template document or an alias of a template
+declared in the capabilities response. When a template is present, the
+model, filter, orderby and descend parameters should be ignored.
+ <ul>
+ <li>default = null
+ </li>
+ <li>cardinality = 0..1
+ </li>
+ </ul>
+</dd>
+</dl>
+
+<p>
+OR
+</p>
+<dl>
+<dt>m, model = [ URI | string ]</dt><dd>
+The URL of an output model document or an alias of an output model
+declared in the capabilities response.
+ <ul>
+ <li>default = null 
+ </li>
+ <li>cardinality=0..1 (when both template and model are present, the
+model parameter must be ignored)
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>f, filter = [ expression ]</dt><dd>
+A KVP filter.
+ <ul>
+ <li>default = null
+ </li>
+ <li>cardinality = 0..1
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>o, orderby = [ fully qualified concept identifiers or aliases ]</dt><dd>
+One or more concept identifiers to order results.
+ <ul>
+ <li>default = null (no particular order)
+ </li>
+ <li>cardinality = 0..n
+ <p></p>
+ </li>
+ </ul>
+</dd>
+<dt>d, descend = [ true | false | 1 | 0 ]</dt><dd>
+Indicates if the order should be ascending or descending for each
+concept specified in "orderby". When present, it must have the same
+number of instances of "orderby".
+ <ul>
+ <li>default = false (ascending order)
+ </li>
+ <li>cardinality = 0..n
+ </li>
+ </ul>
+</dd>
+</dl>
+
+<a id="toc65" name="toc65"></a>
+<h2>9.8. Filters</h2>
+<p>
+Filter expressions in KVP requests will be infix equivalents to their
+XML counterparts.
+</p>
+<a id="toc66" name="toc66"></a>
+<h3>9.8.1. Backus-Naur Form (BNF) Grammar for Filter Expressions</h3>
+<div class="exampleInner"><pre>
+  &lt;expression&gt;                    ::= &lt;logical_operator&gt; | &lt;comparative_operator&gt;
+  
+  &lt;comparative_operator&gt;          ::= &lt;unary_comparison_expression&gt; |
+                                      &lt;binary_comparison_expression&gt; | 
+                                      &lt;unbound_comparison_expression&gt;
+  
+  &lt;logical_operator&gt;              ::= &lt;unary_logical_expression&gt; | &lt;binary_logical_expression&gt;
+  
+  &lt;literal&gt;                       ::= '"' &lt;string&gt; '"'
+  
+  &lt;concept&gt;                       ::= &lt;concept_alias&gt; | &lt;qualified_concept&gt;
+  
+  &lt;concept_alias&gt;                 ::= &lt;local_concept_alias&gt; "@" &lt;namespace_alias&gt;
+  
+  &lt;local_concept_alias&gt;           ::= &lt;string&gt;
+  
+  &lt;namespace_alias&gt;               ::= &lt;string&gt;
+  
+  &lt;qualified_concept&gt;             ::= &lt;string&gt;
+  
+  &lt;value&gt;                         ::= &lt;literal&gt; | &lt;concept&gt; | &lt;arithmetic_expression&gt;
+  
+  &lt;arithmetic_expression&gt;         ::= &lt;value&gt; &lt;arithmetic_operator&gt; &lt;value&gt;
+  
+  &lt;unary_comparison_expression&gt;   ::= &lt;unary_comparison_operator&gt; &lt;concept&gt;
+  
+  &lt;binary_comparison_expression&gt;  ::= &lt;value&gt; &lt;binary_comparison_operator&gt; &lt;value&gt;
+  
+  &lt;unbound_comparison_expression&gt; ::= &lt;unbound_comparison_operator&gt; &lt;expression&gt; {&lt;expression&gt;}
+  
+  &lt;unary_logical_expression&gt;      ::= &lt;unary_logical_operator&gt; &lt;expression&gt;
+  
+  &lt;binary_logical_expression&gt;     ::= &lt;expression&gt; &lt;binary_logical_operator&gt; &lt;expression&gt;
+  
+  &lt;unary_comparison_operator&gt;     ::= "isNull"
+  
+  &lt;binary_comparison_operator&gt;    ::= "equals" | "like" | "greaterThan" | "lessThan" | 
+                                      "greaterThanOrEquals" | "lessThanOrEquals"
+  
+  &lt;unbound_comparison_operator&gt;   ::= "in"
+  
+  &lt;unary_logical_operator&gt;        ::= "not"
+  
+  &lt;binary_logical_operator&gt;       ::= "and" | "or"
+  
+  &lt;arithmetic_operator&gt;           ::= &lt;add&gt; | &lt;div&gt; | &lt;mul&gt; | &lt;sub&gt;
+  
+  &lt;add&gt;                           ::= "+"
+  &lt;sub&gt;                           ::= "-"
+  &lt;mul&gt;                           ::= "*"
+  &lt;div&gt;                           ::= "/"
+  
+  &lt;string&gt;                        ::= &lt;any_char&gt; { &lt;any_char&gt; }
+</pre></div>
+<p></p>
+<a id="toc67" name="toc67"></a>
+<h3>9.8.2. Operators Precedence</h3>
+<p>
+Following are lists showing the precedence of filter operators:
+</p>
+<dl>
+<dt>expressions</dt><dd>
+arithmetic_operator, comparative_operator, logical_operator
+</dd>
+<dt>arithmetic_operators</dt><dd>
+mul, div, add, sub
+</dd>
+<dt>comparative_operators</dt><dd>
+isNull, equals, like, greaterThan, lessThan, greaterThanOrEquals, lessThanOrEquals
+</dd>
+<dt>logical_operators</dt><dd>
+not, and, or
+</dd>
+</dl>
+
+<p>
+Blocks can be formed by using simple parentheses ( ).
+</p>
+<a id="toc68" name="toc68"></a>
+<h3>9.8.3. Examples</h3>
+<div class="exampleInner"><pre>
+  isnull country@cs1 or FullScientificName@cs2 like "Abies*" and country@cs1 equals "Spain"
+</pre></div>
+<p></p>
+<p>
+The same example can be more explicit using parentheses, as follows:
+</p>
+<div class="exampleInner"><pre>
+  ((isnull country@cs1) or ((FullScientificName@cs2 like "Abies*") and (country@cs1 equals "Spain")))
+</pre></div>
+<p></p>
+<a id="toc69" name="toc69"></a>
+<h1>10. The TAPIR XML Schema</h1>
+<p>
+The official version of the TAPIR XML Schema (tdwg_tapir.xsd) is located at:
+</p>
+<p>
+<a href="http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd">http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd</a>
+</p>
+<a id="toc70" name="toc70"></a>
+<h1>11. Appendix</h1>
+<a id="toc71" name="toc71"></a>
+<h2>11.1. Reserved Parameter Names</h2>
+<p>
+Parameter names defined in filters can be any string valid according
+to the HTTP Common Gateway Interface (CGI) standard. But as TAPIR
+operations can be called through pure KVP requests, some parameter
+names are reserved as TAPIR parameters and cannot be used as parameter
+names in filters.
+</p>
+<p>
+The following parameter names are reserved for TAPIR:
+</p>
+<div class="exampleInner"><pre>
+  c
+  cnt
+  concept
+  count
+  descend
+  d
+  e
+  envelope
+  f
+  filter
+  l
+  limit
+  log-only
+  m
+  model
+  n
+  o
+  op
+  orderby
+  s
+  start
+  t
+  tagname
+  template
+  xslt
+</pre></div>
+<p></p>
+<a id="toc72" name="toc72"></a>
+<h2>11.2. Simple XML Encoding for Conceptual Schemas</h2>
+<p>
+The following XML Schema defines a standard encoding that can be used
+to describe conceptual schemas:
+</p>
+<div class="exampleInner"><pre>
+  &lt;?xml version="1.0"?&gt;
+  &lt;xsd:schema targetNamespace="http://rs.tdwg.org/tapir/cns/1.0" 
+              xmlns="http://rs.tdwg.org/tapir/cns/1.0" 
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              elementFormDefault="qualified" 
+              attributeFormDefault="unqualified" xml:lang="en" &gt;
+    &lt;xsd:annotation&gt;
+      &lt;xsd:documentation&gt;
+        Simple XML Encoding to describe Conceptual Schemas used by TAPIR networks.
+      &lt;/xsd:documentation&gt;
+    &lt;/xsd:annotation&gt;
+    &lt;xsd:element name="cns"&gt;
+      &lt;xsd:annotation&gt;
+        &lt;xsd:documentation&gt;
+          Root element consisting of one schema element.
+        &lt;/xsd:documentation&gt;
+      &lt;/xsd:annotation&gt;
+      &lt;xsd:complexType&gt;
+        &lt;xsd:sequence&gt;
+          &lt;xsd:element name="schema" type="conceptualSchemaType"/&gt;
+        &lt;/xsd:sequence&gt;
+      &lt;/xsd:complexType&gt;
+    &lt;/xsd:element&gt;
+    &lt;xsd:complexType name="conceptualSchemaType"&gt;
+      &lt;xsd:annotation&gt;
+        &lt;xsd:documentation&gt;
+          Type representing a conceptual schema. It must contain the namespace attribute,
+          one or more label elements (for different languages), one or more location 
+          elements (when the conceptual schema can be downloaded from multiple places) 
+          and one concepts element with at least one concept. An optional alias can be 
+          assigned to the schema.
+        &lt;/xsd:documentation&gt;
+      &lt;/xsd:annotation&gt;
+      &lt;xsd:sequence&gt;
+        &lt;xsd:element name="label" type="langType" maxOccurs="unbounded"/&gt;
+        &lt;xsd:element name="alias" type="xsd:string" minOccurs="0"/&gt;
+        &lt;xsd:element name="location" type="xsd:anyURI" maxOccurs="unbounded"/&gt;
+        &lt;xsd:element name="concepts"&gt;
+          &lt;xsd:complexType&gt;
+            &lt;xsd:sequence&gt;
+              &lt;xsd:element name="concept" type="conceptType" maxOccurs="unbounded"/&gt;
+            &lt;/xsd:sequence&gt;
+          &lt;/xsd:complexType&gt;
+        &lt;/xsd:element&gt;
+      &lt;/xsd:sequence&gt;
+      &lt;xsd:attribute name="namespace" type="xsd:anyURI" use="required"/&gt;
+    &lt;/xsd:complexType&gt;
+    &lt;xsd:complexType name="conceptType"&gt;
+      &lt;xsd:annotation&gt;
+        &lt;xsd:documentation&gt;
+          Type representing a concept. It must contain the id attribute and the
+          datatype element. An optional alias and documentation (doc) element can be 
+          present. The documentation be a textual description or a link. The required 
+          attribute can be used to indicate if this concept is mandatory or not.
+          Although not enforced by this schema, the datatype must be a fully qualified 
+          XML Schema primitive datatype.
+        &lt;/xsd:documentation&gt;
+      &lt;/xsd:annotation&gt;
+      &lt;xsd:sequence&gt;
+        &lt;xsd:element name="alias" type="xsd:string" minOccurs="0"/&gt;
+        &lt;xsd:element name="datatype" type="xsd:string"/&gt;
+        &lt;xsd:element name="doc" type="langType" minOccurs="0" maxOccurs="unbounded"/&gt;
+      &lt;/xsd:sequence&gt;
+      &lt;xsd:attribute name="id" type="xsd:string" use="required"/&gt;
+      &lt;xsd:attribute name="required" type="xsd:boolean"/&gt;
+    &lt;/xsd:complexType&gt;
+    &lt;xsd:complexType name="langType"&gt;
+      &lt;xsd:simpleContent&gt;
+        &lt;xsd:extension base="xsd:string"&gt;
+          &lt;xsd:attribute ref="xml:lang" use="optional"/&gt;
+        &lt;/xsd:extension&gt;
+      &lt;/xsd:simpleContent&gt;
+    &lt;/xsd:complexType&gt;
+  &lt;/xsd:schema&gt;
+</pre></div>
+<p></p>
+<p>
+The example below is an excerpt of an instance document describing
+DarwinCore as a conceptual schema:
+</p>
+<div class="exampleInner"><pre>
+  &lt;cns xmlns="http://rs.tdwg.org/tapir/cns/1.0"&gt;
+    &lt;schema namespace="http://rs.tdwg.org/dwc/dwcore/"&gt;
+    &lt;label&gt;DarwinCore v1.4&lt;/label&gt;
+    &lt;alias&gt;dwc_1_4&lt;/alias&gt;
+    &lt;location&gt;http://rs.tdwg.org/dwc/tdwg_dw_core.xsd&lt;/location&gt;
+    &lt;concepts&gt;
+      &lt;concept id="http://rs.tdwg.org/dwc/dwcore/GlobalUniqueIdentifier" required="true"&gt;
+        &lt;alias&gt;GlobalUniqueIdentifier&lt;/alias&gt;
+        &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#string&lt;/datatype&gt;
+        &lt;doc&gt;http://wiki.tdwg.org/twiki/bin/view/DarwinCore/GlobalUniqueIdentifier&lt;/doc&gt;
+      &lt;/concept&gt;
+      &lt;concept id="http://rs.tdwg.org/dwc/dwcore/DateLastModified" required="true"&gt;
+        &lt;alias&gt;DateLastModified&lt;/alias&gt;
+        &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#dateTime&lt;/datatype&gt;
+        &lt;doc&gt;http://wiki.tdwg.org/twiki/bin/view/DarwinCore/DateLastModified&lt;/doc&gt;
+      &lt;/concept&gt;
+    &lt;/schema&gt;
+  &lt;/cns&gt;
+</pre></div>
+<p></p>
+<a id="toc73" name="toc73"></a>
+<h2>11.3. Term Definitions</h2>
+<table cellpadding="4" border="1">
+<tr>
+<td>Backus-Naur Form</td>
+<td>A metasyntax used to express context-free grammars. See <a href="http://en.wikipedia.org/wiki/Backus-Naur_form">http://en.wikipedia.org/wiki/Backus-Naur_form</a>.</td>
+</tr>
+<tr>
+<td>DarwinCore</td>
+<td>Standard to facilitate the exchange of species occurrence data. See <a href="http://www.tdwg.org/activities/darwincore">http://www.tdwg.org/activities/darwincore</a>.</td>
+</tr>
+<tr>
+<td>Dublin Core</td>
+<td>Dublin Core Metadata Initiative. See <a href="http://dublincore.org">http://dublincore.org</a>.</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>HTTP communication method where form data are encoded as parameters in an extension to a URL. The GET method is principally used to transmit requests for data to a web server (e.g., a simple database search).</td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>Hypertext Markup Language. A subset of Standard Generalised Markup Language (SGML), used for authoring pages for the World Wide Web.</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>Hypertext Transfer protocol, the commonly used protocol for transmitting requests and documents between applications on the World Wide Web.</td>
+</tr>
+<tr>
+<td>KVP</td>
+<td>Key-Value Pair. One of the possible encodings for TAPIR requests.</td>
+</tr>
+<tr>
+<td>normative</td>
+<td>Referring to a standard or set of norms that are understood to be correct. A normative document is one which describes how things ought to be and why.</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>POST is an HTTP communication method that can include any kind of data or command. The data are encoded separately and do not form part of the URL as in a GET message so this method is better for complex, sensitive, lengthy or non-ascii data.</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>An agreed format for transmitting data between two or more applications.</td>
+</tr>
+<tr>
+<td>Provider</td>
+<td>In the context of TAPIR, an organization or person hosting one or more TAPIR services.</td>
+</tr>
+<tr>
+<td>Provider software</td>
+<td>Software running on a web server that facilitates access to data.</td>
+</tr>
+<tr>
+<td>RDF</td>
+<td>Resource Description Framework. See <a href="http://www.w3.org/RDF/">http://www.w3.org/RDF/</a>.</td>
+</tr>
+<tr>
+<td>RDF Schema</td>
+<td>A language for describing vocabularies in RDF. See <a href="http://www.w3.org/TR/rdf-schema/">http://www.w3.org/TR/rdf-schema/</a>.</td>
+</tr>
+<tr>
+<td>TDWG</td>
+<td>Taxonomic Databases Working Group. See <a href="http://www.tdwg.org/">http://www.tdwg.org/</a>.</td>
+</tr>
+<tr>
+<td>UDDI</td>
+<td>Universal Description, Discovery and Integration. UDDI is a specification for maintaining standardised directories of information about web services.</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>Uniform Resource Locator. The address of a resource on the Internet</td>
+</tr>
+<tr>
+<td>URI</td>
+<td>Uniform Resource Identifier. A formatted string that serves as an identifier for a resource, typically, but not exclusively, on the Internet. URIs are used in HTML hyperlinks.</td>
+</tr>
+<tr>
+<td>W3C</td>
+<td>World Wide Web consortium. See <a href="http://www.w3c.org">http://www.w3c.org</a>.</td>
+</tr>
+<tr>
+<td>Web Service</td>
+<td>A service based on Internet Protocols, such as HTTP, SMTP or FTP.</td>
+</tr>
+<tr>
+<td>wrapper</td>
+<td>Provider software that allows standardised queries to be run against an underlying database.</td>
+</tr>
+<tr>
+<td>WSDL</td>
+<td>Web Services Description Language. An XML format for describing Web Services as a set of end points operating on messages containing either document-oriented or procedure-oriented information. WSDL is the language used by UDDI. See: <a href="http://www.w3.org/TR/wsdl">http://www.w3.org/TR/wsdl</a>.</td>
+</tr>
+<tr>
+<td>XMI</td>
+<td>XML Metadata Interchange is an OMG (<a href="http://www.omg.org/">Object Management Group</a>) standard for exchanging metadata information via XML. See <a href="http://www.omg.org/technology/documents/formal/xmi.htm">http://www.omg.org/technology/documents/formal/xmi.htm</a>.</td>
+</tr>
+<tr>
+<td>XML</td>
+<td>Extensible Markup Language developed by the W3C. A means of tagging data for transmission, validation and manipulation. See <a href="http://www.w3.org/XML">http://www.w3.org/XML</a> and <a href="http://www.w3.org/TR/REC-xml">http://www.w3.org/TR/REC-xml</a>.</td>
+</tr>
+<tr>
+<td>XML Schema</td>
+<td>A formal definition of the required and optional structure and content of XML formatted documents within its domain. See <a href="http://www.w3.org/XML/Schema">http://www.w3.org/XML/Schema</a>.</td>
+</tr>
+<tr>
+<td>XPath</td>
+<td>Defines a way of locating and processing items in XML documents by using an addressing syntax based on the path through the documents logical tree structure. See <a href="http://www3.org/TR/xpath">http://www3.org/TR/xpath</a>.</td>
+</tr>
+</table>
+
+<a id="toc74" name="toc74"></a>
+<h2>11.4. History of Changes</h2>
+<p>
+The following changes were made to this document since its first public release.
+</p>
+<p>
+Date: September, 8th, 2009
+</p>
+<ul>
+<li>Added paragraph about the target audience of this document.
+</li>
+<li>Added links to other TAPIR documents (executive summary and TAPIR networks guide).
+</li>
+</ul>
+
+<p>
+Date: July, 21st, 2009
+</p>
+<ul>
+<li>Added recommendation to use default port numbers in access points.
+</li>
+<li>Added indentation when defining entity and VCARD sub-nodes.
+</li>
+<li>Specified XML encoding precedence.
+</li>
+</ul>
+
+<p>
+Date: February, 5th, 2009
+</p>
+<ul>
+<li>Revised all text before submitting to the TDWG standards track.
+</li>
+<li>Removed references to DarwinCore and ABCD.
+</li>
+<li>Changed documentation about &lt;address&gt; and added &lt;regionCode&gt;, &lt;countryCode&gt; and &lt;zipCode&gt; as part of entity metadata.
+</li>
+<li>Removed xslt-apply parameter and xslt on server side capability.
+</li>
+<li>Added "type" attribute (organization or person) to related entities.
+</li>
+<li>Added new &lt;rootElement&gt; in the output model definition to indicate the name of a global element that should be the root element in search responses.
+</li>
+<li>Changed response specification forcing HTTP 204 when the envelope is turned off and a search returns no results. Services are now free to perform content negotiation when the envelope is turned off in the search operation.
+</li>
+<li>Removed parameters "partial" and "omit-ns".
+</li>
+<li>Included paragraph about the possibility to declare custom operations.
+</li>
+<li>Included content about new section "archives" in capabilities.
+</li>
+<li>Updated XML Schema location from <a href="http://rs.tdwg.org/tapir/1.0/schema/tapir.xsd">http://rs.tdwg.org/tapir/1.0/schema/tapir.xsd</a> to <a href="http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd">http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd</a>.
+</li>
+<li>Made several adjustments for compatibility with the TDWG Standards Documentation Specification.
+</li>
+</ul>
+
+<p>
+Date: September, 18th, 2008
+</p>
+<ul>
+<li>Changed section about message transport to indicate that TAPIR requires HTTP/1.0 or greater.
+</li>
+<li>Removed references to Concept Name Servers.
+</li>
+<li>Added appendix with a simple XML encoding to represent conceptual schemas.
+</li>
+<li>Minor changes in text to improve clarity.
+</li>
+</ul>
+
+<p>
+Date: February, 7th, 2008
+</p>
+<ul>
+<li>Added recommendation for not omitting the charset in the HTTP header of responses.
+</li>
+<li>Changed section about response structures to be clearer about its meaning and to define there the "basic schema language".
+</li>
+<li>Added section with additional interpretation rules for filters.
+</li>
+<li>Added paragraph in the Capabilities Response/Concepts section to reinforce that providers should understand the short notation when a mapped concept and its schema are declared with an alias.
+</li>
+<li>Added new "datatype" attribute to &lt;mappedConcept&gt; elements in capabilities responses.
+</li>
+<li>Added statement in the Inventory Respose section saying that the order of &lt;record&gt; elements should be ascending according to the concept's datatype declared in the capabilities response.
+</li>
+<li>Added statement that conceptual schemas should minimally indicate the datatypes for each concept.
+</li>
+</ul>
+
+<p>
+Date: July, 18th, 2007
+</p>
+<ul>
+<li>Replaced outputModel by externalOutputModel in search template example.
+</li>
+<li>Environment variable "lastUpdated" was renamed to "lastUpdate" to be consistent with the XML Schema.
+</li>
+<li>Included environment variables: dateCreated, metadataLanguage, dataSourceLanguage, dataSourceDescription, rights, subject, bibliographicCitation, technicalContactName, technicalContactEmail, contentContactName, contentContactEmail.
+</li>
+<li>Included optional attribute "alias" in output models and templates declared in capabilities responses. Aliases can be used in KVP requests replacing the document location.
+</li>
+<li>Restricted the HTTP Content-Type header in POST/GET requests to be "application/x-www-form-urlencoded".
+</li>
+<li>Fixed wrong reference to attribute @frequency that was starting with a capital letter.
+</li>
+<li>Fixed typo in "globalParameters" element name.
+</li>
+<li>"template" elements in capabilities response examples were not inside a "templates" grouping element.
+</li>
+<li>"anyOutputModels" element in capabilities response example was lacking a "responseStructure" subelement.
+</li>
+<li>Fixed many capabilities response examples where the tag slash in supported operations was in the wrong position (e.g. &lt;/ping&gt; instead of &lt;ping/&gt;).
+</li>
+<li>Mentioned the possibility of having multiple dc:language elements in metadata responses.
+</li>
+<li>Content of dc:language must follow RFC4646 and use the codes specified by the IANA Language Subtag Registry.
+</li>
+<li>Included custom slot as part of hasContact in metadata responses.
+</li>
+</ul>
+
+<p>
+Date: February, 24th, 2007
+</p>
+<ul>
+<li>Correction: "envelope" parameter on search operations should be turned on by default.
+</li>
+<li>Included note about the possibility of restricting the allowable domains related to the location of stylesheets that are specified through the "xslt" parameter. When the stylesheet comes from an unknown location it can be ignored with a corresponding warning being raised in the diagnostics section.
+</li>
+<li>Added specific XML Schema capability for xsd:include.
+</li>
+<li>Included note about the fact that a provider is not forced to guarantee the entire validity of search responses according to the XML Schema defined in the response structure, except to the extent of its own declared XML Schema capabilities.
+</li>
+<li>Included recommendation for providers to raise warnings instead of errors when an unsupported XML Schema construct is found in the response structure.
+</li>
+<li>Included new search parameter called "omit-ns" instructing providers to omit or not namespace delarations and the corresponding prefixes in search responses when the envelope is turned off.
+</li>
+<li>Included a new attribute "required" for both concepts and variables in the output model mapping (defaults to false). When required, providers should raise an error when the concept is unmapped, or the variable is not available or the corresponding value is null.
+</li>
+<li>Node paths in output model mapping were not considering namespaces. When the response structure needs to make use of different namespaces, all namespaces need to be declared in the output model element and the nodes referenced in the xpaths must include the associated namespace prefix.
+</li>
+<li>Removed requirement that providers must automatically turn on envelopes in search responses when an error occurs.
+</li>
+</ul>
+
+<p>
+Date: February, 7th, 2007
+</p>
+<ul>
+<li>Attribute nodes in output model mapping should include a slash before the attribute prefix "@" to be consistent with XPath and with the original integration document. Changed all mapping examples from node@attr to node/@attr.
+</li>
+</ul>
+
+<p>
+Date: January, 22nd, 2007
+</p>
+<ul>
+<li>Updated XML Schema location from <a href="http://rs.tdwg.org/tapir/1.0/tapir.xsd">http://rs.tdwg.org/tapir/1.0/tapir.xsd</a> to <a href="http://rs.tdwg.org/tapir/1.0/schema/tapir.xsd">http://rs.tdwg.org/tapir/1.0/schema/tapir.xsd</a>.
+</li>
+<li>Changed the definition of "model" parameter in the "KVP Requests" section. The previous definition "a pointer to a formatted (usually in XML schema) response structure" was wrong and was changed to "a pointer to an output model document".
+</li>
+<li>Changed the definition of "basicSchemaLanguage" by removing "simpleContent" and "complexContent" from the list of XML Schema constructs that need to be supported. Also replaced attribute "minOccurs" by attribute "use".
+</li>
+<li>Included explanation and example about the new optional attribute "tagName" for inventory concepts. Included the corresponding KVP parameter "tagname" or "n".
+</li>
+<li>Included optional "alias" attribute for mapped schemas in capabilities responses.
+</li>
+<li>Changed default value of "start" parameter to "0" (index of the first record).
+</li>
+<li>Included additional specification for the "like" operator saying that "not specifying any wildcard in the corresponding literal is equivalent to specifying two wildcards: one in the beginning and the other in the end of the literal value".
+</li>
+<li>Included additional specification for the "like" operator saying that when the character "*" is not meant to be a wildcard, it should be escaped by including "_" before the "*" character.
+</li>
+<li>Changed XML representation of variables to &lt;variable name="var_name"/&gt; and removed &lt;custom&gt; section in capabilities responses that could be used to advertise custom variables (not needed anymore because now xsd:any is used there).
+</li>
+<li>Changed explanation about source@accesspoint. In requests it must contain the IP address of each source, except the last one. In responses it must contain the service URL. Removed all accesspoint attributes from requests examples.
+</li>
+<li>Included KVP parameter "source-ip".
+</li>
+<li>Included new KVP parameter "descend" or "d" for search operations.
+</li>
+<li>Included additional explanation that maxElementRepetitions apply only to inventory and search responses.
+</li>
+<li>Included additional explanation that maxElementLevels apply only to search responses and do not consider the TAPIR envelope.
+</li>
+<li>Included new section about "response structures".
+<p></p>
+</li>
+</ul>
+
+</div>
+
+<!-- xhtml code generated by txt2tags 2.3.2 (http://txt2tags.sf.net) -->
+<!-- cmdline: txt2tags -t xhtml -i TAPIR_specification_header.t2t -o tdwg_tapir_specification_2010-05-05.htm -->
+</body></html>
