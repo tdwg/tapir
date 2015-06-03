@@ -1,6 +1,8 @@
-# TAPIR Definition
+# TDWG Access Protocol for Information Retrieval (TAPIR)
 
-TAPIR is a computer protocol designed for discovery, search and retrieval of distributed data over the Internet. TAPIR consists of a specification that determines how client applications seeking information should communicate with server applications hosting data.
+TAPIR is a computer protocol designed for discovery, search and retrieval of distributed data over the Internet. TAPIR consists of a [specification](http://www.tdwg.org/dav/subgroups/tapir/1.0/docs) that determines how client applications seeking information should communicate with server applications hosting data. TAPIR is an approved TDWG standard. 
+
+> Renato De Giovanni, Markus Döring, Anton Güntsch, Dave Vieglais, Donald Hobern, Javier de la Torre, John Wieczorek, Robert Gales, Roger Hyam, Stanley Blum, Steven Perry. 2010. TDWG Access Protocol for Information Retrieval (TAPIR), Release 1.0, 2009-09-09. http://www.tdwg.org/standards/449
 
 # Motivation
 
@@ -29,11 +31,3 @@ TAPIR
  - Allows all operations to be invoked through simple Web addresses.
  - Supports complex requests.
  - The existing TAPIR wrapper applications include PyWrapper, TapirLink and TapirDotNET.
-
-# More information
-
-TAPIR is an approved TDWG standard. The TAPIR homepage (http://www.tdwg.org/activities/tapir/) contains links to resources including mailing list, Wiki, specification and other documentation.
-
------
-Renato De Giovanni
-August 28, 2007
