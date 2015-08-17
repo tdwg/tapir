@@ -1,0 +1,1400 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>TAPIR - TDWG Access Protocol for Information Retrieval</title>
+<meta name="generator" content="http://txt2tags.sf.net" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="w3c_main.css" />
+<link rel="stylesheet" type="text/css" href="w3c_examples.css" />
+</head>
+<body>
+
+<div class="header" id="header">
+<h1>TAPIR - TDWG Access Protocol for Information Retrieval</h1>
+<h3>Network Builders' Guide</h3>
+</div>
+
+<div class="toc" id="toc">
+  <ol>
+  <li><a href="#toc1">Biodiversity data sharing networks</a>
+    <ul>
+    <li><a href="#toc2">1.1. Service Oriented Architecture</a>
+    </li>
+    <li><a href="#toc3">1.2. Existing approaches</a>
+    </li>
+    <li><a href="#toc4">1.3. Main components</a>
+      <ul>
+      <li><a href="#toc5">1.3.1. User interfaces and Web portals</a>
+      </li>
+      <li><a href="#toc6">1.3.2. Message brokers</a>
+      </li>
+      <li><a href="#toc7">1.3.3. Data aggregators and harvesters</a>
+      </li>
+      <li><a href="#toc8">1.3.4. Directory services</a>
+      </li>
+      <li><a href="#toc9">1.3.5. Data provider and wrapper software</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc10">1.4. Data exchange protocols</a>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc11">TAPIR networks</a>
+    <ul>
+    <li><a href="#toc12">2.1. Managing and discovering participants</a>
+    </li>
+    <li><a href="#toc13">2.2. General guidelines</a>
+    </li>
+    <li><a href="#toc14">2.3. Conceptual schemas</a>
+      <ul>
+      <li><a href="#toc15">2.3.1. Existing conceptual schemas</a>
+      </li>
+      <li><a href="#toc16">2.3.2. Creating new conceptual schemas</a>
+      </li>
+      </ul>
+    </li>
+    <li><a href="#toc17">2.4. Output models and response structures</a>
+    </li>
+    <li><a href="#toc18">2.5. Query templates</a>
+    </li>
+    <li><a href="#toc19">2.6. Service profiles</a>
+    </li>
+    <li><a href="#toc20">2.7. Using a central cache</a>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc21">Conclusions</a>
+  </li>
+  <li><a href="#toc22">Appendix</a>
+    <ul>
+    <li><a href="#toc23">4.1. Term Definitions</a>
+    </li>
+    </ul>
+  </li>
+  </ol>
+
+</div>
+<div class="body" id="body">
+<hr class="light" />
+<p></p>
+<p>
+<b>TDWG Access Protocol for Information Retrieval (TAPIR)</b>
+</p>
+<p>
+<b>Network Builders' Guide</b>
+</p>
+<p>
+<b>This version:</b> TAPIRNetworkBuildersGuide_2015-06-03.html
+</p>
+<p>
+<b>Latest version:</b> <a href="http://www.tdwg.org/activities/tapir/network-builders-guide">www.tdwg.org/activities/tapir/network-builders-guide</a>
+</p>
+<p>
+<b>Previous version:</b> <a href="http://www.tdwg.org/dav/subgroups/tapir/1.0/docs/TAPIRNetworkBuildersGuide_2008-09-18.html">www.tdwg.org/dav/subgroups/tapir/1.0/docs/TAPIRNetworkBuildersGuide_2008-09-18.html</a>
+</p>
+<p>
+<b>Date:</b> 03 June 2015
+</p>
+<p>
+<b>Technical Writers</b> 
+</p>
+<ul>
+<li>Charles Copp, Environmental Information Management.
+</li>
+<li>Renato De Giovanni, Centro de Referência em Informação Ambiental.
+</li>
+</ul>
+
+<p>
+<b>Reviewers</b>
+</p>
+<ul>
+<li>Lee Belbin, Taxonomic Databases Working Group.
+</li>
+<li>Markus Döring, Botanischer Garten und Botanisches Museum Berlin-Dahlem.
+</li>
+</ul>
+
+<p>
+<b>About this document</b>
+</p>
+<p>
+This document provides guidelines for building networks based on the TAPIR protocol. It is a product of the TDWG TAPIR task group, details of which can be found at <a href="http://www.tdwg.gbif.org/subgroups/tapir">http://www.tdwg.gbif.org/subgroups/tapir</a>.
+</p>
+<p>
+Comments about this document can be sent to the TAPIR mailing list: <a href="mailto:tdwg-tag@lists.tdwg.org">tdwg-tag@lists.tdwg.org</a> (subscription and archives are open to the public).
+</p>
+<hr class="light" />
+<p></p>
+<p>
+<b>Copyright Notice</b>
+</p>
+<p>
+Permission to use, copy and distribute this document in any medium for any purpose and without fee or royalty is hereby granted, provided that you include attribution to the Biodiversity Information Standards (TDWG) and the authors listed above.
+</p>
+<p>
+This document is provided "as is" and the copyright holders make no representations or warranties, express or implied, including, but not limited to, warranties of merchantability, fitness for any particular purpose, non-infringement, or title; that the contents of the document are suitable for any purpose; nor that the implementation of such contents will not infringe any third party patents, copyrights, trademarks, or any other rights.
+</p>
+<p>
+The TDWG and authors will not be liable for any direct, indirect, special or consequential damages arising out of any use of the document or the performance or implementation of the contents thereof.
+</p>
+<hr class="light" />
+<p></p>
+<a id="toc1" name="toc1"></a>
+<h1>1. Biodiversity data sharing networks</h1>
+<p>
+With the adoption of a world-wide commitment to conserve and enhance biodiversity, the need for accessible, valid and comprehensive wildlife data has never been greater. The requirement to build environmental and biodiversity information into social and economic planning exists at all geographic scales and is increasingly reflected in legislation and public expectation. The need to model and understand the effects of global climate change, population rise, fuel supply and the mitigation of economic development is urgent. 
+</p>
+<p>
+To be able to make sound judgements and engage politicians and public in well informed debate there must be ready access to high quality data. There needs to be a constant supply of new and historical data from collections and publications to provide context. Huge amounts of new primary biodiversity data are being collected, and the digitisation of existing data from field surveys and museum collections is advancing in almost every country. However, the data resource remains fragmented, isolated by the software used to store it, and by the ability of providers to make their information available on-line in a suitable format and using compatible terminology. Widely distributed data can only be integrated and delivered to an increasing audience through a system of integrated data networks. 
+</p>
+<p>
+The development of data sharing networks for mobilising primary biodiversity data is being tackled in many ways. These networks operate from local to the global scale and include both generalised and thematic networks. National networks include the United Kingdom's National Biodiversity Network (NBN) and Mexico's CONABIO, both of whom have extensive international links. At the international level the two best known general biodiversity networks are those based on the use of the DiGIR and the BioCASe protocols. DiGIR, used primarily in North America, works with the DarwinCore exchange format, while BioCASe, primarily used in Europe, works with ABCD. Large scale thematic networks include the Ocean Biogeographic Information System (OBIS), speciesLink, FishNet2, HerpNet and the Mammal Networked Information System (MaNIS). The Global Biodiversity Information Facility (GBIF) has been steadily developing since 2004 and integrates data from many networks.
+</p>
+<p>
+The next sections describe some of the strategies and the main service components that can be used to build networks for searching and retrieving data across multiple providers.
+</p>
+<a id="toc2" name="toc2"></a>
+<h2>1.1. Service Oriented Architecture</h2>
+<p>
+The ubiquitous nature of the "Web" has allowed the development of a Service Oriented Architecture (SOA) approach in both software and business development. The SOA approach emphasises the building of networks based on so-called loose coupling between software agents. This essentially means that instead of users interacting with single monolithic applications that handle all aspects of data, data management, user interfaces and communications, the system is broken down into a number of processes and services (a service being a unit of work performed by a component to produce specific results for a user). Loose coupling refers to the convention that data and processing do not have to be bound together, nor do the components of the system need to know how each other work. Software agents use discovery services to locate data and processing services, and need to know only how to transmit messages based on a small set of standardised interfaces and external schemas. In a Web-based service network, requests for services and delivery of services are done through the medium of XML over HTTP, FTP or SMTP. The big advantage of the SOA approach is that it allows the development of extensible systems that can steadily add new providers and services using different implementations. The end user does not have to understand the structure of the system or where the data or services are located and each participant is only concerned with how their part of the system works. For the end user this may be a simple browser page.
+</p>
+<a id="toc3" name="toc3"></a>
+<h2>1.2. Existing approaches</h2>
+<p>
+By its nature, a biodiversity data sharing network normally needs to link a heterogeneous array of data sources. Data providers may be distributed across a wide geographic area and physically located on hardware ranging from simple PCs to enterprise scale servers. Data may be managed in a wide range of database or other software applications, running on different operating systems. A simple directory service portal might store or access metadata about data providers and link users through local Web sites and services. The collation and marshalling of data from multiple sources to provide users either with raw data or Web services based on the collated data requires different strategies and software.
+</p>
+<p>
+There are two main strategies that can be used: Build a distributed query system, or copy provider data to a central data cache and run queries against the cache.
+</p>
+<p>
+The advantage of a distributed query system is that queries are passed on to the data providers, which spreads the processing load and gives providers a greater sense of control over their data. In distributed query systems, providers can decide whether they wish to answer any particular query, or maybe place limits on the numbers of returned rows. Individual providers may also have interfaces to various portals and offer their own Web services to partners or customers, all from the same data store. This ensures that provider records are consistently updated. By placing the query answering and processing load with the data providers, it is possible to develop rich networks that are open to many types of client and that offer a diversity of services. 
+</p>
+<p>
+The disadvantage of distributed systems is that they can become very large and the state of the system may change frequently. The site load (number of sites that may be queried) can vary as nodes (providers) are added, removed or simply go off-line. For the portals that marshal data resulting from queries cascaded to multiple providers, this can represent a significant problem. Provider sites need to be regularly polled to see if they are online. Ideally, an indexing system should be maintained to filter queries to the relevant providers. Query times may also be affected by time-outs and slow processing by providers.
+</p>
+<p>
+Some operations are not even possible in a distributed scenario. For example, the ordering of the combined results of a federated query within the network can only be accomplished with caching infrastructure.
+</p>
+<p>
+<img align="middle" src="distributed.jpg" border="0" alt=""/>
+</p>
+<p>
+<b>Figure 1.</b> <i>Components of a distributed biodiversity data network. Although the various datastores and services are shown separately, some may be housed on the same site and several services may be performed by one application.</i>
+</p>
+<p>
+The alternative strategy is to harvest data from providers to create a central data cache against which queries can be run. Whereas data providers may have a great range of data structures and file types, the data cache can have a simple and unified structure that is optimised for retrieval. A cache significantly improves the service to clients. The cache may be updated in various ways. In the UK NBN Gateway system, data providers manage their own data on the cache, deciding when they will update it and what restrictions they wish to place on it (or even removing it completely). In systems such as that developed for BioCASE and for GBIF, harvester programs send queries to providers to automatically retrieve both metadata for indexes and actual data for the central cache.
+</p>
+<p>
+One of the disadvantages of a centralised system is that queries are performed against a cache that is potentially not up-to-date. GBIF currently indexes up to 30 million records per day using 50 parallel processes. This gives an indication of the cost and complexity of updating the cache. Some data providers may also fear lack of recognition or loss of control of their data (e.g. by not being able to count hits on their own system) which may affect relationships with funding bodies. There is also the problem of managing a potentially very large cache that may require mirroring to other sites with concomitant need for synchronisation.
+</p>
+<p>
+In a complex network, both central cache and distributed query strategies can be used, especially if queries are cascaded to various data aggregators as well as single data providers. Mixed architectures are also possible, like the approach taken by the speciesLink network, where several regional servers mirror data from local providers that cannot serve data directly to the network.
+</p>
+<p>
+<img align="middle" src="cache.jpg" border="0" alt=""/>
+</p>
+<p>
+<b>Figure 2.</b> <i>Components of a cached biodiversity network.</i>
+</p>
+<a id="toc4" name="toc4"></a>
+<h2>1.3. Main components</h2>
+<p>
+Establishing a Web-based biodiversity data network relies on establishing the basic framework of service providers, discovery services and software agents. The primary services are the data providers that respond to user queries, but many other services may be involved. These services may include a directory of participant providers, a data aggregating service, thesaurus and name services, or other specialised data processing services.
+</p>
+<p>
+A functioning biodiversity data network delivering information from diverse sources to a range of different types of users usually requires the following components:
+</p>
+<ul>
+<li>User interfaces
+</li>
+<li>Message brokers and portals
+</li>
+<li>Data aggregators and harvesters
+</li>
+<li>Directory services
+</li>
+<li>Data provider software
+</li>
+</ul>
+
+<p>
+Additional components and services can also be used in different parts of the network. Examples include taxonomic name servers, data transformation services, data validation services and mapping services. In this document the focus will be on the main components that are needed to provide search and retrieval functionalities.
+</p>
+<a id="toc5" name="toc5"></a>
+<h3>1.3.1. User interfaces and Web portals</h3>
+<p>
+In a biodiversity data network scenario, there can be different places where people interact with specific parts of the system. This may range from configuration interfaces for some components to the main user interface - the one which is exposed to end users and provides the means for interacting with the whole network.
+</p>
+<p>
+User interfaces include for example simple command-line interfaces, graphical user interfaces and Web-based interfaces. Biodiversity data networks usually want to reach a wide range of users, so the most common interface in this case is a Web-based interface through global or thematic Web portals.
+</p>
+<p>
+A Web portal is a "hub" Website that provides an interface for users to reach or query a number of distributed sites, services and applications. Simple portals may behave as little more than directories to other sites but the portals used for establishing biodiversity data networks use various types of middleware, such as directory services, messaging and marshalling services to deliver collated data, and additional data services, such as mapping and data cleaning tools. 
+</p>
+<p>
+Portal Websites for biodiversity networks typically include many sections such as news, forums, document archives and directories. From the data network perspective, the key functionality is the query interface. The query interface is a critical part of the network because it is the means through which users discover what can be searched for and the means to construct queries. To do this successfully, the interface must make it simple for users to enter the correct search terms and also provide enough feedback and contextual information so that they are not continually frustrated by negative or misleading results. 
+</p>
+<p>
+As an example, biodiversity data is linked principally to the names of organisms but users may not know the current taxonomic names. Users and some of the data providers may use common names or different names and languages for the same thing. This raises issues of how to guide the user when selecting a name to enter (through the interface design) and how the many synonymous or potentially synonymous names are reconciled between databases, especially those with a significant amount of legacy data linked to old specimens. Effectively handling data disparity with a clean and intuitive user interface is a major challenge. In some of the simpler cases, user interfaces may offer the user nothing more than a blank text box in which they must type an exact taxonomic name. In other situations, such as the NBN Gateway, users can type any name or part of a name and the underlying thesaurus will attempt to interpret it using taxonomic and common names and synonyms. The user can make use of an alphabetical pick list to select a name, ensuring its correct spelling. Some sites, such as the Northern Ireland CEDAR/Habitas site use high quality photographs to aid species selection - a great benefit to skilled users as well as the general visitor.
+</p>
+<p>
+Besides providing ways of interacting with end users, the user interface also needs to perform at least one of the following tasks:
+</p>
+<ul>
+<li>Communicate with a central database that aggregates data from all providers.
+</li>
+<li>Communicate directly with data provider services.
+</li>
+<li>Communicate with a message broker service. 
+</li>
+</ul>
+
+<a id="toc6" name="toc6"></a>
+<h3>1.3.2. Message brokers</h3>
+<p>
+Message brokers are a type of software called "middleware" and are a key element in enabling the integration of data in heterogeneous networks. Middleware is simply software that connects other software together, usually working as a hub between many applications or clients. 
+</p>
+<p>
+A message broker is basically a means of conveying a search request from a client software to one or more database applications. Typically, message brokers allow queries and data to be sent back and forth between applications in an asynchronous fashion. This means that messages may be received, possibly processed and then held in a queue for forwarding to recipient service end points (such as database wrappers).
+</p>
+<p>
+Message brokers may provide a complete messaging system, the routing, and sometimes extra data conversion intelligence needed to pass sender messages in the appropriate format to the right recipients via an independent message protocol.
+</p>
+<p>
+The BioCASE network uses a message broker, referred to as the Unitloader. The Unitloader software generates protocol documents and distributes them to data providers via threads. The Unitloader does not include its own registry and needs to be provided with a list of providers that are to be queried. In the DiGIR network, the message broker is known as the Portal Engine. This component can either be manually configured with a list of provider addresses or make use of a UDDI registry service to discover them.
+</p>
+<a id="toc7" name="toc7"></a>
+<h3>1.3.3. Data aggregators and harvesters</h3>
+<p>
+Data harvesting is the process of gathering data from disseminated data sources into a single database that can be republished or directly searched. Harvesting may require the restructuring of data from the source data model to match a common union schema. For this purpose, data sometimes need to be "translated" into a single unified XML format. 
+</p>
+<p>
+Data harvesting can be related to several of the functions in a distributed biodiversity data network. One of the key roles is gathering metadata for the purposes of documenting and indexing the network. Metadata can be presented and stored in many ways. For instance, information related to an organisation and its data holdings can be placed in the META section of an organisation's Website homepage. This information can be harvested automatically by "Web-crawling" software or search programs working from a directory of participants. More sophisticated parsing programs may parse a whole Web page and its related pages to look for indexable keywords. A related means of harvesting metadata utilises RDF. The partners publish their metadata in RDF format at a URL which will be listed in a directory service (such as UDDI). Harvester software may then collect the RDF statements and store them as a metadata cache in a suitable database such as an RDF triple store. Metadata may also be held in a data provider's database and accessed by some specific query transmitted to the provider using HTTP. In all of these examples the role of the harvester is to automatically collect metadata and update a central cache.
+</p>
+<p>
+As noted above, a central cache may also be utilised by a biodiversity data portal to create a "hub" cache database of actual field data to speed up responses. This process may be automatic: for example, trawling partner databases on a nightly basis to harvest new or changed records.
+</p>
+<p>
+A data aggregator is also a program or service that collects information and resolves any contextual differences between various sources. Typically data aggregation services act by linking many data providers, performing transformations, and sometimes analysis services on the aggregated data. Results are then presented as report or service to the client. A typical example from the commercial world is the functioning of price comparison Web sites. These sites trawl numerous suppliers, rank the results, and provide a link through to suppliers to aid purchasing. A non-caching biodiversity query portal works as an aggregating service, gathering data from numerous providers. Data is normally transformed before it can be used to create a unified response. This may be handled by an aggregator or by wrapper programs attached to each database.
+</p>
+<a id="toc8" name="toc8"></a>
+<h3>1.3.4. Directory services</h3>
+<p>
+Directory services are key components of biodiversity data networks. The directory holds contact information for organisations and services available to the network and metadata describing the services and the extent of data holdings. This information can be used by the portal query marshalling program to decide which data providers to forward queries to. For example, such directory services may avoid sending a query related to living ants to a purely botanical or palaeontological data provider.
+</p>
+<p>
+The Directory for the network may be a bespoke database associated with the portal. This database may contain contact information and metadata that can be queried to provide users with details of data sets and sources without actually querying the data. The database can be set up so that participating data providers can manage their own metadata; otherwise metadata should either be harvested from participant Websites or queried from on-line databases.
+</p>
+<p>
+An alternative to bespoke metadata databases is the use of UDDI (Universal Description Discovery and Integration), which is a platform independent XML-based Internet registry model. UDDI was originally conceived as a linking and discovery system for businesses, providing three levels of data known as white pages, yellow pages and green pages using a telephone directory analogy. 
+</p>
+<p>
+White pages provide the contact details and known contact points whilst the yellow pages categorise the available services using standard classifications or ontologies. The green pages provide technical details of the actual Web services provided by the businesses and describe their interfaces using WSDL (Web Services Definition Language). UDDI has had a mixed response from the competitive business world because a widely used registry allows a quick and easy way to switch services as well as discover them. UDDI does however have valuable potential for co-operative networks such as GBIF. UDDI uses XML and SOAP in its message system and provides a standard data model and API for Web service providers to link to. There are now numerous commercial UDDI registry services available but a network can establish its own service using available published standards and code.
+</p>
+<p>
+The usage of directory services increases the complexity of the network by including a new component with a different protocol. But the advantage of using a public registry is that participants can register themselves and manage their own details independently of the query service. This is convenient for large, general content, dynamic networks. For smaller biodiversity networks, a UDDI system might not be convenient. In this case, a more specific registry database or a simple configuration file that is closely coupled to the network hub (portal software or cache database) may be easier to maintain and be more efficient. The choice depends on how the network is likely to grow and what central support is available for maintaining data and software.
+</p>
+<a id="toc9" name="toc9"></a>
+<h3>1.3.5. Data provider and wrapper software</h3>
+<p>
+Biodiversity data are held by many thousands of individuals and organisations, each with their own specific needs and history of data management. There has been much effort in the last decade to develop common data models and applications suitable for managing biodiversity data. However, data resources remain scattered in many different formats. The aim of creating a biodiversity data network is to make the combined information from these various sources available as integrated, user-focused views through easy-to-use interfaces.
+</p>
+<p>
+Access to the data held by data providers is achieved through the use of wrapper programs that extract data automatically from the target data store in a given format, in response to a given query. Target data stores can be relational databases, triple stores, XML database, etc. This process requires a number of steps. An incoming query must be parsed and analysed to convert it into a local query that will be understood by the underlying database management system. This process may include the mapping of concepts used in the incoming query to those used locally. The second stage involves building and running the local query. This stage may run against a single underlying datastore or it could be run against several. The results of the query must then be organised. This may include integration and transformation to a format specified by the original incoming query.
+</p>
+<p>
+Database wrappers are used in some form by all database-driven Websites but these may be mostly very specific to the application and not readily transportable to other data sources. This situation lead to the development of special Data Provider Software for the emerging biodiversity networks. DiGIR and BioCASE networks make use of two best known Data Provider packages: DiGIR PHP Provider and BioCASe PyWrapper.
+</p>
+<a id="toc10" name="toc10"></a>
+<h2>1.4. Data exchange protocols</h2>
+<p>
+The various components of the network must communicate with one another and with other Web-based networks. Communication is normally achieved using an XML-based message protocol, with HTTP as the transmission method. 
+</p>
+<p>
+The SOA model is structured on the concept of passing requests for services and then getting back responses using widely adopted message protocols. Sometimes the protocols are built on top of other protocols, like SOAP (Simple Object Access Protocol). SOAP is a generic, extensible XML-based messaging protocol and is used in wide number of applications that access distributed data and services. SOAP is very well supported and SOAP-wrappers are available for most programming languages. There are other protocols that claim advantages in some business applications (such as CORBA). There are also domain-specific protocols that use HTTP+XML such as DiGIR (Distributed Generic Information Retrieval Protocol) and BioCASe (The BioCASE Access Protocol).
+</p>
+<p>
+The DiGIR and the BioCASe protocols are the two most widely used protocols for biodiversity data networks. The DiGIR Protocol references DarwinCore, an extensible list of concepts, as its default data schema. The BioCASe protocol uses a much larger, hierarchical schema called ABCD. Both DiGIR and BioCASe protocols are recognised and used by the GBIF indexing and caching software. For comparative details see: <a href="http://www.cria.org.br/protocols/newprotocol.pdf">GBIF Data Access and Database Interoperability: "A Unified protocol for search and retrieval of distributed data". September 2004. Markus Döring and Renato De Giovanni.</a>
+</p>
+<p>
+TAPIR (the TDWG Access Protocol for Information Retrieval) is a recent unified protocol that can replace or work alongside existing biodiversity protocols. TAPIR specifies a standardised, stateless, HTTP transmittable, XML-based request and response protocol for accessing structured data that may be stored on any number of distributed databases of varied physical and logical structure. TAPIR requests can be formulated as either XML documents, which may be transmitted using HTTP POST or encoded as Key-Value Pairs in HTTP GET messages. The key feature of TAPIR is that it acts as a framework for external schemas, query definitions and output models. This means that DarwinCore, ABCD and other schemas can be supported.
+</p>
+<a id="toc11" name="toc11"></a>
+<h1>2. TAPIR networks</h1>
+<p>
+All architectures and components that were previously described can be used by TAPIR networks. TAPIR networks are defined by the use of the TAPIR protocol for communication with data providers. Interaction with any of the other components is not covered by the TAPIR protocol and should therefore be done in different ways.
+</p>
+<p>
+The <a href="http://www.tdwg.org/activities/tapir/specification/">TAPIR Specification</a> describes the message format for operations that can be invoked in both Key-Value-Pair (KVP) and XML requests. These operations are:
+</p>
+<ul>
+<li><b>Metadata:</b> Default operation used to retrieve basic information about the service.
+</li>
+<li><b>Capabilities:</b> Used to retrieve the essential settings to properly interact with the service.
+</li>
+<li><b>Inventory:</b> Used to retrieve distinct values of one or more concepts.
+</li>
+<li><b>Search:</b> Used for search and retrieval of data.
+</li>
+<li><b>Ping:</b> Used for monitoring service availability.
+</li>
+</ul>
+
+<p>
+These operations can be used for harvesting metadata and data, performing searches and data mining. TAPIR provides the means for relaying data from providers to a client but TAPIR does not amalgamate data from multiple sources. This must be done by another component (e.g. a query marshalling service). Therefore, when a message broker is used in the network, it is necessary to define a separate protocol for the communication between client software and message brokers. Such a protocol would typically accept multiple final destinations in requests to the message broker, and then expect a collection or an aggregation of TAPIR responses in return.
+</p>
+<p>
+Although TAPIR requires at least HTTP/1.0 as the transport layer, clients are recommended to send requests in HTTP/1.1 because in some cases web servers are being configured to deny HTTP/1.0 requests.
+</p>
+<a id="toc12" name="toc12"></a>
+<h2>2.1. Managing and discovering participants</h2>
+<p>
+TAPIR networks need a way of defining their participants (the data providers). This can be done by means of a directory service or with simple manual configuration files. When the number of participants is significant and diverse (different protocols and types of data), a registry service is usually recommended. Before setting up a new registry service, it is recommended to first check if there is a similar service already being used by the community, as the main advantage of a registry is to contain the maximum number of services from a particular community. This way there can be a single registration process for data providers and a single discovery interface for users and client software. It is also important to note that registry services usually offer the possibility of associating classifications with each data provider, therefore allowing the definition of thematic networks. 
+</p>
+<p>
+In registries like UDDI, it is necessary to register the corresponding type of service before adding a new data provider. Registration usually includes the service name and ideally the service interface (a machine-readable definition of the service). For Web Services the current standard is to use a WSDL file. TAPIR does not have an associated WSDL file due to the complexity and flexibility of the protocol. It is however possible to define a WSDL for TAPIR query templates.
+</p>
+<a id="toc13" name="toc13"></a>
+<h2>2.2. General guidelines</h2>
+<p>
+Three important aspects must be considered before setting up a TAPIR network:
+</p>
+<ul>
+<li>The protocol itself is independent from the semantics of the network
+<p></p>
+The approach taken by TAPIR and its predecessors (DiGIR and BioCASe) to handle the heterogeneity of multiple data providers is to require the definition of one or more federated schemas (conceptual schemas) representing the semantics of the network. When all participants of a network adopt the same federated schemas, it is possible to formulate queries and output models based on them. This approach makes the multiple providers look like a single uniform database. Software used by data providers will translate the queries into to the local query language and the local database structure. To do this, part of the configuration process of provider software is to map local databases against one or more conceptual schemas. This means that TAPIR is a generic protocol and cannot be used if there are no conceptual schemas previously defined.
+<p></p>
+</li>
+<li>The semantics of the network can be independent of output models
+<p></p>
+Defining the semantics (conceptual schemas) of a network may not be enough if this definition does not also serve as an output model definition. Output models are the types of output that will be returned by data providers. When a conceptual schema coincides with an output model, it is known as a canonical model. This can happen when the conceptual schema is defined using an XML Schema, which is also the language used to define response structures. In this case the conceptual schema can be used as the basis for an output model. However, it is important to know that it is possible to define different output models based on the same conceptual schema. Part of the task of setting up a TAPIR network involves the definition of output models and sometimes query templates based on these models.
+<p></p>
+</li>
+<li>There are different levels of provider implementation
+<p></p>
+There are different levels (or categories) of TAPIR providers in order to simplify the implementation of provider software. In general, networks that require greater flexibility will need to use more complex software. The fact that there are different levels of provider implementation means that there can be interoperability issues. Therefore, setting up a TAPIR network also requires defining the minimum protocol capabilities that need to be supported by all participants.
+</li>
+</ul>
+
+<p>
+The basic requirements for setting up a TAPIR network therefore include the definition of at least one conceptual schema, one output model and the minimum capabilities for participant providers.
+</p>
+<a id="toc14" name="toc14"></a>
+<h2>2.3. Conceptual schemas</h2>
+<p>
+Conceptual schemas can be seen as data models with a formal definition of classes (entities), their characteristics (attributes) and how classes relate to each other (relationships). In biodiversity networks, the things of interest include wildlife and earth science specimens, observations of these specimens, and their associated measurements, descriptions and identifications. Locations, people and documents are also part of this context.
+</p>
+<p>
+There can be multiple uses of conceptual schemas, such as in database design, class modelling and data exchange. For TAPIR, conceptual schemas represent a data abstraction layer that allows multiple heterogeneous data providers to be seen as if they were part of a single large database. 
+</p>
+<p>
+Concepts are elements that belong to a conceptual schema. In theory, concepts can be of any kind - an entity, an attribute or a relationship - but this version of the TAPIR protocol focused only on concepts that are related to attributes. This means that the use of other types of concepts within TAPIR is considered experimental.
+</p>
+<p>
+Conceptual schemas are the only means to define the semantics of a TAPIR network. Therefore, while TAPIR is not bound to any particular conceptual schema, at least one schema is required. When a TAPIR data provider advertises in the capabilities response that it knows certain concepts, this usually means that each concept corresponds to a field in the local database. This is the reason for generic TAPIR data provider software to include a "mapping" process between one or more conceptual schemas and the local database. Provider software may also allow concepts to be mapped in different ways, such as using a concatenation of fields, predefined values, etc.
+</p>
+<a id="toc15" name="toc15"></a>
+<h3>2.3.1. Existing conceptual schemas</h3>
+<p>
+Since TAPIR derived from two protocols that were used by specimen data networks, the most well-known conceptual schemas for TAPIR come from these networks. Both ABCD and DarwinCore have been created with the purpose of providing a general data exchange format for biological collections. Although both are defined as XML Schemas, each follows a different approach.
+</p>
+<p>
+ABCD officially started in 2000 but has its roots in data modelling activities from the early 1990s. ABCD has a comprehensive and highly structured XML Schema. ABCD tries to cover all possible aspects that can be related to biological records and it makes use of strict controlled vocabularies. Since ABCD was purely conceived as a data exchange standard through XML Schema, it only defines the syntax of valid ABCD documents. There are no formal definitions of entities and how they relate to each other, although XML Schema complex types are used to define the major entities (such as identification and taxon name). When used both as a conceptual schema and as a TAPIR response structure, ABCD can be seen as a canonical schema. ABCD concept identifiers are defined according to the TAPIR recommendation for XML Schemas as the concatenation of the target namespace with the local xpath to instance nodes. Only nodes related with content are being considered.
+</p>
+<p>
+So the element "/DataSets/DataSet/Units/Unit/InstitutionID", which is part of ABCD version 2.06, becomes a concept identified by:
+</p>
+<p>
+http://www.tdwg.org/schemas/abcd/2.06/DataSets/DataSet/Units/Unit/InstitutionID
+</p>
+<p>
+DarwinCore was originally created to be used by the DiGIR protocol. In fact, the first versions of DarwinCore were bound to the DiGIR protocol through XML Schema substitution groups. Recent versions of DarwinCore removed this dependency and keep the same approach of defining a short list of concepts in a DublinCore style. DarwinCore focuses only on the basic content about the geographic occurrence of organisms and the physical existence of biotic specimens in collections. By design, DarwinCore is also minimally restrictive of information content so that it can also be used by data quality tools. The DarwinCore XML Schema defines a flat list of global elements that represent attributes of biological records. In terms of XML Schema, DarwinCore cannot be directly used as a data exchange structure since only one root element is allowed in XML instances. This means that it is necessary to define another XML Schema (known as an application schema) referencing DarwinCore elements inside one or more grouping elements.
+</p>
+<p>
+DarwinCore concept identifiers are also defined as the target namespace concatenated with the element name. So the concept "GlobalUniqueIdentfier", which is part of DarwinCore 1.4, becomes:
+</p>
+<p>
+http://rs.tdwg.org/dwc/dwcore/GlobalUniqueIdentifier
+</p>
+<p>
+Both ABCD and DarwinCore have extension mechanisms. ABCD can be extended by defining extra elements inside specific extensible slots located in the ABCD structure. In DarwinCore, it is possible to define additional schemas to cover new concepts following the same DarwinCore format. The new version of DarwinCore is comprised of a core schema and two extensions: the curatorial extension and the geospatial extension.
+</p>
+<p>
+The TDWG architecture group has defined an ontology for the biodiversity domain. This ontology is being developed in OWL and includes formal definitions of classes and properties (which can represent attributes or relationships between classes). The TDWG ontology should soon include concepts related to all TDWG standards. 
+</p>
+<a id="toc16" name="toc16"></a>
+<h3>2.3.2. Creating new conceptual schemas</h3>
+<p>
+Before creating a new conceptual schema, it is highly recommended to check if the community is already using a particular standard for the same purpose. Adopting an independent conceptual schema may cause interoperability issues with related networks. TAPIR providers can only understand queries that reference known concepts (as advertised by capabilities responses). TAPIR clients cannot send the same request to TAPIR providers that understand different conceptual schemas (unless the request references by alias equivalent query templates or output models that have been assigned the same alias by all providers).
+</p>
+<p>
+If an existing conceptual schema does not satisfy the needs of the network, it may be a better idea to extend the schema rather than creating a new one. Adopting a standard and extending it means that there can be full interoperability at least at the standard level among all networks that are using it.
+</p>
+<p>
+The TAPIR specification does not define any particular format for conceptual schemas. TAPIR only expects that a list of concept identifiers (and the respective datatypes) can be extracted from a conceptual schema so that they can be referenced by TAPIR messages. Although DarwinCore and ABCD are defined with XML Schemas, other formats such as RDF Schema, OWL and XMI could be used to create conceptual schemas. If there is no suitable conceptual schema being used by the community, choosing the format of a new conceptual schema may depend on other needs not directly related to TAPIR.
+</p>
+<p>
+If the network just needs a single structure to be returned by TAPIR searches in plain XML, the conceptual schema can be directly defined in XML Schema. In this case, the XML Schema will serve both as a conceptual schema and a response structure, as with BioCASE-ABCD. However, recursive elements should be avoided since there is no standard procedure in TAPIR to derive concept identifiers using recursion. 
+</p>
+<p>
+If the network requires multiple response structures, and especially if these will be conformant with the Semantic Web (for instance using RDF), conceptual schemas using RDF Schema or OWL are recommended. 
+</p>
+<p>
+Regardless the format of conceptual schemas, if there is the possibility for the network to require that providers' responses be used by Semantic Web applications, it is recommended to add a slash or a hash in the end of the conceptual schema namespace. The reason is that Semantic Web tools will often concatenate the namespace with local names, and this will generate predicate URIs that can cause problems in situations like RDF/XML round-tripping. If these predicate URIs will also be used as TAPIR concept identifiers, then it is preferable to have the slash as a separator, since hashes have a special meaning in the query term of URLs.
+</p>
+<p>
+The TAPIR specification recommends concept identifiers to be:
+</p>
+<ol>
+<li>Globally unique, to avoid any conflicts with other concepts;
+</li>
+<li>Permanently resolvable by means of standard Internet protocols, so that more information about the concept can always be retrieved;
+</li>
+<li>Free from characters that are not allowed in the query term of URLs, so that it is not necessary to escape characters when concepts need to referenced in KVP requests. 
+</li>
+</ol>
+
+<p>
+When the conceptual schema is defined by an XML Schema, TAPIR recommends that concept identifiers are generated by concatenating the target namespace with the xpath of instance nodes, as exemplified in the previous subsection about existing conceptual schemas.
+</p>
+<p>
+When the conceptual schema is defined with RDF Schema or OWL, as with the TDWG Ontology, then the process of defining concept identifiers is still under discussion and there may be more than one alternative (see: <a href="http://wiki.tdwg.org/twiki/bin/view/TAPIR/TapirRdf">http://wiki.tdwg.org/twiki/bin/view/TAPIR/TapirRdf</a>).
+</p>
+<p>
+Concepts can also be directly defined using the Simple XML Encoding for Conceptual Schemas described in the TAPIR specification (appendix 2) especially if they are only expected to be used in the context of a TAPIR network. Even if conceptual schemas are defined in other formats, it is recommended to also represent them using the Simple XML Encoding. The reason is that most generic data provider software will be able to extract concepts and conceptual schemas from files encoded in this way, while the same may not be true for other formats.
+</p>
+<p>
+Conceptual schemas using Simple XML Encoding can be manually created with XML editors or automatically converted by a program from a previous format. Another way to create a conceptual schema is to manually write it in an older key-value pair format and then use an existing script to convert it to the Simple XML Encoding. The older format (known as CNS configuration) is a simple text file with specific sections defined by names in square brackets followed by a list of key value pairs. The section called "concept_source" includes information about a conceptual schema. The section "aliases" includes the respective concept identifiers that belong to the conceptual schema along with their aliases. The following example contains a fictitious conceptual schema in the older CNS format to be used by a network specialized in search and retrieval of species red list data.
+</p>
+<pre>
+[concept_source]
+
+label     = Red List Schema v1.0
+namespace = http://example.net/redlist/
+alias     = redlist
+location  = http://example.net/redlist_1_0.xml
+
+[aliases]
+
+DataProviderCode = http://example.net/redlist/DataSourceCode
+ScientificName   = http://example.net/redlist/ScientificName
+RedListCategory  = http://example.net/redlist/RedListCategory
+Country          = http://example.net/redlist/Country
+AssessmentDate   = http://example.net/redlist/AssessmentDate
+Assessor         = http://example.net/redlist/Assessor
+</pre>
+<p></p>
+<p>
+Inside [concept_source] there is a label for the conceptual schema, a namespace (in this example following the recommendation of ending with a slash), an alias, and finally the location of the conceptual schema. The location will usually point to the original file defining the conceptual schema. In this case, the final conceptual schema will be generated in the Simple XML Encodig from this configuration file and then made available in the specified location. Conversion between these formats can be done using an existing service:
+</p>
+<p>
+<a href="http://tapir.tdwg.org/builder/cnsconverter.php">http://tapir.tdwg.org/builder/cnsconverter.php</a>
+</p>
+<p>
+The result will help us create the final document in Simple XML Encoding:
+</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cns&gt;
+  &lt;schema namespace="http://example.net/redlist/"&gt;
+  &lt;label&gt;Red List Schema v1.0&lt;/label&gt;
+  &lt;alias&gt;redlist&lt;/alias&gt;
+  &lt;location&gt;http://example.net/redlist_1_0.xsd&lt;/location&gt;
+  &lt;concepts&gt;
+    &lt;concept id="http://example.net/redlist/DataSourceCode"&gt;
+      &lt;alias&gt;DataProviderCode&lt;/alias&gt;
+      &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#string&lt;/datatype&gt;
+    &lt;/concept&gt;
+    &lt;concept id="http://example.net/redlist/ScientificName"&gt;
+      &lt;alias&gt;ScientificName&lt;/alias&gt;
+      &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#string&lt;/datatype&gt;
+    &lt;/concept&gt;
+    &lt;concept id="http://example.net/redlist/RedListCategory"&gt;
+      &lt;alias&gt;RedListCategory&lt;/alias&gt;
+      &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#string&lt;/datatype&gt;
+      &lt;doc&gt;Use IUCN terms: Extinct, Critically Endangered, Endangered, Vulnerable, Near Threatened, Least Concern&lt;/doc&gt;
+    &lt;/concept&gt;
+    &lt;concept id="http://example.net/redlist/Country"&gt;
+      &lt;alias&gt;Country&lt;/alias&gt;
+      &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#string&lt;/datatype&gt;
+    &lt;/concept&gt;
+    &lt;concept id="http://example.net/redlist/AssessmentDate"&gt;
+      &lt;alias&gt;AssessmentDate&lt;/alias&gt;
+      &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#date&lt;/datatype&gt;
+    &lt;/concept&gt;
+    &lt;concept id="http://example.net/redlist/Assessor"&gt;
+      &lt;alias&gt;Assessor&lt;/alias&gt;
+      &lt;datatype&gt;http://www.w3.org/2001/XMLSchema#string&lt;/datatype&gt;
+    &lt;/concept&gt;
+  &lt;/concepts&gt;
+&lt;/schema&gt;
+&lt;/cns&gt;
+</pre>
+<p></p>
+<p>
+Since the older CNS format does not allow us to specify datatypes, all concepts will be associated with the default xsd:string datatype. This means that any concept with a different datatype will need to be manually changed (as it was done in the AssessmentDate concept). In TAPIR, concept datatypes must correspond to <a href="http://www.w3.org/TR/xmlschema-2/#built-in-datatypes">XML Schema built-in primitive types</a>.
+</p>
+<p>
+In this example, all concept identifiers follow the same pattern in accordance with the TAPIR recommendations. They are globally unique (in this case through HTTP URIs), permanently resolvable through standard Web protocols (the URLs could easily resolve to more documentation about each concept) and without having any special character.
+</p>
+<p>
+Additional documentation about each concept can be included in a &lt;doc&gt; element, either as a link or as plain text, as can be seen in the RedListCategory concept.
+</p>
+<a id="toc17" name="toc17"></a>
+<h2>2.4. Output models and response structures</h2>
+<p>
+TAPIR search operations directly or indirectly expect an output model as a parameter. Output models are defined in XML and their definition can either be embedded in TAPIR requests or referenced as external XML documents. The purpose of output models is to indicate how the search response should be structured and to allow paging and counting, so it includes:
+</p>
+<ul>
+<li>An XML Schema defining the response structure.
+</li>
+<li>A pointer to an indexing element in the response structure that will serve as a basis for counting and paging.
+</li>
+<li>A mapping between data nodes in the response structure and the associated concepts that provide meaning.
+</li>
+</ul>
+
+<p>
+Output models therefore depend on one or more conceptual schemas to indicate the semantics of data nodes in the response structure.
+</p>
+<p>
+Response structures can also be embedded in output models or can be referenced as external XML Schema documents. Keeping response structures as external documents can be convenient because:
+</p>
+<ul>
+<li>They can always be directly edited by any XML Schema editor software such as <a href="http://www.altova.com/products/xmlspy/xml_editor.html">XML Spy</a>, <a href="http://www.oxygenxml.com/">&lt;oXygen/&gt;</a>, <a href="http://free.editix.com/">EditiX</a>, <a href="http://www.stylusstudio.com/xml_schema_editor.html">Stylus Studio</a> or <a href="http://www.sysonyx.com/xml-schema-editor/">xmlDraft</a>.
+</li>
+<li>If the data providers are using similar but not identical conceptual schemas, it is possible to have different output models, all pointing to the same external response structure, but each one mapping the data nodes to different (equivalent) concepts. Although search requests will be slightly different for these providers because of the different output model parameters, this approach can help getting back the same type of response from the different providers. 
+</li>
+</ul>
+
+<p>
+The following example shows a possible response structure that could be used to return results about species red list data:
+</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="http://example.net/redlist"
+           elementFormDefault="qualified"&gt;
+  &lt;xs:element name="redlist"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="source" minOccurs="0" maxOccurs="unbounded"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="taxon" maxOccurs="unbounded"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="name" type="xs:string"/&gt;
+                    &lt;xs:element name="category" type="xs:string"/&gt;
+                    &lt;xs:element name="country" type="xs:string"/&gt;
+                    &lt;xs:element name="assessor" type="xs:string" minOccurs="0"/&gt;
+                    &lt;xs:element name="date" type="xs:date" minOccurs="0"/&gt;
+                  &lt;/xs:sequence&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+            &lt;xs:attribute name="code" type="xs:string" use="required"/&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;
+</pre>
+<p></p>
+<p>
+As it can be seen from the example, a TAPIR response structure consists of an XML Schema. All rules for creating an XML Schema are defined by the W3C XML Schema specification. Although any kind of XML Schema could be used, it is recommended to limit the use of XML Schema features to a specific set of constructs. The TAPIR specification refers to this set of constructs as the "basic schema language". The reason for this recommendation is that while some data providers may hard code the way that search results will be produced to conform to the specified response structure, others will try to dynamically parse the XML Schema and automatically produce the results. Since the XML Schema language is quite complex, algorithms to generate XML instances based on XML Schema can be complex too. To simplify this task, the "basic schema language" as defined by the TAPIR specification includes the following constructs of XML Schema: targetNamespace definition, element definition (including minOccurs and maxOccurs), attribute definitions (including attribute "use"), local definitions of complexType and simpleType, sequences, and the "all" definition. By working with simple response structures, a greater number of data provider software can be used.
+</p>
+<p>
+If the response structure includes more than one global element, TAPIR providers will always render the first one. In the example there is only one global element, so the root element in XML instances will always be &lt;redlist&gt;. This element may have multiple &lt;source&gt; subelements, which in turn may have multiple &lt;taxon&gt; elements. The &lt;source&gt; element has a mandatory attribute called "code", and the &lt;taxon&gt; element has five subelements: name, category, country, assessor and date. The XML Schema attributes "minOccurs" and "maxOccurs" define cardinality, so the elements &lt;assessor&gt; and &lt;date&gt; are optional (the default values for "minOccurs" and "maxOccurs" is 1).
+</p>
+<p>
+It is important to know that generic TAPIR provider software may not always produce XML instances that are valid according to the response structure specified in the request. This situation may occur when the response structure includes constructs that are not supported by the software. For instance, the previous example includes an XML Schema data type that is not part of the basic schema language: "xs:date". Therefore, a generic data provider software that only understands the basic schema language will not check if the content of each &lt;date&gt; element is valid according to the "xs:date" data type. In these cases, and when the network will work with a fixed set of response structures, data providers may want to check that their data conforms to the expected data types when configuring provider software.
+</p>
+<p>
+Since response structures only define the syntax of valid XML instances, it is necessary to indicate the semantics of data nodes in a machine-readable way. In TAPÌR this is done through an output model, more specifically in its &lt;mapping&gt; section. When the conceptual schema and the response structure are accessible through the Web, output models can be created with the "Output model builder" available in the TapirBuilder service:
+</p>
+<p>
+<a href="http://tapir.tdwg.org/builder/">http://tapir.tdwg.org/builder/</a>
+</p>
+<p>
+The following example shows an output model document that could easily be created with the TapirBuilder service. Assuming that the previous response structure was made available in the address <b>http://example.net/redlist/redlist.xsd</b>, it could be referenced by an output model and combined with the same concepts defined in the previous section in this way:
+</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;outputModel xmlns="http://rs.tdwg.org/tapir/1.0"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                 http://rs.tdwg.org/tapir/1.0/tapir.xsd
+                                 http://www.w3.org/2001/XMLSchema
+                                 http://www.w3.org/2001/XMLSchema.xsd"&gt;
+
+  &lt;structure location="http://example.net/redlist/redlist.xsd"/&gt;
+
+  &lt;indexingElement path="/redlist/source/taxon"/&gt;
+
+  &lt;mapping&gt;
+    &lt;node path="/redlist/source/@code"&gt;
+      &lt;concept id="http://example.net/redlist/DataSourceCode" required="true"/&gt;
+    &lt;/node&gt;
+    &lt;node path="/redlist/source/taxon/name"&gt;
+      &lt;concept id="http://example.net/redlist/ScientificName" required="true"/&gt;
+    &lt;/node&gt;
+    &lt;node path="/redlist/source/taxon/category"&gt;
+      &lt;concept id="http://example.net/redlist/RedListCategory" required="true"/&gt;
+    &lt;/node&gt;
+    &lt;node path="/redlist/source/taxon/country"&gt;
+      &lt;concept id="http://example.net/redlist/Country" required="true"/&gt;
+    &lt;/node&gt;
+    &lt;node path="/redlist/source/taxon/assessor"&gt;
+      &lt;concept id="http://example.net/redlist/Assessor"/&gt;
+    &lt;/node&gt;
+    &lt;node path="/redlist/source/taxon/date"&gt;
+      &lt;concept id="http://example.net/redlist/AssessmentDate"/&gt;
+    &lt;/node&gt;
+  &lt;/mapping&gt;
+
+&lt;/outputModel&gt;
+</pre>
+<p></p>
+<p>
+This output model also defines that the element &lt;taxon&gt; will be the indexing element, so all paging and counting parameters will be related to this element.
+</p>
+<p>
+There are advantages in defining output models as external documents such as in the previous example. The main advantage is that external documents can be referenced by KVP requests. Assuming that the previous output model was made available in the address <b>http://example.net/redlist/model.xml</b>, it could be referenced by a KVP request in this way:
+</p>
+<pre>
+http://example.net/myprovider?op=search&amp;model=http://example.net/redlist/model.xml&amp;
+filter=http://example.net/redlist/RedListCategory+equals+"Endangered"+ 
+and+http://example.net/redlist/Country+equals+"Brazil"
+</pre>
+<p></p>
+<p>
+This example searches for endangered taxa in Brazil, and the result is formatted according to the specified output model. If all providers assign the alias "redlist" to the output model, the aliases "RedListCategory" and "Country" to their respective concepts, and if the abbreviated parameter names are used, the same requests could become:
+</p>
+<pre>
+http://example.net/myprovider?op=s&amp;m=redlist&amp;f=RedListCategory+equals+"Endangered"+and+Country+equals+"Brazil"
+</pre>
+<p></p>
+<p>
+A second advantage of using external output models is related to generic provider software. After parsing output models, they are usually represented as objects which can be serialized and cached for future use. When requests reference output models by location or alias, generic provider software can load cached representations instead of having to parse the output model again, therefore optimizing performance.
+</p>
+<p>
+However, there may be reasons for embedding output models and response structures in TAPIR XML requests instead of using KVP. For instance, a client application may allow users to choose what fields to return. In this case, output models need to be dynamically built and requests will have to be in XML. The next example shows a TAPIR search request in XML with an inline output model and a simple (tabular) response structure that could be dynamically created by a client application.
+</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;request xmlns="http://rs.tdwg.org/tapir/1.0"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                             http://rs.tdwg.org/tapir/1.0/tapir.xsd
+                             http://www.w3.org/2001/XMLSchema
+                             http://www.w3.org/2001/XMLSchema.xsd"&gt;
+  &lt;header&gt;
+    &lt;source sendtime="2005-11-11T12:23:56.023+01:00"/&gt;
+  &lt;/header&gt;
+  &lt;search&gt;
+    &lt;outputModel&gt;
+      &lt;structure&gt;
+        &lt;xs:schema targetNamespace="http://example.net/redlist"
+                   elementFormDefault="qualified"&gt;
+          &lt;xs:element name="redlist"&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element name="item" minOccurs="0" maxOccurs="unbounded"&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:sequence&gt;
+                      &lt;xs:element name="source"   type="xs:string"/&gt;
+                      &lt;xs:element name="taxon"    type="xs:string"/&gt;
+                      &lt;xs:element name="category" type="xs:string"/&gt;
+                      &lt;xs:element name="country"  type="xs:string"/&gt;
+                    &lt;/xs:sequence&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:schema&gt;
+      &lt;/structure&gt;
+      &lt;indexingElement path="/redlist/item"/&gt;
+      &lt;mapping&gt;
+        &lt;node path="/redlist/item/source"&gt;
+          &lt;concept id="http://example.net/redlist/DataSourceCode"/&gt;
+        &lt;/node&gt;
+        &lt;node path="/redlist/item/taxon"&gt;
+          &lt;concept id="http://example.net/redlist/ScientificName"/&gt;
+        &lt;/node&gt;
+        &lt;node path="/redlist/item/category"&gt;
+          &lt;concept id="http://example.net/redlist/RedListCategory"/&gt;
+        &lt;/node&gt;
+        &lt;node path="/redlist/item/country"&gt;
+          &lt;concept id="http://example.net/redlist/Country"/&gt;
+        &lt;/node&gt;
+      &lt;/mapping&gt;
+    &lt;/outputModel&gt;
+    &lt;filter&gt;
+      &lt;and&gt;
+        &lt;equals&gt;
+          &lt;concept id="http://example.net/redlist/RedListCategory"/&gt;
+          &lt;literal value="Endangered"/&gt;
+        &lt;/equals&gt;
+        &lt;equals&gt;
+          &lt;concept id="http://example.net/redlist/Country"/&gt;
+          &lt;literal value="Brazil"/&gt;
+        &lt;/equals&gt;
+      &lt;/and&gt;
+    &lt;/filter&gt;
+  &lt;/search&gt;
+&lt;/request&gt;
+</pre>
+<p></p>
+<a id="toc18" name="toc18"></a>
+<h2>2.5. Query templates</h2>
+<p>
+TAPIR networks can optionally define query templates if they wish to avoid dealing with the complexity of TAPIR filters both on the client and the server side. The main purpose of query templates is to allow networks to create one or more types of search or inventory requests with pre-defined filters. Since TAPIR filters can also be parameterised, query templates can be formulated as KVP requests where additional parameters are passed to specify the values to be used in filter conditions. Query templates can therefore be useful in networks that can work with a restricted set of search and inventory requests based on specific filter criteria.
+</p>
+<p>
+When conceptual schemas and output models are available through the Web, TAPIR query templates can be created with the "Search/Inventory template builder", also available in the TapirBuilder service:
+</p>
+<p>
+<a href="http://tapir.tdwg.org/builder/">http://tapir.tdwg.org/builder/</a>
+</p>
+<p>
+The search request that was given as an example in end of the last section could be transformed into the following query template:
+</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;searchTemplate xmlns="http://rs.tdwg.org/tapir/1.0"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                    http://rs.tdwg.org/tapir/1.0/tapir.xsd"&gt;
+
+  &lt;label&gt;Get list of taxa based on red list category and country&lt;/label&gt;
+
+  &lt;documentation&gt;Search taxa by red list category and country. Result is 
+  ordered by taxon name. Parameter names are "category" and "country".
+  &lt;/documentation&gt;
+
+  &lt;externalOutputModel location="http://example.net/redlist/model.xml"/&gt;
+
+  &lt;filter&gt;
+    &lt;and&gt;
+      &lt;equals&gt;
+        &lt;concept id="http://example.net/redlist/RedListCategory"/&gt;
+        &lt;parameter name="category"/&gt;
+      &lt;/equals&gt;
+      &lt;equals&gt;
+        &lt;concept id="http://example.net/redlist/Country"/&gt;
+        &lt;parameter name="country"/&gt;
+      &lt;/equals&gt;
+    &lt;/and&gt;
+  &lt;/filter&gt;
+
+  &lt;orderBy&gt;
+    &lt;concept id="http://example.net/redlist/ScientificName"/&gt;
+  &lt;/orderBy&gt;
+
+&lt;/searchTemplate&gt;
+</pre>
+<p></p>
+<p>
+Assuming that this template was made available in the address <b>http://example.net/redlist/basicsearch.xml</b>, the same request used in the last section could be formulated as:
+</p>
+<pre>
+http://example.net/myprovider?op=search&amp;template=http://example.net/redlist/basicsearch.xml&amp;category=Endangered&amp;country=Brazil
+</pre>
+<p></p>
+<p>
+Using abbreviated TAPIR parameter names and assuming all providers assign the "basicsearch" alias for this template, the same request would become:
+</p>
+<pre>
+http://example.net/myprovider?op=s&amp;t=basicsearch&amp;category=Endangered&amp;country=Brazil
+</pre>
+<p></p>
+<p>
+Query templates can therefore be seen as custom APIs to interact with TAPIR providers. It is even possible to associate WSDL files for each query template in a capabilities response.
+</p>
+<p>
+As with response structures and output models, query templates can either be embedded in XML requests or referenced as external documents as in the previous example. The advantages of using external documents are the same as mentioned in section about output models: the possibility of using them in KVP requests and the perspective of getting better performance when using generic provider software. Although it is possible to embed entire query templates in XML requests, this alternative was made available mainly to keep the protocol symmetric across the different request encodings. 
+</p>
+<p>
+Query templates can also be used to unify access to data providers with different but matching conceptual schemas, such as DarwinCore and ABCD. In this case, two query templates could provide the same API but reference different output models and different concepts in the filter. If providers assign the same alias to these different but equivalent query templates, then all requests could be exactly the same across all providers in the network.
+</p>
+<p>
+When a TAPIR network is based on query templates, the ways of interacting with providers need to be carefully considered. For instance, the search template that was given as an example would not be sufficient if data providers would also need to be indexed by data aggregators. Data aggregators need a simple way to scan all records from data providers. In this case, inventory templates could help since they can be used to show all distinct values for any concept. The following inventory template does not include a filter or parameters, so it would return all distinct values of taxa that are available from the provider's database:
+</p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;inventoryTemplate xmlns="http://rs.tdwg.org/tapir/1.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0
+                                       http://rs.tdwg.org/tapir/1.0/tapir.xsd"&gt;
+
+  &lt;label&gt;Taxa inventory&lt;/label&gt;
+
+  &lt;documentation&gt;Returns a list of all distinct scientific names 
+  that exist in the database. No parameters or filter conditions 
+  are present.&lt;/documentation&gt;
+
+  &lt;concepts&gt;
+    &lt;concept id="http://example.net/redlist/ScientificName"/&gt;
+  &lt;/concepts&gt;
+&lt;/inventoryTemplate&gt;
+</pre>
+<p></p>
+<p>
+Using the abbreviated TAPIR parameter names and if all providers assign the same alias "nameinventory" for this template, the same request could become:
+</p>
+<pre>
+http://example.net/myprovider?op=i&amp;t=nameinventory
+</pre>
+<p></p>
+<p>
+Data aggregators would then be able to loop over all taxa available from the provider. For each taxon, a request would be sent based on a new search template that could accept as parameters a scientific name and a date or timestamp. The search would retrieve only the records that were changed since the last harvesting process, and return all concepts for each matching record. When data aggregation is envisaged, it is always recommended to have a concept representing the timestamp when records were last updated and a concept for a global unique identifier.
+</p>
+<a id="toc19" name="toc19"></a>
+<h2>2.6. Service profiles</h2>
+<p>
+There are different levels of the TAPIR protocol that can be implemented by data provider software. While it may be difficult to implement the entire specification, partial implementations can be useful and easy to implement. TAPIR networks can be established with just a single type of provider software using predefined messages and filters. TAPIR networks can also be highly heterogeneous with some providers able to supply a wide range of complex requests. The extent to which a provider software implements the protocol is expressed by the capabilities response.
+</p>
+<p>
+Three main levels of service profile were envisaged for data providers:
+</p>
+<ul>
+<li><b>TAPIR Lite:</b> Supports only KVP request encoding (no need to parse XML requests) and supports only query templates for both inventory and search operations. In this case, there is no need for providers to parse response structures, output models or filters. Based on the template passed as a parameter, providers can "manually" produce responses that comply with the respective output model, without the need to dynamically parse and interpret it.
+<p></p>
+The next example shows a capabilities response with a minimum set of protocol features that would typically be supported by TAPIR Lite providers.
+<p></p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                              http://rs.tdwg.org/tapir/1.0/tapir.xsd"&gt;
+  &lt;header&gt;
+    &lt;source accesspoint="http://example.net/tapir.cgi" 
+            sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;software name="myTapirProvider" version="1.0"/&gt;
+    &lt;/source&gt;
+  &lt;/header&gt;
+  &lt;capabilities&gt;
+    &lt;operations&gt;
+      &lt;ping/&gt;
+      &lt;metadata/&gt;
+      &lt;capabilities/&gt;
+      &lt;inventory&gt;
+        &lt;templates&gt;
+          &lt;template location="http://example.net/redlist/nameinventory.xml"
+                    alias="nameinventory"/&gt;
+        &lt;/templates&gt;
+      &lt;/inventory&gt;
+      &lt;search&gt;
+        &lt;templates&gt;
+          &lt;template location="http://example.net/redlist/basicsearch.xml"
+                    alias="basicsearch"/&gt;
+        &lt;/templates&gt;
+      &lt;/search&gt;
+    &lt;/operations&gt;
+    &lt;requests&gt;
+      &lt;encoding&gt;
+        &lt;kvp/&gt;
+      &lt;/encoding&gt;
+      &lt;globalParameters&gt;	
+        &lt;logOnly&gt;denied&lt;/logOnly&gt;
+      &lt;/globalParameters&gt;
+      &lt;filter/&gt;
+    &lt;/requests&gt;
+    &lt;concepts&gt;
+      &lt;schema namespace="http://example.net/redlist/"
+              location="http://example.net/redlist_1_0.xsd"
+              alias="redlist"&gt;
+        &lt;mappedConcept id="http://example.net/redlist/DataSourceCode" 
+                       alias="DataProviderCode"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/ScientificName" 
+                       alias="ScientificName"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/RedListCategory" 
+                       alias="RedListCategory"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/Country" 
+                       alias="Country"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/AssessmentDate" 
+                       alias="AssessmentDate"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/Assessor" 
+                       alias="Assessor"/&gt;
+      &lt;/schema&gt;
+    &lt;/concepts&gt;
+    &lt;variables/&gt;
+    &lt;settings&gt;
+      &lt;maxElementRepetitions&gt;100&lt;/maxElementRepetitions&gt;
+    &lt;/settings&gt;
+  &lt;/capabilities&gt;
+&lt;/response&gt;
+</pre>
+<p></p>
+</li>
+<li><b>TAPIR Intermediate:</b> Supports a fixed range of output models, so it does not need to dynamically parse an output model and its reponse structure, but it does need to be able to parse query templates. While search operations are only based on known output models, features like partial node selection, "order by" and filter parameters should be supported. Inventory operations can reference any mapped concept, so the "order by" and filter parameters should also be supported for inventories. Requests can be encoded in XML. The advantage for implementation is that providers do not need to parse the XML Schema of response structures.
+<p></p>
+The next example shows a capabilities response with a set of protocol features that would typically be supported by TAPIR Intermediate providers.
+<p></p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                              http://rs.tdwg.org/tapir/1.0/tapir.xsd"&gt;
+  &lt;header&gt;
+    &lt;source accesspoint="http://example.net/tapir.cgi" 
+            sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;software name="myTapirProvider" version="2.0"/&gt;
+    &lt;/source&gt;
+  &lt;/header&gt;
+  &lt;capabilities&gt;
+    &lt;operations&gt;
+      &lt;ping/&gt;
+      &lt;metadata/&gt;
+      &lt;capabilities/&gt;
+      &lt;inventory&gt;
+        &lt;anyConcepts/&gt;
+      &lt;/inventory&gt;
+      &lt;search&gt;
+        &lt;outputModels&gt;
+          &lt;knownOutputModels&gt;
+            &lt;outputModel location="http://example.net/redlist/model.xml"
+                         alias="redlist"/&gt;
+          &lt;/knownOutputModels&gt;
+        &lt;/outputModels&gt;
+      &lt;/search&gt;
+    &lt;/operations&gt;
+    &lt;requests&gt;
+      &lt;encoding&gt;
+        &lt;kvp/&gt;
+        &lt;xml/&gt;
+      &lt;/encoding&gt;
+      &lt;globalParameters&gt;	
+        &lt;logOnly&gt;denied&lt;/logOnly&gt;
+      &lt;/globalParameters&gt;
+      &lt;filter&gt;
+          &lt;encoding&gt;
+            &lt;expression&gt;
+              &lt;concept/&gt;
+              &lt;literal/&gt;
+              &lt;parameter/&gt;
+              &lt;variable/&gt;
+              &lt;arithmetic/&gt;
+            &lt;/expression&gt;
+            &lt;booleanOperators&gt;
+              &lt;logical&gt;
+                &lt;not/&gt;
+                &lt;and/&gt;
+                &lt;or/&gt;
+              &lt;/logical&gt;
+              &lt;comparative&gt;
+                &lt;equals caseSensitive="false"/&gt;
+                &lt;greaterThan/&gt;
+                &lt;greaterThanOrEquals/&gt;
+                &lt;lessThan/&gt;
+                &lt;lessThanOrEquals/&gt;
+                &lt;in/&gt;
+                &lt;isNull/&gt;
+                &lt;like caseSensitive="false"/&gt;
+              &lt;/comparative&gt;
+            &lt;/booleanOperators&gt;
+          &lt;/encoding&gt;
+      &lt;/filter&gt;
+    &lt;/requests&gt;
+    &lt;concepts&gt;
+      &lt;schema namespace="http://example.net/redlist/"
+              location="http://example.net/redlist_1_0.xsd"
+              alias="redlist"&gt;
+        &lt;mappedConcept id="http://example.net/redlist/DataSourceCode" 
+                       alias="DataProviderCode"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/ScientificName" 
+                       alias="ScientificName"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/RedListCategory" 
+                       alias="RedListCategory"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/Country" 
+                       alias="Country"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/AssessmentDate" 
+                       alias="AssessmentDate"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/Assessor" 
+                       alias="Assessor"/&gt;
+      &lt;/schema&gt;
+    &lt;/concepts&gt;
+    &lt;variables/&gt;
+    &lt;settings&gt;
+      &lt;maxElementRepetitions&gt;100&lt;/maxElementRepetitions&gt;
+    &lt;/settings&gt;
+  &lt;/capabilities&gt;
+&lt;/response&gt;
+</pre>
+<p></p>
+</li>
+<li><b>TAPIR Full:</b> Providers should be able to parse and respond to any query template with any output model based on known (mapped) concepts. Response structures can be parsed to the extent of known XML Schema constructs. Providers must also support inventory on any concepts.
+<p></p>
+The next example shows a capabilities response with a set of protocol features that would typically be supported by TAPIR Full providers with some extra functionality such as accepting "log-only" requests and the "xslt" parameter:
+<p></p>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;response xmlns="http://rs.tdwg.org/tapir/1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://rs.tdwg.org/tapir/1.0 
+                              http://rs.tdwg.org/tapir/1.0/tapir.xsd"&gt;
+  &lt;header&gt;
+    &lt;source accesspoint="http://example.net/tapir.cgi" 
+            sendtime="2005-11-11T12:23:56.023+01:00"&gt;
+      &lt;software name="myTapirProvider" version="1.0"/&gt;
+    &lt;/source&gt;
+  &lt;/header&gt;
+  &lt;capabilities&gt;
+    &lt;operations&gt;
+      &lt;ping/&gt;
+      &lt;metadata/&gt;
+      &lt;capabilities/&gt;
+      &lt;inventory&gt;
+        &lt;anyConcepts/&gt;
+      &lt;/inventory&gt;
+      &lt;search&gt;
+        &lt;outputModels&gt;
+          &lt;anyOutputModels&gt;
+            &lt;responseStructure&gt;
+              &lt;/basicSchemaLanguage&gt;
+            &lt;/responseStructure&gt;
+          &lt;/anyOutputModels&gt;
+        &lt;/outputModels&gt;
+      &lt;/search&gt;
+    &lt;/operations&gt;
+    &lt;requests&gt;
+      &lt;encoding&gt;
+        &lt;kvp/&gt;
+        &lt;xml/&gt;
+      &lt;/encoding&gt;
+      &lt;globalParameters&gt;	
+        &lt;logOnly&gt;accepted&lt;/logOnly&gt;
+        &lt;xslt/&gt;
+      &lt;/globalParemeters&gt;
+      &lt;filter&gt;
+          &lt;encoding&gt;
+            &lt;expression&gt;
+              &lt;concept/&gt;
+              &lt;literal/&gt;
+              &lt;parameter/&gt;
+              &lt;variable/&gt;
+              &lt;arithmetic/&gt;
+            &lt;/expression&gt;
+            &lt;booleanOperators&gt;
+              &lt;logical&gt;
+                &lt;not/&gt;
+                &lt;and/&gt;
+                &lt;or/&gt;
+              &lt;/logical&gt;
+              &lt;comparative&gt;
+                &lt;equals caseSensitive="false"/&gt;
+                &lt;greaterThan/&gt;
+                &lt;greaterThanOrEquals/&gt;
+                &lt;lessThan/&gt;
+                &lt;lessThanOrEquals/&gt;
+                &lt;in/&gt;
+                &lt;isNull/&gt;
+                &lt;like caseSensitive="false"/&gt;
+              &lt;/comparative&gt;
+            &lt;/booleanOperators&gt;
+          &lt;/encoding&gt;
+      &lt;/filter&gt;
+    &lt;/requests&gt;
+    &lt;concepts&gt;
+      &lt;schema namespace="http://example.net/redlist/"
+              location="http://example.net/redlist_1_0.xsd"
+              alias="redlist"&gt;
+        &lt;mappedConcept id="http://example.net/redlist/DataSourceCode" 
+                       alias="DataProviderCode"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/ScientificName" 
+                       alias="ScientificName"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/RedListCategory" 
+                       alias="RedListCategory"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/Country" 
+                       alias="Country"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/AssessmentDate" 
+                       alias="AssessmentDate"/&gt;
+        &lt;mappedConcept id="http://example.net/redlist/Assessor" 
+                       alias="Assessor"/&gt;
+      &lt;/schema&gt;
+    &lt;/concepts&gt;
+    &lt;variables/&gt;
+    &lt;settings&gt;
+      &lt;maxElementRepetitions&gt;100&lt;/maxElementRepetitions&gt;
+      &lt;maxElementLevels&gt;20&lt;/maxElementLevels&gt;
+    &lt;/settings&gt;
+  &lt;/capabilities&gt;
+&lt;/response&gt;
+</pre>
+</li>
+</ul>
+
+<p>
+All three levels of implementation can coexist within the same TAPIR network and still achieve interoperability with a common set of features supported by all participants. Therefore one of the requirements for setting up a TAPIR network is to define the minimum capabilities level for all providers.
+</p>
+<p>
+For example, if a TAPIR network expects TAPIR Lite providers to participate, then the minimum requirements must include the set of query templates and conceptual schemas that need to be supported. 
+</p>
+<p>
+If a TAPIR network requires more complex functionality, such as having clients that dynamically build response structures based on user's input, then TAPIR Lite providers will not be able to participate. The minimum requirements of such network will be high, as providers will need to know how to parse XML Schemas. 
+</p>
+<p>
+More complex networks could require providers to support XML Schema parsing beyond the "basic schema language". Another example of a more advanced network could be one that providers need to support custom filter operators.
+</p>
+<p>
+The best approach when setting up a TAPIR network is to define all necessary conceptual schemas, response structures, output models and query templates, and then create a template capabilities response document that meets the minimum requirements of the network. This template can then be made available to all participants as part of a guidelines document explaining how to join the network.
+</p>
+<p>
+It would be useful for TAPIR networks to also have an automated way to periodically check that all participants support the necessary features. Compatibility with TAPIR can already be checked with the TapirTester service:
+</p>
+<p>
+<a href="http://tapir.tdwg.org/tester/">http://tapir.tdwg.org/tester/</a>
+</p>
+<a id="toc20" name="toc20"></a>
+<h2>2.7. Using a central cache</h2>
+<p>
+When a TAPIR network is designed to work with a central cache, there is no standard database structure to store harvested data as TAPIR can work with completely customized conceptual schemas and output models. In this situation, the database structure should be defined according to the conceptual schemas involved and to the specific "data usage" expected from the network. For caching, one can also consider creating specific output models that contain only the subset of information that is stored in the central database. This increases performance of the network and makes the caching more transparent to providers.
+</p>
+<p>
+It should also be possible to set up a single TAPIR service over a cached database in case the network wants to make use of existing TAPIR client software to interact with the central database or perhaps to offer more complex TAPIR features on top of the central database.
+</p>
+<a id="toc21" name="toc21"></a>
+<h1>3. Conclusions</h1>
+<p>
+The greatest advantage of TAPIR-based networks is that there are no special requirements for the structures of the underlying databases. TAPIR networks do not require that data providers use the same data models, as long as their data can be mapped to an abstraction layer defined by means of one or more conceptual schemas.
+</p>
+<p>
+TAPIR is flexible enough to allow different levels of implementation, so that networks can choose a minimum level of functionality required by all participants.
+</p>
+<p>
+Successfully setting up a TAPIR network involves:
+</p>
+<ul>
+<li>Defining an architecture with all necessary components.
+</li>
+<li>Following the specific guidelines related to TAPIR and presented in this document.
+</li>
+<li>Developing new software or using existing applications for each task. 
+</li>
+</ul>
+
+<p>
+After following these steps, TAPIR networks are encouraged to produce a brief document containing all technical requirements for data providers to participate.
+</p>
+<a id="toc22" name="toc22"></a>
+<h1>4. Appendix</h1>
+<a id="toc23" name="toc23"></a>
+<h2>4.1. Term Definitions</h2>
+<table border="1">
+<tr>
+<td>ABCD</td>
+<td>Access to Biological Collection Data. See <a href="http://www.bgbm.org/TDWG/CODATA/Schema/default.htm">http://www.bgbm.org/TDWG/CODATA/Schema/default.htm</a></td>
+</tr>
+<tr>
+<td>Access Point</td>
+<td>The URL (Web address) of a Web Service.</td>
+</tr>
+<tr>
+<td>BioCASe</td>
+<td>The BioCASE Access Protocol. See <a href="http://www.biocase.org/products/protocols/index.shtml">http://www.biocase.org/products/protocols/index.shtml</a></td>
+</tr>
+<tr>
+<td>BioCASE</td>
+<td>Biological Collection Access Services. See <a href="http://www.biocase.org">http://www.biocase.org</a></td>
+</tr>
+<tr>
+<td>CNS</td>
+<td>Older TAPIR configuration file format to define conceptual schemas. This format follows the same syntax on .ini files, with specific sections and key-value pairs.</td>
+</tr>
+<tr>
+<td>CONABIO</td>
+<td>Comisión nacional para el conocimiento y uso de la biodiversidad. See <a href="http://www.conabio.gob.mx/">http://www.conabio.gob.mx/</a></td>
+</tr>
+<tr>
+<td>Concept</td>
+<td>Definition of a property, class or relationship.</td>
+</tr>
+<tr>
+<td>Conceptual schema</td>
+<td>A formal definition of concepts. It can also be seen as a data model or ontology.</td>
+</tr>
+<tr>
+<td>CORBA</td>
+<td>Common Object Request Broker Architecture. See <a href="http://www.corba.org/">http://www.corba.org/</a></td>
+</tr>
+<tr>
+<td>DarwinCore</td>
+<td>Data format for exchanging information about geographic occurrence of organisms and the physical existence of biotic specimens in collections. See <a href="http://www.tdwg.org/activities/darwincore/">http://www.tdwg.org/activities/darwincore/</a></td>
+</tr>
+<tr>
+<td>Data source</td>
+<td>The term used in the BioCASE project for an Access Point</td>
+</tr>
+<tr>
+<td>Dublin Core</td>
+<td>Dublin Core Metadata Initiative. See <a href="http://dublincore.org">http://dublincore.org</a></td>
+</tr>
+<tr>
+<td>DiGIR</td>
+<td>Distributed Generic Information Retrieval. See <a href="http://www.digir.net">http://www.digir.net</a></td>
+</tr>
+<tr>
+<td>Federation schema</td>
+<td>A Conceptual Schema adopted by a federated network</td>
+</tr>
+<tr>
+<td>FishNet2</td>
+<td>Distributed information network linking museum databases of fish collections.. See <a href="http://www.fishnet2.net/">http://www.fishnet2.net/</a></td>
+</tr>
+<tr>
+<td>GBIF</td>
+<td>Global Biodiversity Information facility. See <a href="http://www.gbif.org">http://www.gbif.org</a></td>
+</tr>
+<tr>
+<td>GET</td>
+<td>HTTP communication method where form data is encoded as parameters in an extension to a URL. The GET method is principally used to transmit requests for data to a Web server e.g. a simple database search</td>
+</tr>
+<tr>
+<td>Habitas</td>
+<td>The web site of the Ulster Museum Sciences Division. See <a href="http://www.habitas.org.uk">http://www.habitas.org.uk</a></td>
+</tr>
+<tr>
+<td>HerpNET</td>
+<td>Global network of herpetological collections data. See <a href="http://www.herpnet.org/">http://www.herpnet.org/</a></td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>Hypertext Markup Language. a subset of Standard Generalised Markup Language (SGML), used for authoring pages for the World Wide Web.</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>Hypertext Transfer protocol, the commonly used protocol for transmitting requests and documents between applications on the World Wide Web</td>
+</tr>
+<tr>
+<td>KVP</td>
+<td>Key-Value Pair. One of the possible encodings for TAPIR requests.</td>
+</tr>
+<tr>
+<td>OMG</td>
+<td>Object Management Group. See <a href="http://www.omg.org/">http://www.omg.org/</a></td>
+</tr>
+<tr>
+<td>MaNIS</td>
+<td>Mammal Networked Information System. See <a href="http://manisnet.org/">http://manisnet.org/</a></td>
+</tr>
+<tr>
+<td>NBN</td>
+<td>United Kingdom's National Biodiversity Network. See <a href="http://www.nbn.org.uk/">http://www.nbn.org.uk/</a></td>
+</tr>
+<tr>
+<td>normative</td>
+<td>Referring to a standard or set of norms that are understood to be correct. A normative document is one which describes how things should be and why they are like that.</td>
+</tr>
+<tr>
+<td>OBIS</td>
+<td>Ocean Biogeographic Information System. See <a href="http://www.iobis.org/">http://www.iobis.org/</a></td>
+</tr>
+<tr>
+<td>OWL</td>
+<td>Web Ontology language. See <a href="http://www.w3.org/2004/OWL/">http://www.w3.org/2004/OWL/</a></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>POST is an HTTP communication method that can include any kind of data or command. The data are encoded separately and do not form part of the URL as in a GET message so this method is better for complex, sensitive, lengthy or non-ascii data.</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>An agreed format for transmitting data between two or more devices</td>
+</tr>
+<tr>
+<td>Provider</td>
+<td>Originally defined as an organisation hosting either a DiGIR or a BioCASe service but in the TAPIR context, an organisation hosting a TAPIR access point, which may point to several data sources.</td>
+</tr>
+<tr>
+<td>Provider software</td>
+<td>Software running on a providers Web server that includes a database wrapper or a query portal.</td>
+</tr>
+<tr>
+<td>RDF</td>
+<td>Resource Description Framework. See <a href="http://www.w3.org/RDF/">http://www.w3.org/RDF/</a></td>
+</tr>
+<tr>
+<td>RDF Schema</td>
+<td>Language for declaring basic class and types for describing the terms used in RDF. See <a href="http://www.w3.org/TR/rdf-schema/">http://www.w3.org/TR/rdf-schema/</a></td>
+</tr>
+<tr>
+<td>SOAP</td>
+<td>Simple Object Access Protocol, an XML-based messaging protocol used for invoking Web services and exchanging structured data.</td>
+</tr>
+<tr>
+<td>speciesLink</td>
+<td>Brazilian distributed information network of specimen and observation data. See <a href="http://splink.cria.org.br">http://splink.cria.org.br</a></td>
+</tr>
+<tr>
+<td>TAPIR</td>
+<td>TDWG Access Protocol for Information Retrieval.</td>
+</tr>
+<tr>
+<td>TDWG</td>
+<td>Taxonomic Databases Working Group</td>
+</tr>
+<tr>
+<td>Triple store</td>
+<td>A system for storing and managing RDF data.</td>
+</tr>
+<tr>
+<td>UDDI</td>
+<td>Universal Description, Discovery and Integration. UDDI is a specification for maintaining standardised directories of information about Web services.</td>
+</tr>
+<tr>
+<td>URL</td>
+<td>Uniform Resource Locator. The address of a resource on the Internet</td>
+</tr>
+<tr>
+<td>URI</td>
+<td>Uniform Resource Identifier. A formatted string that serves as an identifier for a resource, typically but not exclusively, on the Internet. URIs are used in HTML hyperlinks.</td>
+</tr>
+<tr>
+<td>W3C</td>
+<td>World Wide Web consortium. See <a href="http://www.w3c.org">http://www.w3c.org</a></td>
+</tr>
+<tr>
+<td>Web Service</td>
+<td>A service based on Internet Protocols, such as HTTP, SMTP or FTP, and also based on XML.</td>
+</tr>
+<tr>
+<td>wrapper</td>
+<td>Software that allows standardised queries to be run against an underlying database of arbitrary structure.</td>
+</tr>
+<tr>
+<td>WSDL</td>
+<td>Web Services Description Language. An XML format for describing Web Services as a set of end points operating on messages containing either document-oriented or procedure-oriented information. WSDL is the language used by UDDI.</td>
+</tr>
+<tr>
+<td>XMI</td>
+<td>XML Metadata Interchange (XMI) is an OMG standard for exchanging metadata information via XML. See <a href="http://www.omg.org/technology/documents/formal/xmi.htm">http://www.omg.org/technology/documents/formal/xmi.htm</a></td>
+</tr>
+<tr>
+<td>XML</td>
+<td>Extensible Markup Language developed by the W3C. a means of tagging data for transmission, validation and manipulation. <a href="http://www.w3.org/XML">http://www.w3.org/XML</a> &amp; <a href="http://www.w3.org/TR/REC-xml">http://www.w3.org/TR/REC-xml</a></td>
+</tr>
+<tr>
+<td>XML Schema</td>
+<td>A formal definition of the required and optional structure and content of XML formatted documents within its domain. See <a href="http://www.w3.org/XML/Schema">http://www.w3.org/XML/Schema</a></td>
+</tr>
+<tr>
+<td>XPath</td>
+<td>Defines a way of locating and processing items in XML documents by using an addressing syntax based on the path through the documents logical tree structure. See <a href="http://www3.org/TR/xpath">http://www3.org/TR/xpath</a></td>
+</tr>
+</table>
+
+</div>
+
+<!-- xhtml code generated by txt2tags 2.3.2 (http://txt2tags.sf.net) -->
+<!-- cmdline: txt2tags -t xhtml -i TAPIRNetworkBuildersGuide.t2t -o TAPIRNetworkBuildersGuide_2010-05-05.html -->
+</body></html>
