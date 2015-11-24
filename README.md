@@ -39,19 +39,17 @@ TAPIR is flexible enough to be used in a wide range of applications. Other examp
 
 # Software
 
-## TapirLink
+### TapirLink
 The original PHP TapirLink software is being host on SourceForge: 
  - http://sourceforge.net/projects/digir/files/TapirLink/
  - http://sourceforge.net/p/digir/svn/HEAD/tree/tapirlink/
  
 There is another (different?) copy on github at https://github.com/telabotanica/tapirlink
 
-## PyWrapper 
+### PyWrapper 
 A python provider software, based on the BioCASE predecessor:
 http://sourceforge.net/p/digir/svn/HEAD/tree/pywrapper/
 
-
-## TAPIR Utilities
 
 ### TAPIR Tester
 http://sourceforge.net/p/digir/svn/HEAD/tree/tapirtester/
