@@ -28,6 +28,39 @@ TAPIR is flexible enough to be used in a wide range of applications. Other examp
  - supports complex requests.
  - has existing TAPIR wrapper applications including PyWrapper, TapirLink and TapirDotNET.
  
+
+# Resources
+ - [TAPIR Executive Summary](http://www.tdwg.org/activities/tapir/executive-summary/)
+ - [TAPIR Charter](http://www.tdwg.org/activities/tapir/charter/)
+ - [TAPIR Network Builders' Guide](http://www.tdwg.org/activities/tapir/network-builders-guide/)
+ - [TAPIR 1.0 Normative Specification](http://www.tdwg.org/dav/subgroups/tapir/1.0/docs/)
+ - [W3C XML Schema for document validation (normative)](http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd)
+ - [TAPIR Wiki](http://www.tdwg.org/activities/tapir/tapir-wiki/)
+
+# Software
+
+## TapirLink
+The original PHP TapirLink software is being host on SourceForge: 
+ - http://sourceforge.net/projects/digir/files/TapirLink/
+ - http://sourceforge.net/p/digir/svn/HEAD/tree/tapirlink/
+ 
+There is another (different?) copy on github at https://github.com/telabotanica/tapirlink
+
+## PyWrapper 
+A python provider software, based on the BioCASE predecessor:
+http://sourceforge.net/p/digir/svn/HEAD/tree/pywrapper/
+
+
+## TAPIR Utilities
+
+### TAPIR Tester
+http://sourceforge.net/p/digir/svn/HEAD/tree/tapirtester/
+
+### TAPIR Builder
+http://sourceforge.net/p/digir/svn/HEAD/tree/tapirbuilder/
+
+ 
+
 ## Preferred citation
 
 > De Giovanni Renato, Döring Markus, Güntsch Anton, Vieglais Dave, Hobern Donald, de la Torre Javier, Wieczorek John, Gales Robert, Hyam Roger, Blum Stanley, Perry Steven. 2010. TDWG Access Protocol for Information Retrieval (TAPIR), Version 1.0. Biodiversity Information Standards (TDWG) http://www.tdwg.org/standards/449
