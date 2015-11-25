@@ -38,7 +38,6 @@ TAPIR is flexible enough to be used in a wide range of applications. Other examp
  - [TAPIR Charter](http://www.tdwg.org/activities/tapir/charter/)
  - [TAPIR Network Builders' Guide](http://tdwg.github.io/tapir/docs/TAPIRNetworkBuildersGuide_2010-05-05.html)
 
-# Software
 
 ### TapirLink
 The original PHP TapirLink software is being host on SourceForge: 
