@@ -1,6 +1,6 @@
 # TDWG Access Protocol for Information Retrieval (TAPIR)
 
-TAPIR is a computer protocol designed for discovery, search and retrieval of distributed data over the Internet. TAPIR consists of a [specification](http://www.tdwg.org/dav/subgroups/tapir/1.0/docs) that determines how client applications seeking information should communicate with server applications hosting data. TAPIR is an approved TDWG standard.
+TAPIR is a computer protocol designed for discovery, search and retrieval of distributed data over the Internet. TAPIR consists of a [specification](http://tdwg.github.io/tapir/docs/) that determines how client applications seeking information should communicate with server applications hosting data. TAPIR is an approved TDWG standard.
 
 # Motivation
 
@@ -32,10 +32,9 @@ TAPIR is flexible enough to be used in a wide range of applications. Other examp
 # Resources
  - [TAPIR Executive Summary](http://www.tdwg.org/activities/tapir/executive-summary/)
  - [TAPIR Charter](http://www.tdwg.org/activities/tapir/charter/)
- - [TAPIR Network Builders' Guide](http://www.tdwg.org/activities/tapir/network-builders-guide/)
- - [TAPIR 1.0 Normative Specification](http://www.tdwg.org/dav/subgroups/tapir/1.0/docs/)
- - [W3C XML Schema for document validation (normative)](http://rs.tdwg.org/tapir/1.0/schema/tdwg_tapir.xsd)
- - [TAPIR Wiki](http://www.tdwg.org/activities/tapir/tapir-wiki/)
+ - [TAPIR Network Builders' Guide](http://tdwg.github.io/tapir/docs/TAPIRNetworkBuildersGuide_2010-05-05.html)
+ - [TAPIR 1.0 Normative Specification](http://tdwg.github.io/tapir/docs/tdwg_tapir_specification_2010-05-05.html)
+ - [W3C XML Schema for document validation (normative)](http://tdwg.github.io/tapir/schema/tdwg_tapir.xsd)
 
 # Software
 
@@ -44,7 +43,6 @@ The original PHP TapirLink software is being host on SourceForge:
  - http://sourceforge.net/projects/digir/files/TapirLink/
  - http://sourceforge.net/p/digir/svn/HEAD/tree/tapirlink/
  
-There is another (different?) copy on github at https://github.com/telabotanica/tapirlink
 
 ### PyWrapper 
 A python provider software, based on the BioCASE predecessor:
